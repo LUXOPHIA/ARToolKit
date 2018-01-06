@@ -45,7 +45,7 @@ interface //####################################################################
 extern "C" {
 {$ENDIF}
 
-#ifdef ARVIDEO_INPUT_V4L2
+{$IFDEF ARVIDEO_INPUT_V4L2 }
 #define   AR_VIDEO_V4L2_MODE_PAL              0
 #define   AR_VIDEO_V4L2_MODE_NTSC             1
 #define   AR_VIDEO_V4L2_MODE_SECAM            2
@@ -58,7 +58,7 @@ extern "C" {
 {$ENDIF}
 
 
-#ifdef ARVIDEO_INPUT_LIBDC1394
+{$IFDEF ARVIDEO_INPUT_LIBDC1394 }
 enum {
     AR_VIDEO_1394_MODE_320x240_YUV422 = 32,
     AR_VIDEO_1394_MODE_640x480_YUV411,

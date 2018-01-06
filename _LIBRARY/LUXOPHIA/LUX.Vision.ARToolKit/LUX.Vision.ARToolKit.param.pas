@@ -53,7 +53,7 @@ interface //####################################################################
 
 #include <AR/ar.h>
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 extern "C" {
 {$ENDIF}
 
@@ -199,7 +199,7 @@ int    arParamDecomp( const ARParam *source, ARParam *icpara, ARdouble trans[3][
 
 int    arParamDecompMat( const ARdouble source[3][4], ARdouble cpara[3][4], ARdouble trans[3][4] );
 
-#ifdef ARDOUBLE_IS_FLOAT
+{$IFDEF ARDOUBLE_IS_FLOAT }
 #define arParamDecompMatf arParamDecompMat
 {$ELSE}
 int    arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float trans[3][4] );
@@ -441,7 +441,7 @@ int         arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox,
 
 //int         arParamObserv2IdealLTi( const ARParamLTi *paramLTi, const int    ox, const int    oy, int    *ix, int    *iy);
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 }
 {$ENDIF}
 

@@ -67,12 +67,12 @@ interface //####################################################################
 #include <string.h>
 #include <AR/config.h>
 #include <AR/arConfig.h>
-#ifdef __ANDROID__
+{$IFDEF __ANDROID__ }
 #  include <jni.h>
 {$ENDIF}
 #include <ARUtil/log.h>
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 extern "C" {
 {$ENDIF}
 
@@ -92,7 +92,7 @@ typedef unsigned char     ARUint8;
 typedef unsigned short    ARUint16;
 typedef unsigned int      ARUint32;
 typedef float             ARfloat;
-#ifdef ARDOUBLE_IS_FLOAT
+{$IFDEF ARDOUBLE_IS_FLOAT }
 typedef float             ARdouble;
 {$ELSE}
 typedef double            ARdouble;
@@ -105,14 +105,14 @@ typedef double            ARdouble;
 #  define FALSE 0
 {$ENDIF}
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 }
 {$ENDIF}
 
 #include <AR/matrix.h>
 #include <AR/icp.h>
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 extern "C" {
 {$ENDIF}
 
@@ -276,14 +276,14 @@ typedef struct {
 
 (* --------------------------------------------------*)
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 }
 {$ENDIF}
 
 #include <AR/param.h>
 #include <AR/arImageProc.h>
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 extern "C" {
 {$ENDIF}
 
@@ -1445,7 +1445,7 @@ ARUint32 arGetVersion(char **versionStringRef);
 int            arUtilMatInv( const ARdouble s[3][4], ARdouble d[3][4] );
 int            arUtilMatMul( const ARdouble s1[3][4], const ARdouble s2[3][4], ARdouble d[3][4] );
 
-#ifdef ARDOUBLE_IS_FLOAT
+{$IFDEF ARDOUBLE_IS_FLOAT }
 #define arUtilMatInvf arUtilMatInv
 #define arUtilMatMulf arUtilMatMul
 #define arUtilMatMuldff arUtilMatMul
@@ -1645,7 +1645,7 @@ typedef enum {
     @param behavior See AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR type for allowed values.
     @result NULL in the case of error, or the path otherwise. Must be free()d by the caller.
  *)
-#ifdef ANDROID
+{$IFDEF ANDROID }
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
 {$ELSE}
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
@@ -1666,7 +1666,7 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
     @param behavior See AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR type for allowed values.
     @result NULL in the case of error, or the path otherwise. Must be free()d by the caller.
  *)
-#ifdef ANDROID
+{$IFDEF ANDROID }
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
 {$ELSE}
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
@@ -1693,7 +1693,7 @@ char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAV
     @result -1 in the case of error, or 0 otherwise.
     @since Not available on Windows Runtime (WinRT).
  *)
-#ifdef ANDROID
+{$IFDEF ANDROID }
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path, jobject instanceOfAndroidContext);
 {$ELSE}
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path);
@@ -1712,7 +1712,7 @@ void arUtilPrintTransMat(const ARdouble trans[3][4]);
  *)
 void arUtilPrintMtx16(const ARdouble mtx16[16]);
 
-#ifdef ANDROID
+{$IFDEF ANDROID }
     //Call from native code to do the following in Java source:
     //    import android.provider.Settings.Secure;
     //    private String android_id = Secure.getString(getContext().getContentResolver(),
@@ -1720,7 +1720,7 @@ void arUtilPrintMtx16(const ARdouble mtx16[16]);
     char* arUtilGetAndroidDevID();
 {$ENDIF} //#ifdef ANDROID
 
-#ifdef __cplusplus
+{$IFDEF __cplusplus }
 }
 {$ENDIF} //#ifdef __cplusplus
 

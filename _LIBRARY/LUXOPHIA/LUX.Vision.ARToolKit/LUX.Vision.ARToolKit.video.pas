@@ -281,9 +281,9 @@ typedef struct {
 
 typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 
-#ifdef _WIN32
-#  ifdef LIBARVIDEO_DYNAMIC
-#    ifdef LIBARVIDEO_EXPORTS
+{$IFDEF _WIN32 }
+  {$IFDEF LIBARVIDEO_DYNAMIC }
+    {$IFDEF LIBARVIDEO_EXPORTS }
 #      define AR_DLL_API __declspec(dllexport)
     {$ELSE}
 #      define AR_DLL_API __declspec(dllimport)
