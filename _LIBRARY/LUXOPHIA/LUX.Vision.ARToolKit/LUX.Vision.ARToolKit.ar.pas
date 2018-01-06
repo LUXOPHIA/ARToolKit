@@ -69,12 +69,12 @@ interface //####################################################################
 #include <AR/arConfig.h>
 #ifdef __ANDROID__
 #  include <jni.h>
-#endif
+{$ENDIF}
 #include <ARUtil/log.h>
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 
 #define arMalloc(V,T,S)  \
@@ -96,25 +96,25 @@ typedef float             ARfloat;
 typedef float             ARdouble;
 #else
 typedef double            ARdouble;
-#endif
+{$ENDIF}
 
 #ifndef TRUE
 #  define TRUE 1
-#endif
+{$ENDIF}
 #ifndef FALSE
 #  define FALSE 0
-#endif
+{$ENDIF}
 
 #ifdef __cplusplus
 }
-#endif
+{$ENDIF}
 
 #include <AR/matrix.h>
 #include <AR/icp.h>
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 (* --------------------------------------------------*)
 
@@ -232,7 +232,7 @@ typedef struct {
     AR_LABELING_LABEL_TYPE *labelImage;
 #if !AR_DISABLE_LABELING_DEBUG_MODE
     ARUint8        *bwImage;
-#endif
+{$ENDIF}
     int             label_num;
     int             area[AR_LABELING_WORK_SIZE];
     int             clip[AR_LABELING_WORK_SIZE][4];
@@ -278,14 +278,14 @@ typedef struct {
 
 #ifdef __cplusplus
 }
-#endif
+{$ENDIF}
 
 #include <AR/param.h>
 #include <AR/arImageProc.h>
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 #define AR_MATRIX_CODE_TYPE_SIZE_MASK 0x000000ff  ///< Mask value, bitwise-OR with matrix code type to find matrix code size.
 #define AR_MATRIX_CODE_TYPE_ECC_NONE 0x00000000   ///< No error detection or correction.
@@ -1129,7 +1129,7 @@ int            arPattGetID2( ARPattHandle *pattHandle, int imageProcMode, int pa
                              ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
                              int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
                              const AR_MATRIX_CODE_TYPE matrixCodeType );
-#endif // !AR_DISABLE_NON_CORE_FNS
+{$ENDIF} // !AR_DISABLE_NON_CORE_FNS
 
 (*!
     @brief   Match the interior of a detected square against known patterns with variable border width.
@@ -1453,7 +1453,7 @@ int            arUtilMatMul( const ARdouble s1[3][4], const ARdouble s2[3][4], A
 int            arUtilMatInvf( const float s[3][4], float d[3][4] );
 int            arUtilMatMulf( const float s1[3][4], const float s2[3][4], float d[3][4] );
 int            arUtilMatMuldff( const ARdouble s1[3][4], const float s2[3][4], float d[3][4] );
-#endif
+{$ENDIF}
 int            arUtilMat2QuatPos( const ARdouble m[3][4], ARdouble q[4], ARdouble p[3] );
 int            arUtilQuatPos2Mat( const ARdouble q[4], const ARdouble p[3], ARdouble m[3][4] );
 int            arUtilQuatNorm(ARdouble q[4]);
@@ -1649,7 +1649,7 @@ typedef enum {
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
 #else
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
-#endif
+{$ENDIF}
 
 (*!
     @brief   Get the path to the resources directory using the specified behavior, creating the path if it doesn't already exist.
@@ -1670,7 +1670,7 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
 #else
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
-#endif
+{$ENDIF}
 
 #ifndef _WINRT
 (*!
@@ -1697,8 +1697,8 @@ char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAV
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path, jobject instanceOfAndroidContext);
 #else
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path);
-#endif
-#endif // !_WINRT
+{$ENDIF}
+{$ENDIF} // !_WINRT
 
 (*!
     @brief   Prints a transformation matrix via ARLOG(...).
@@ -1718,11 +1718,11 @@ void arUtilPrintMtx16(const ARdouble mtx16[16]);
     //    private String android_id = Secure.getString(getContext().getContentResolver(),
     //                                                 Secure.ANDROID_ID);
     char* arUtilGetAndroidDevID();
-#endif //#ifdef ANDROID
+{$ENDIF} //#ifdef ANDROID
 
 #ifdef __cplusplus
 }
-#endif //#ifdef __cplusplus
+{$ENDIF} //#ifdef __cplusplus
 
 implementation //############################################################### ■
 

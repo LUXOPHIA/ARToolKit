@@ -56,7 +56,7 @@ interface //####################################################################
 
 #ifdef  __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 typedef enum {
     AR_VIDEO_MODULE_DUMMY              = 0,
@@ -293,7 +293,7 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 #  endif
 #else
 #  define AR_DLL_API
-#endif
+{$ENDIF}
 
 #include <AR/videoLuma.h>
 
@@ -411,7 +411,7 @@ AR_DLL_API int               arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPix
 AR_DLL_API const char       *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
 #if !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 AR_DLL_API int               arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality (* 0 to 100 *), const int flipV);
-#endif // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
+{$ENDIF} // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 
 typedef enum {
     AR_VIDEO_ASPECT_RATIO_1_1,       ///< 1.0:   "Square".
@@ -528,11 +528,11 @@ jint ar2VideoPush2(AR2VideoParamT *vid, JNIEnv *env, jobject obj,
                    jobject buf2, jint buf2PixelStride, jint buf2RowStride,
                    jobject buf3, jint buf3PixelStride, jint buf3RowStride);
 jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj);
-#endif // TARGET_PLATFORM_ANDROID
+{$ENDIF} // TARGET_PLATFORM_ANDROID
 
 #ifdef  __cplusplus
 }
-#endif
+{$ENDIF}
 
 implementation //############################################################### ■
 

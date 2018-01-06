@@ -43,7 +43,7 @@ interface //####################################################################
 
 #ifdef  __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 #ifdef ARVIDEO_INPUT_V4L2
 #define   AR_VIDEO_V4L2_MODE_PAL              0
@@ -55,7 +55,7 @@ extern "C" {
 #define   AR_VIDEO_V4L2_DEFAULT_CHANNEL       0
 #define   AR_VIDEO_V4L2_DEFAULT_MODE          AR_VIDEO_V4L2_MODE_NTSC
 #define   AR_VIDEO_V4L2_DEFAULT_FORMAT_CONVERSION AR_PIXEL_FORMAT_BGRA // Options include AR_PIXEL_FORMAT_INVALID for no conversion, AR_PIXEL_FORMAT_BGRA, and AR_PIXEL_FORMAT_RGBA.
-#endif
+{$ENDIF}
 
 
 #ifdef ARVIDEO_INPUT_LIBDC1394
@@ -160,15 +160,15 @@ enum {
 #  else
 #    define   AR_VIDEO_1394_DEFAULT_MODE               AR_VIDEO_1394_MODE_640x480_YUV411
 #  endif
-#endif
+{$ENDIF}
 #define   AR_VIDEO_1394_DEFAULT_FRAME_RATE             AR_VIDEO_1394_FRAME_RATE_30
 #define   AR_VIDEO_1394_DEFAULT_SPEED                  AR_VIDEO_1394_SPEED_400
 #define   AR_VIDEO_1394_DEFAULT_PORT                   0
-#endif
+{$ENDIF}
 
 #ifdef  __cplusplus
 }
-#endif
+{$ENDIF}
 
 implementation //############################################################### ■
 

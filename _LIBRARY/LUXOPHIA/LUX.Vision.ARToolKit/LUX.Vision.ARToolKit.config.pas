@@ -247,7 +247,7 @@ typedef enum {
 
 #ifdef EMSCRIPTEN
 #  define __linux
-#endif
+{$ENDIF}
 
 #if defined(__linux) && !defined(ANDROID)
 
@@ -282,7 +282,7 @@ typedef enum {
 #define HAVE_LIBJPEG 1
 #define HAVE_INTEL_SIMD 1
 
-#endif // __linux
+{$ENDIF} // __linux
 
 // Default pixel formats.
 
@@ -290,7 +290,7 @@ typedef enum {
 (* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR  *)
 (* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA *)
 #define ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR
-#endif
+{$ENDIF}
 
 #ifdef ARVIDEO_INPUT_1394CAM
 (* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_MONO *)
@@ -301,11 +301,11 @@ typedef enum {
 #undef   ARVIDEO_INPUT_1394CAM_USE_FLEA
 #undef   ARVIDEO_INPUT_1394CAM_USE_FLEA_XGA
 #undef   ARVIDEO_INPUT_1394CAM_USE_DFK21AF04
-#endif
+{$ENDIF}
 
 #ifdef ARVIDEO_INPUT_GSTREAMER
 #define ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB 
-#endif
+{$ENDIF}
 
 
 
@@ -317,7 +317,7 @@ typedef enum {
 // Include Windows API.
 #ifndef WIN32_LEAN_AND_MEAN
 #  define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
-#endif
+{$ENDIF}
 #include <sdkddkver.h> // Minimum supported version. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745.aspx
 #include <windows.h>
 
@@ -344,7 +344,7 @@ typedef enum {
 #      error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
 #    endif
 #  endif
-#endif
+{$ENDIF}
 
 // Endianness.
 // Windows on x86, x86-64 and ARM all run little-endian.
@@ -370,19 +370,19 @@ typedef enum {
 #  define HAVE_INTEL_SIMD 1
 #elif defined(_M_ARM)
 #  undef HAVE_ARM_NEON // MSVC doesn't support inline assembly on ARM platform.
-#endif
+{$ENDIF}
 
-#endif // _WIN32
+{$ENDIF} // _WIN32
 
 // Default pixel formats.
 
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION
 #define  ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA
-#endif
+{$ENDIF}
 
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
 #define  ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA
-#endif
+{$ENDIF}
 
 //
 //  For Android                                              
@@ -416,13 +416,13 @@ typedef enum {
 #define USE_OPENGL_ES 1
 #define USE_CPARAM_SEARCH 1
 
-#endif // _ANDROID
+{$ENDIF} // _ANDROID
 
 // Default pixel formats.
 
 #ifdef ARVIDEO_INPUT_ANDROID
 #define  ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT   AR_PIXEL_FORMAT_NV21
-#endif
+{$ENDIF}
 
 //
 //  For macOS                                             
@@ -467,7 +467,7 @@ typedef enum {
 #  define HAVE_ARM64_NEON 1
 #else
 #  define HAVE_ARM_NEON 1
-#endif
+{$ENDIF}
 #define USE_CPARAM_SEARCH 1
 
 #elif TARGET_OS_MAC
@@ -481,15 +481,15 @@ typedef enum {
 #define HAVE_LIBJPEG 1
 #define HAVE_INTEL_SIMD 1
 
-#endif
+{$ENDIF}
 
-#endif // __APPLE__
+{$ENDIF} // __APPLE__
 
 // Default pixel formats.
 
 #ifdef  ARVIDEO_INPUT_AVFOUNDATION
 #define  ARVIDEO_INPUT_AVFOUNDATION_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA
-#endif
+{$ENDIF}
 
 //
 //  Emscripten input                                         
@@ -498,7 +498,7 @@ typedef enum {
 #ifdef EMSCRIPTEN
 #define ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN
 #define ARVIDEO_INPUT_EMSCRIPTEN_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGBA
-#endif
+{$ENDIF}
 
 //
 //  Multi-platform inputs
@@ -506,11 +506,11 @@ typedef enum {
 
 #ifdef ARVIDEO_INPUT_DUMMY
 #define ARVIDEO_INPUT_DUMMY_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB
-#endif
+{$ENDIF}
 
 #ifdef ARVIDEO_INPUT_IMAGE
 #define ARVIDEO_INPUT_IMAGE_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB
-#endif
+{$ENDIF}
 
 //
 // Setup AR_DEFAULT_PIXEL_FORMAT.
@@ -538,7 +538,7 @@ typedef enum {
 #  define AR_DEFAULT_PIXEL_FORMAT   ARVIDEO_INPUT_EMSCRIPTEN_PIXEL_FORMAT
 #else
 #  error
-#endif
+{$ENDIF}
 
 //
 // If trying to minimize memory footprint, disable a few things.
@@ -548,7 +548,7 @@ typedef enum {
 #define AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE 1
 #define AR_DISABLE_NON_CORE_FNS 1
 #define AR_DISABLE_LABELING_DEBUG_MODE 1
-#endif
+{$ENDIF}
 
 implementation //############################################################### ■
 

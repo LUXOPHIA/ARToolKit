@@ -55,7 +55,7 @@ interface //####################################################################
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+{$ENDIF}
 
 (*!
     @file param.h
@@ -203,7 +203,7 @@ int    arParamDecompMat( const ARdouble source[3][4], ARdouble cpara[3][4], ARdo
 #define arParamDecompMatf arParamDecompMat
 #else
 int    arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float trans[3][4] );
-#endif
+{$ENDIF}
 
 (*!
     @brief   Use lens distortion parameters to convert idealised (zero-distortion) window coordinates to observed (distorted) coordinates.
@@ -443,7 +443,7 @@ int         arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox,
 
 #ifdef __cplusplus
 }
-#endif
+{$ENDIF}
 
 implementation //############################################################### ■
 
