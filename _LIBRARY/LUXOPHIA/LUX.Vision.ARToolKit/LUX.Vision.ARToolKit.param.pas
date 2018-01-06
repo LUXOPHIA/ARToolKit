@@ -1,4 +1,4 @@
-﻿/*
+﻿(*
  *	param.h
  *  ARToolKit5
  *
@@ -33,8 +33,8 @@
  *
  *  Author(s): Takeshi Mita, Shinsaku Hiura, Hirokazu Kato, Philip Lamb
  *
- */
-/*******************************************************
+ *)
+(*******************************************************
  *
  * Author: Takeshi Mita, Shinsaku Hiura, Hirokazu Kato
  *
@@ -45,7 +45,7 @@
  * Revision: 5.0
  * Date: 03/08/13
  *
- *******************************************************/
+ *******************************************************)
 
 #ifndef AR_PARAM_H
 #define AR_PARAM_H
@@ -56,33 +56,33 @@
 extern "C" {
 #endif
 
-/*!
+(*!
     @file param.h
     @brief   ARToolKit functions for handling calibrated camera parameters.
     @details
-*/
-/*!
+*)
+(*!
     @brief   Default version for functions accepting a "distortion function version" parameter.
     @details See function arParamObserv2Ideal() for discussion.
-*/
+*)
 #define AR_DIST_FUNCTION_VERSION_DEFAULT 4
-/*!
+(*!
     @brief   Maximum version allowable for functions accepting a "distortion function version" parameter.
     @details See function arParamObserv2Ideal() for discussion.
-*/
+*)
 #define AR_DIST_FUNCTION_VERSION_MAX 4
-/*!
+(*!
     @brief   Maximum number of values in a distortion factor array.
     @details See function arParamObserv2Ideal() for discussion.
-*/
+*)
 #define AR_DIST_FACTOR_NUM_MAX 9
-/*!
+(*!
     @brief   Default padding added around a lookup-table based camera parameter.
     @details See function arParamLTCreate() for discussion.
-*/
+*)
 #define   AR_PARAM_LT_DEFAULT_OFFSET  15
 
-/*!
+(*!
     @brief   Structure holding camera parameters, including image size, projection matrix and lens distortion parameters.
     @details
         ARToolKit's tracking depends on accurate knowledge of the properties of the
@@ -94,7 +94,7 @@ extern "C" {
     @see    arParamClear
     @see    arParamLoad
     @see    arParamSave
- */
+ *)
 typedef struct {
     int      xsize;                 ///< The width in pixels of images returned by arVideoGetImage() for the camera.
     int      ysize;                 ///< The height in pixels of images returned by arVideoGetImage() for the camera.
@@ -107,15 +107,15 @@ typedef struct {
 	int dist_factor_num;
 	int ARParam_size;
 } arParamVersionInfo_t;
-/*!
+(*!
     @brief   Constant array with parameters applicable to each version of the camera parameter distortion function.
- */
+ *)
 extern const arParamVersionInfo_t arParamVersionInfo[AR_DIST_FUNCTION_VERSION_MAX];
 
-/*!
+(*!
     @brief   Structure holding camera parameters, in lookup table form; floating point version.
     @see ARParamLT
- */
+ *)
 typedef struct {
     float   *i2o;       ///< Ideal-to-observed; for the location in the array corresponding to the idealised location, gives the location in the observed image.
     float   *o2i;       ///< Observed-to-ideal; for the location in the array corresponding to the observed location, gives the location in the idealised image.
@@ -134,7 +134,7 @@ typedef struct {
 //    int      yOff;
 //} ARParamLTi;
 
-/*!
+(*!
     @brief   Structure holding camera parameters, in lookup table form.
     @details
         ARToolKit's tracking depends on accurate knowledge of the properties of the
@@ -146,7 +146,7 @@ typedef struct {
 
         This version of the structure contains a pre-calculated lookup table of
         values covering the camera image width and height, plus a padded border.
-*/
+*)
 typedef struct {
     ARParam      param;         ///< A copy of original ARParam from which the lookup table was calculated.
     ARParamLTf   paramLTf;      ///< The lookup table.
@@ -155,7 +155,7 @@ typedef struct {
 
 int    arParamDisp( const ARParam *param );
 
-/*!
+(*!
     @brief Create a camera parameter structure representing an idealised lens.
     @details
         This function creates a camera parameter structure representing an idealised lens,
@@ -170,12 +170,12 @@ int    arParamDisp( const ARParam *param );
         of the lens distortion model. Pass AR_DIST_FUNCTION_VERSION_DEFAULT to create an ARParam
         with the current lens distortion model, or a lesser integer to use an earlier version.
     @result 0 if the function completed successfully, or -1 in case of error.
- */
+ *)
 int    arParamClear( ARParam *param, int xsize, int ysize, int dist_function_version );
 
 int    arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version );
 
-/*!
+(*!
     @brief Create a camera parameter structure representing an idealised lens with specified field-of-view.
     @details
         This function creates a camera parameter structure representing an idealised lens,
@@ -189,7 +189,7 @@ int    arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int
     @param FOVy Field-of-view in the vertical (Y) dimension, in radians. If you know
         only the value in degrees, pass that value multiplied by (M_PI/180.0f).
     @result 0 if the function completed successfully, or -1 in case of error.
- */
+ *)
 int    arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy);
 
 int    arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam );
@@ -204,7 +204,7 @@ int    arParamDecompMat( const ARdouble source[3][4], ARdouble cpara[3][4], ARdo
 int    arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float trans[3][4] );
 #endif
 
-/*!
+(*!
     @brief   Use lens distortion parameters to convert idealised (zero-distortion) window coordinates to observed (distorted) coordinates.
     @details
         See function arParamObserv2Ideal() for full discussion.
@@ -229,11 +229,11 @@ int    arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float 
         present the only error possible is an invalid value of dist_function_version.
     @see arParamObserv2Ideal
     @see arParamObserv2IdealLTf
-*/
+*)
 int    arParamIdeal2Observ( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], const ARdouble ix, const ARdouble iy,
                             ARdouble *ox, ARdouble *oy, const int dist_function_version );
 
-/*!
+(*!
     @brief   Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero-distortion) coordinates.
     @details
         This function is used by ARToolKit to convert for the
@@ -278,10 +278,10 @@ int    arParamIdeal2Observ( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], 
         present the only error possible is an invalid value of dist_function_version.
     @see arParamIdeal2Observ
     @see arParamIdeal2ObservLTf
-*/
+*)
 int    arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], const ARdouble ox, const ARdouble oy,
                             ARdouble *ix, ARdouble *iy, const int dist_function_version );
-/*!
+(*!
     @brief Save lens parameters to a file.
     @details
         See the discussion under ARParam for more info.
@@ -293,10 +293,10 @@ int    arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], 
     @see ARParam
     @see arParamLoad
     @see arParamLoadFromBuffer
- */
+ *)
 int    arParamSave( const char *filename, const int num, const ARParam *param, ...);
 
-/*!
+(*!
     @brief Load lens parameters from a file.
     @details
         See the discussion under ARParam for more info.
@@ -308,10 +308,10 @@ int    arParamSave( const char *filename, const int num, const ARParam *param, .
     @see ARParam
     @see arParamLoadFromBuffer
     @see arParamSave
- */
+ *)
 int    arParamLoad( const char *filename, int num, ARParam *param, ...);
 
-    /*!
+    (*!
       @brief Load lens parameters from a buffer.
      @details
         See the discussion under ARParam for more info.
@@ -323,7 +323,7 @@ int    arParamLoad( const char *filename, int num, ARParam *param, ...);
      @see ARParam
      @see arParamLoad
      @see arParamSave
-     */
+     *)
 int    arParamLoadFromBuffer( const void *buffer, size_t bufsize, ARParam *param);
     
 int    arParamGetPerspectiveMat( ARdouble global[][3], ARdouble idealScreen[][2], int data_num, ARdouble mat[3][4] );
@@ -341,7 +341,7 @@ int arParamDispOptical(const ARdouble fovy, const ARdouble aspect, const ARdoubl
 int         arParamLTSave( char *filename, char *ext, ARParamLT *paramLT );
 ARParamLT  *arParamLTLoad( char *filename, char *ext );
 
-/*!
+(*!
     @brief Allocate and calculate a lookup-table camera parameter from a standard camera parameter.
     @details A lookup-table based camera parameter offers significant performance
         savings in certain ARToolKit operations (including unwarping of pattern spaces)
@@ -360,19 +360,19 @@ ARParamLT  *arParamLTLoad( char *filename, char *ext );
         occurred. Once the ARParamLT is no longer needed, it should be disposed
         of by calling arParamLTFree() on it.
     @see arParamLTFree
- */
+ *)
 ARParamLT  *arParamLTCreate( ARParam *param, int offset );
 
-/*!
+(*!
     @brief Dispose of a memory allocated to a lookup-table camera parameter.
     @param paramLT_p Pointer to a pointer to the paramLT structure to be disposed of.
         On return, the location pointed to will be set to NULL.
     @result -1 if an error occurred, or 0 in the case of no error.
     @see arParamLTCreate
- */
+ *)
 int         arParamLTFree( ARParamLT **paramLT_p );
 
-/*!
+(*!
     @brief   Use a lookup-table camera parameter to convert idealised (zero-distortion) window coordinates to observed (distorted) coordinates.
     @details
         See function arParamObserv2IdealLTf() for full discussion.
@@ -393,12 +393,12 @@ int         arParamLTFree( ARParamLT **paramLT_p );
     @see arParamLTCreate
     @see arParamIdeal2Observ
     @see arParamObserv2IdealLTf
-*/
+*)
 
 int         arParamIdeal2ObservLTf( const ARParamLTf *paramLTf, const float  ix, const float  iy, float  *ox, float  *oy);
 
     
-/*!
+(*!
     @brief   Use a lookup-table camera parameter to convert observed (distorted) window coordinates to idealised (zero-distortion) coordinates.
     @details
         This function is used by ARToolKit to convert for the
@@ -433,7 +433,7 @@ int         arParamIdeal2ObservLTf( const ARParamLTf *paramLTf, const float  ix,
         range of coordinates covered by the lookup table.
     @see arParamObserv2Ideal
     @see arParamIdeal2ObservLTf
-*/
+*)
 int         arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox, const float  oy, float  *ix, float  *iy);
 
 //int         arParamIdeal2ObservLTi( const ARParamLTi *paramLTi, const int    ix, const int    iy, int    *ox, int    *oy);

@@ -1,4 +1,4 @@
-﻿/*
+﻿(*
  *  config.h
  *  ARToolKit5
  *
@@ -33,14 +33,14 @@
  *
  *  Author(s): Hirokazu Kato, Philip Lamb
  *
- */
-/*!
+ *)
+(*!
 	@file config.h
 	@brief ARToolKit core configuration.
 	@version 5.3.2
 	@details
 	@copyright 2015-2016 Daqri, LLC.
- */
+ *)
 
 
 #ifndef AR_CONFIG0_H
@@ -53,39 +53,39 @@
 // via arGetVersion().
 //
 
-/*@
+(*@
     The MAJOR version number defines non-backwards compatible
     changes in the ARToolKit API. Range: [0-99].
- */
+ *)
 #define AR_HEADER_VERSION_MAJOR		5
 
-/*@
+(*@
     The MINOR version number defines additions to the ARToolKit
     API, or (occsasionally) other significant backwards-compatible
     changes in runtime functionality. Range: [0-99].
- */
+ *)
 #define AR_HEADER_VERSION_MINOR		4
 
-/*@
+(*@
     The TINY version number defines bug-fixes to existing
     functionality. Range: [0-99].
- */
+ *)
 #define AR_HEADER_VERSION_TINY		0
 
-/*@
+(*@
     The BUILD version number will always be zero in releases,
     but may be non-zero in post-release development builds,
     version-control repository-sourced code, or other. Range: [0-99].
- */
+ *)
 #define AR_HEADER_VERSION_DEV		0
 
-/*@
+(*@
     The string representation below must match the major, minor
     and tiny release numbers.
- */
+ *)
 #define AR_HEADER_VERSION_STRING	"5.4.0"
 
-/*@
+(*@
     Convenience macros to enable use of certain ARToolKit header
     functionality by the release version in which it appeared.
     Each time the major version number is incremented, all
@@ -95,7 +95,7 @@
     AR_HAVE_HEADER_VERSION_ macro definition must be added.
     Tiny version numbers (being bug-fix releases, by definition)
     are NOT included in the AR_HAVE_HEADER_VERSION_ system.
- */
+ *)
 #define AR_HAVE_HEADER_VERSION_5
 #define AR_HAVE_HEADER_VERSION_5_1
 #define AR_HAVE_HEADER_VERSION_5_2
@@ -106,12 +106,12 @@
 // End version definitions.
 //
 
-/*
+(*
 #undef   AR_BIG_ENDIAN
 #undef   AR_LITTLE_ENDIAN
-*/
+*)
 
-/*!
+(*!
     @typedef AR_PIXEL_FORMAT
 	@brief ARToolKit pixel-format specifiers.
 	@details
@@ -120,50 +120,50 @@
 		data in a particular pixel format from an ARToolKit function that
 		returns data to you, or to specify that data you are providing to an
 		ARToolKit function is in a particular pixel format.
- */
+ *)
 typedef enum {
-    /*@
+    (*@
         Value indicating pixel format is invalid or unset.
-     */
+     *)
     AR_PIXEL_FORMAT_INVALID = -1,
-    /*@
+    (*@
         Each pixel is represented by 24 bits. Eight bits per each Red, Green,
         and Blue component. This is the native 24 bit format for the Mac platform.
-     */
+     *)
     AR_PIXEL_FORMAT_RGB = 0,
-    /*@
+    (*@
 		Each pixel is represented by 24 bits. Eight bits per each Blue, Red, and
 		Green component. This is the native 24 bit format for the Win32 platform.
-     */
+     *)
 	AR_PIXEL_FORMAT_BGR,
-    /*@
+    (*@
 		Each pixel is represented by 32 bits. Eight bits per each Red, Green,
 		Blue, and Alpha component.
-     */
+     *)
     AR_PIXEL_FORMAT_RGBA,
-    /*@
+    (*@
 		Each pixel is represented by 32 bits. Eight bits per each Blue, Green,
 		Red, and Alpha component. This is the native 32 bit format for the Win32
 		and Mac Intel platforms.
-     */
+     *)
     AR_PIXEL_FORMAT_BGRA,
-    /*@
+    (*@
 		Each pixel is represented by 32 bits. Eight bits per each Alpha, Blue,
 		Green, and Red component. This is the native 32 bit format for the SGI
 		platform.
-     */
+     *)
     AR_PIXEL_FORMAT_ABGR,
-    /*@
+    (*@
 		Each pixel is represented by 8 bits of luminance information.
-     */
+     *)
     AR_PIXEL_FORMAT_MONO,
-    /*@
+    (*@
 		Each pixel is represented by 32 bits. Eight bits per each Alpha, Red,
 		Green, and Blue component. This is the native 32 bit format for the Mac
 		PowerPC platform.
-     */
+     *)
     AR_PIXEL_FORMAT_ARGB,
-    /*@
+    (*@
 		8-bit 4:2:2 Component Y'CbCr format. Each 16 bit pixel is represented
 		by an unsigned eight bit luminance component and two unsigned eight bit
 		chroma components. Each pair of pixels shares a common set of chroma
@@ -173,47 +173,47 @@ typedef enum {
 		This format is fairly prevalent on both Mac and Win32 platforms.
 		'2vuy' is the Apple QuickTime four-character code for this pixel format.
 		The equivalent Microsoft fourCC is 'UYVY'.
-     */
+     *)
     AR_PIXEL_FORMAT_2vuy,
-    /*@
+    (*@
 		8-bit 4:2:2 Component Y'CbCr format. Identical to the AR_PIXEL_FORMAT_2vuy except
 		each 16 bit word has been byte swapped. This results in a component
 		ordering of; Y0, Cb, Y1, Cr.
 		This is most prevalent yuv 4:2:2 format on both Mac and Win32 platforms.
 		'yuvs' is the Apple QuickTime four-character code for this pixel format.
 		The equivalent Microsoft fourCC is 'YUY2'.
-     */
+     *)
     AR_PIXEL_FORMAT_yuvs,
-    /*@
+    (*@
         A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
         information in bits 15-11, 6 bits of green color information in bits 10-5,
         and 5 bits of blue color information in bits 4-0. Byte ordering is big-endian.
-     */
+     *)
     AR_PIXEL_FORMAT_RGB_565,
-    /*@
+    (*@
         A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
         information in bits 15-11, 5 bits of green color information in bits 10-6,
         5 bits of blue color information in bits 5-1, and a single alpha bit in bit 0.
         Byte ordering is big-endian.
-     */
+     *)
     AR_PIXEL_FORMAT_RGBA_5551,
-    /*@
+    (*@
         A packed-pixel format. Each 16 bit pixel consists of 4 bits of red color
         information in bits 15-12, 6 bits of green color information in bits 11-8,
         4 bits of blue color information in bits 7-4, and 4 bits of alpha information
         in bits 3-0. Byte ordering is big-endian.
-     */
+     *)
     AR_PIXEL_FORMAT_RGBA_4444,
-    /*@
+    (*@
          8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
          by 4 unsigned eight bit luminance values and two unsigned eight bit
          chroma values. The chroma plane and luma plane are separated in memory. The
          luminance components have a range of [16, 235], while the chroma value
          has a range of [16, 240]. This is consistent with the CCIR601 spec.
          '420v' is the Apple Core Video four-character code for this pixel format.
-     */
+     *)
     AR_PIXEL_FORMAT_420v,
-    /*@
+    (*@
          8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
          by 4 unsigned eight bit luminance components and two unsigned eight bit
          chroma components. The chroma plane and luma plane are separated in memory. The
@@ -221,15 +221,15 @@ typedef enum {
          has a range of [1, 255].
          '420f' is the Apple Core Video four-character code for this pixel format.
          The equivalent Microsoft fourCC is 'NV12'.
-     */
+     *)
     AR_PIXEL_FORMAT_420f,
-    /*@
+    (*@
         8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
         by 4 unsigned eight bit luminance components and two unsigned eight bit
         chroma components. The chroma plane and luma plane are separated in memory. The
         luminance components have a range of [0, 255], while the chroma value
         has a range of [1, 255].
-     */
+     *)
     AR_PIXEL_FORMAT_NV21
 } AR_PIXEL_FORMAT;
 #define       AR_PIXEL_FORMAT_UYVY      AR_PIXEL_FORMAT_2vuy
@@ -287,14 +287,14 @@ typedef enum {
 // Default pixel formats.
 
 #ifdef ARVIDEO_INPUT_V4L2
-/* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR  */
-/* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA */
+(* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR  *)
+(* #define  ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA *)
 #define ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR
 #endif
 
 #ifdef ARVIDEO_INPUT_1394CAM
-/* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_MONO */
-/* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB  */
+(* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_MONO *)
+(* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB  *)
 #define   ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_MONO
 #undef   ARVIDEO_INPUT_1394CAM_USE_DRAGONFLY
 #undef   ARVIDEO_INPUT_1394CAM_USE_DF_EXPRESS

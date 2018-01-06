@@ -1,4 +1,4 @@
-﻿/*
+﻿(*
  *  arConfig.h
  *  ARToolKit5
  *
@@ -33,31 +33,31 @@
  *
  *  Author(s): Hirokazu Kato, Philip Lamb
  *
- */
+ *)
 
 #ifndef AR_AR_CONFIG_H
 #define AR_AR_CONFIG_H
 
 
-/* for arDebug */
+(* for arDebug *)
 #define  AR_DEBUG_DISABLE                     0
 #define  AR_DEBUG_ENABLE                      1
 #define  AR_DEFAULT_DEBUG_MODE                AR_DEBUG_DISABLE
 
-/* for arLabelingMode */
+(* for arLabelingMode *)
 #define  AR_LABELING_WHITE_REGION             0
 #define  AR_LABELING_BLACK_REGION             1
 #define  AR_DEFAULT_LABELING_MODE             AR_LABELING_BLACK_REGION
 
-/* for arlabelingThresh */
+(* for arlabelingThresh *)
 #define  AR_DEFAULT_LABELING_THRESH           100
 
-/* for arImageProcMode */
+(* for arImageProcMode *)
 #define  AR_IMAGE_PROC_FRAME_IMAGE            0
 #define  AR_IMAGE_PROC_FIELD_IMAGE            1
 #define  AR_DEFAULT_IMAGE_PROC_MODE           AR_IMAGE_PROC_FRAME_IMAGE
 
-/* for arPatternDetectionMode */
+(* for arPatternDetectionMode *)
 #define  AR_TEMPLATE_MATCHING_COLOR               0
 #define  AR_TEMPLATE_MATCHING_MONO                1
 #define  AR_MATRIX_CODE_DETECTION                 2
@@ -65,17 +65,17 @@
 #define  AR_TEMPLATE_MATCHING_MONO_AND_MATRIX     4
 #define  AR_DEFAULT_PATTERN_DETECTION_MODE    AR_TEMPLATE_MATCHING_COLOR
 
-/* for arMarkerExtractionMode */
+(* for arMarkerExtractionMode *)
 #define  AR_USE_TRACKING_HISTORY              0
 #define  AR_NOUSE_TRACKING_HISTORY            1
 #define  AR_USE_TRACKING_HISTORY_V2           2
 #define  AR_DEFAULT_MARKER_EXTRACTION_MODE    AR_USE_TRACKING_HISTORY_V2
 
-/* for arGetTransMat */
+(* for arGetTransMat *)
 #define  AR_MAX_LOOP_COUNT                    5
 #define  AR_LOOP_BREAK_THRESH                 0.5
 
-/* for arPatt**      */
+(* for arPatt**      *)
 #if AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 #define   AR_PATT_NUM_MAX                    25 
 #else

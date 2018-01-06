@@ -1,4 +1,4 @@
-﻿/*
+﻿(*
  *	videoConfig.h
  *  ARToolKit5
  *
@@ -33,7 +33,7 @@
  *
  *  Author(s): Hirokazu Kato, Philip Lamb
  *
- */
+ *)
 
 #ifndef AR_VIDEO_CONFIG_H
 #define AR_VIDEO_CONFIG_H
