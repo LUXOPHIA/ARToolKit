@@ -39,11 +39,7 @@
 
 interface //#################################################################### ■
 
-#include <AR/config.h>
-
-#ifdef  __cplusplus
-extern "C" {
-{$ENDIF}
+uses LUX.Vision.ARToolKit.config;
 
 {$IFDEF ARVIDEO_INPUT_V4L2 }
 #define   AR_VIDEO_V4L2_MODE_PAL              0
@@ -164,10 +160,6 @@ enum {
 #define   AR_VIDEO_1394_DEFAULT_FRAME_RATE             AR_VIDEO_1394_FRAME_RATE_30
 #define   AR_VIDEO_1394_DEFAULT_SPEED                  AR_VIDEO_1394_SPEED_400
 #define   AR_VIDEO_1394_DEFAULT_PORT                   0
-{$ENDIF}
-
-#ifdef  __cplusplus
-}
 {$ENDIF}
 
 implementation //############################################################### ■

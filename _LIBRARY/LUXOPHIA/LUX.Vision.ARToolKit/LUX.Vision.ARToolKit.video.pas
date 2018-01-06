@@ -50,13 +50,9 @@
 
 interface //#################################################################### ■
 
-#include <AR/ar.h>
-#include <AR/videoConfig.h>
-#include <limits.h>
-
-#ifdef  __cplusplus
-extern "C" {
-{$ENDIF}
+uses LUX.Vision.ARToolKit.ar,
+     LUX.Vision.ARToolKit.videoConfig;
+//#include <limits.h>
 
 typedef enum {
     AR_VIDEO_MODULE_DUMMY              = 0,
@@ -529,10 +525,6 @@ jint ar2VideoPush2(AR2VideoParamT *vid, JNIEnv *env, jobject obj,
                    jobject buf3, jint buf3PixelStride, jint buf3RowStride);
 jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj);
 {$ENDIF} // TARGET_PLATFORM_ANDROID
-
-#ifdef  __cplusplus
-}
-{$ENDIF}
 
 implementation //############################################################### ■
 

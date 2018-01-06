@@ -61,29 +61,29 @@
 
 interface //#################################################################### ■
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <AR/config.h>
-#include <AR/arConfig.h>
-{$IFDEF __ANDROID__ }
-#  include <jni.h>
-{$ENDIF}
-#include <ARUtil/log.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <stdint.h>
+//#include <string.h>
+uses LUX.Vision.ARToolKit.config,
+     LUX.Vision.ARToolKit.arConfig;
+//{$IFDEF __ANDROID__ }
+//#  include <jni.h>
+//{$ENDIF}
+//#include <ARUtil/log.h>
 
-{$IFDEF __cplusplus }
-extern "C" {
-{$ENDIF}
+//{$IFDEF __cplusplus }
+//extern "C" {
+//{$ENDIF}
 
 
-#define arMalloc(V,T,S)  \
-{ if( ((V) = (T *)malloc( sizeof(T) * (S) )) == NULL ) \
-{ARLOGe("Out of memory!!\n"); exit(1);} }
+//#define arMalloc(V,T,S)  \
+//{ if( ((V) = (T *)malloc( sizeof(T) * (S) )) == NULL ) \
+//{ARLOGe("Out of memory!!\n"); exit(1);} }
 
-#define arMallocClear(V,T,S)  \
-{ if( ((V) = (T *)calloc( (S), sizeof(T) )) == NULL ) \
-{ARLOGe("Out of memory!!\n"); exit(1);} }
+//#define arMallocClear(V,T,S)  \
+//{ if( ((V) = (T *)calloc( (S), sizeof(T) )) == NULL ) \
+//{ARLOGe("Out of memory!!\n"); exit(1);} }
 
 typedef char              ARInt8;
 typedef short             ARInt16;
@@ -105,16 +105,16 @@ typedef double            ARdouble;
 #  define FALSE 0
 {$ENDIF}
 
-{$IFDEF __cplusplus }
-}
-{$ENDIF}
+//{$IFDEF __cplusplus }
+//}
+//{$ENDIF}
 
 #include <AR/matrix.h>
 #include <AR/icp.h>
 
-{$IFDEF __cplusplus }
-extern "C" {
-{$ENDIF}
+//{$IFDEF __cplusplus }
+//extern "C" {
+//{$ENDIF}
 
 (* --------------------------------------------------*)
 
@@ -276,16 +276,16 @@ typedef struct {
 
 (* --------------------------------------------------*)
 
-{$IFDEF __cplusplus }
-}
-{$ENDIF}
+//{$IFDEF __cplusplus }
+//}
+//{$ENDIF}
 
 #include <AR/param.h>
 #include <AR/arImageProc.h>
 
-{$IFDEF __cplusplus }
-extern "C" {
-{$ENDIF}
+//{$IFDEF __cplusplus }
+//extern "C" {
+//{$ENDIF}
 
 #define AR_MATRIX_CODE_TYPE_SIZE_MASK 0x000000ff  ///< Mask value, bitwise-OR with matrix code type to find matrix code size.
 #define AR_MATRIX_CODE_TYPE_ECC_NONE 0x00000000   ///< No error detection or correction.
@@ -1720,9 +1720,9 @@ void arUtilPrintMtx16(const ARdouble mtx16[16]);
     char* arUtilGetAndroidDevID();
 {$ENDIF} //#ifdef ANDROID
 
-{$IFDEF __cplusplus }
-}
-{$ENDIF} //#ifdef __cplusplus
+//{$IFDEF __cplusplus }
+//}
+//{$ENDIF} //#ifdef __cplusplus
 
 implementation //############################################################### ■
 

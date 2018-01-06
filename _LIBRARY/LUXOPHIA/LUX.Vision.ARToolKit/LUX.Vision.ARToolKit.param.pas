@@ -51,11 +51,7 @@
 
 interface //#################################################################### ■
 
-#include <AR/ar.h>
-
-{$IFDEF __cplusplus }
-extern "C" {
-{$ENDIF}
+uses LUX.Vision.ARToolKit.ar;
 
 (*!
     @file param.h
@@ -440,10 +436,6 @@ int         arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox,
 //int         arParamIdeal2ObservLTi( const ARParamLTi *paramLTi, const int    ix, const int    iy, int    *ox, int    *oy);
 
 //int         arParamObserv2IdealLTi( const ARParamLTi *paramLTi, const int    ox, const int    oy, int    *ix, int    *iy);
-
-{$IFDEF __cplusplus }
-}
-{$ENDIF}
 
 implementation //############################################################### ■
 
