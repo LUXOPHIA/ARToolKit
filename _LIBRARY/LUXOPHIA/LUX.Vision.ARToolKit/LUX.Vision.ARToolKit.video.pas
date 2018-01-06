@@ -81,69 +81,69 @@ typedef enum {
 // arVideoParamGet/arVideoParamSet names.
 //
 
-#define  AR_VIDEO_1394_BRIGHTNESS                      65
-#define  AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON           66
-#define  AR_VIDEO_1394_BRIGHTNESS_AUTO_ON              67
-#define  AR_VIDEO_1394_BRIGHTNESS_MAX_VAL              68
-#define  AR_VIDEO_1394_BRIGHTNESS_MIN_VAL              69
-#define  AR_VIDEO_1394_EXPOSURE                        70
-#define  AR_VIDEO_1394_EXPOSURE_FEATURE_ON             71
-#define  AR_VIDEO_1394_EXPOSURE_AUTO_ON                72
-#define  AR_VIDEO_1394_EXPOSURE_MAX_VAL                73
-#define  AR_VIDEO_1394_EXPOSURE_MIN_VAL                74
-#define  AR_VIDEO_1394_WHITE_BALANCE                   75
-#define  AR_VIDEO_1394_WHITE_BALANCE_UB                76
-#define  AR_VIDEO_1394_WHITE_BALANCE_VR                77
-#define  AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON        78
-#define  AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON           79
-#define  AR_VIDEO_1394_WHITE_BALANCE_MAX_VAL           80
-#define  AR_VIDEO_1394_WHITE_BALANCE_MIN_VAL           81
-#define  AR_VIDEO_1394_SHUTTER_SPEED                   82
-#define  AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON        83
-#define  AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON           84
-#define  AR_VIDEO_1394_SHUTTER_SPEED_MAX_VAL           85
-#define  AR_VIDEO_1394_SHUTTER_SPEED_MIN_VAL           86
-#define  AR_VIDEO_1394_GAIN                            87
-#define  AR_VIDEO_1394_GAIN_FEATURE_ON                 88
-#define  AR_VIDEO_1394_GAIN_AUTO_ON                    89
-#define  AR_VIDEO_1394_GAIN_MAX_VAL                    90
-#define  AR_VIDEO_1394_GAIN_MIN_VAL                    91
-#define  AR_VIDEO_1394_FOCUS                           92
-#define  AR_VIDEO_1394_FOCUS_FEATURE_ON                93
-#define  AR_VIDEO_1394_FOCUS_AUTO_ON                   94
-#define  AR_VIDEO_1394_FOCUS_MAX_VAL                   95
-#define  AR_VIDEO_1394_FOCUS_MIN_VAL                   96
-#define  AR_VIDEO_1394_GAMMA                           97
-#define  AR_VIDEO_1394_GAMMA_FEATURE_ON                98
-#define  AR_VIDEO_1394_GAMMA_AUTO_ON                   99
-#define  AR_VIDEO_1394_GAMMA_MAX_VAL                  100
-#define  AR_VIDEO_1394_GAMMA_MIN_VAL                  101
+const AR_VIDEO_1394_BRIGHTNESS               = 65;
+const AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON    = 66;
+const AR_VIDEO_1394_BRIGHTNESS_AUTO_ON       = 67;
+const AR_VIDEO_1394_BRIGHTNESS_MAX_VAL       = 68;
+const AR_VIDEO_1394_BRIGHTNESS_MIN_VAL       = 69;
+const AR_VIDEO_1394_EXPOSURE                 = 70;
+const AR_VIDEO_1394_EXPOSURE_FEATURE_ON      = 71;
+const AR_VIDEO_1394_EXPOSURE_AUTO_ON         = 72;
+const AR_VIDEO_1394_EXPOSURE_MAX_VAL         = 73;
+const AR_VIDEO_1394_EXPOSURE_MIN_VAL         = 74;
+const AR_VIDEO_1394_WHITE_BALANCE            = 75;
+const AR_VIDEO_1394_WHITE_BALANCE_UB         = 76;
+const AR_VIDEO_1394_WHITE_BALANCE_VR         = 77;
+const AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON = 78;
+const AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON    = 79;
+const AR_VIDEO_1394_WHITE_BALANCE_MAX_VAL    = 80;
+const AR_VIDEO_1394_WHITE_BALANCE_MIN_VAL    = 81;
+const AR_VIDEO_1394_SHUTTER_SPEED            = 82;
+const AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON = 83;
+const AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON    = 84;
+const AR_VIDEO_1394_SHUTTER_SPEED_MAX_VAL    = 85;
+const AR_VIDEO_1394_SHUTTER_SPEED_MIN_VAL    = 86;
+const AR_VIDEO_1394_GAIN                     = 87;
+const AR_VIDEO_1394_GAIN_FEATURE_ON          = 88;
+const AR_VIDEO_1394_GAIN_AUTO_ON             = 89;
+const AR_VIDEO_1394_GAIN_MAX_VAL             = 90;
+const AR_VIDEO_1394_GAIN_MIN_VAL             = 91;
+const AR_VIDEO_1394_FOCUS                    = 92;
+const AR_VIDEO_1394_FOCUS_FEATURE_ON         = 93;
+const AR_VIDEO_1394_FOCUS_AUTO_ON            = 94;
+const AR_VIDEO_1394_FOCUS_MAX_VAL            = 95;
+const AR_VIDEO_1394_FOCUS_MIN_VAL            = 96;
+const AR_VIDEO_1394_GAMMA                    = 97;
+const AR_VIDEO_1394_GAMMA_FEATURE_ON         = 98;
+const AR_VIDEO_1394_GAMMA_AUTO_ON            = 99;
+const AR_VIDEO_1394_GAMMA_MAX_VAL            = 100;
+const AR_VIDEO_1394_GAMMA_MIN_VAL            = 101;
 
-#define  AR_VIDEO_PARAM_GET_IMAGE_ASYNC               200 ///< int
-#define  AR_VIDEO_PARAM_DEVICEID                      201 ///< string, readonly.
+const AR_VIDEO_PARAM_GET_IMAGE_ASYNC = 200; ///< int
+const AR_VIDEO_PARAM_DEVICEID        = 201; ///< string, readonly.
 
-#define  AR_VIDEO_FOCUS_MODE                          301 ///< int
-#define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 ///< double
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_X           303 ///< double
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y           304 ///< double
+const AR_VIDEO_FOCUS_MODE                = 301; ///< int
+const AR_VIDEO_FOCUS_MANUAL_DISTANCE     = 302; ///< double
+const AR_VIDEO_FOCUS_POINT_OF_INTEREST_X = 303; ///< double
+const AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y = 304; ///< double
 
-#define  AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE                400 ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_IOS_DEVICE.
-#define  AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET              401 ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_FOCUS_PRESET.
-#define  AR_VIDEO_PARAM_AVFOUNDATION_CAMERA_POSITION           402 ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_CAMERA_POSITION.
-#define  AR_VIDEO_PARAM_AVFOUNDATION_WILL_CAPTURE_NEXT_FRAME   403 ///< int (0=false, 1=true). If true, next incoming frame will also be captured to system's camera roll.
+const AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE              = 400; ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_IOS_DEVICE.
+const AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET            = 401; ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_FOCUS_PRESET.
+const AR_VIDEO_PARAM_AVFOUNDATION_CAMERA_POSITION         = 402; ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_CAMERA_POSITION.
+const AR_VIDEO_PARAM_AVFOUNDATION_WILL_CAPTURE_NEXT_FRAME = 403; ///< int (0=false, 1=true). If true, next incoming frame will also be captured to system's camera roll.
 
-#define  AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX          500 ///< int
-#define  AR_VIDEO_PARAM_ANDROID_CAMERA_FACE           501 ///< int
-#define  AR_VIDEO_PARAM_ANDROID_INTERNET_STATE        502 ///< int
-#define  AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH          503 ///< double
+const AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX   = 500; ///< int
+const AR_VIDEO_PARAM_ANDROID_CAMERA_FACE    = 501; ///< int
+const AR_VIDEO_PARAM_ANDROID_INTERNET_STATE = 502; ///< int
+const AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH   = 503; ///< double
 
-#define  AR_VIDEO_GET_VERSION                     INT_MAX
+const AR_VIDEO_GET_VERSION = INT_MAX;
 
 // For arVideoParamGet(AR_VIDEO_FOCUS_MODE, ...)
-#define  AR_VIDEO_FOCUS_MODE_FIXED                    0
-#define  AR_VIDEO_FOCUS_MODE_AUTO                     1
-#define  AR_VIDEO_FOCUS_MODE_POINT_OF_INTEREST        2
-#define  AR_VIDEO_FOCUS_MODE_MANUAL                   3
+const AR_VIDEO_FOCUS_MODE_FIXED             = 0;
+const AR_VIDEO_FOCUS_MODE_AUTO              = 1;
+const AR_VIDEO_FOCUS_MODE_POINT_OF_INTEREST = 2;
+const AR_VIDEO_FOCUS_MODE_MANUAL            = 3;
 
 ///
 /// @brief Values returned by arVideoParamGeti(AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE, ...)
@@ -218,43 +218,43 @@ typedef enum {
 ///
 /// @brief Values for device position, as encoded in ARVideoSourceInfoT.flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK.
 ///
-#define AR_VIDEO_POSITION_UNKNOWN     0x0000 ///< Camera physical position on device unknown.
-#define AR_VIDEO_POSITION_FRONT       0x0008 ///< Camera is on front of device pointing towards user.
-#define AR_VIDEO_POSITION_BACK        0x0010 ///< Camera is on back of device pointing away from user.
-#define AR_VIDEO_POSITION_LEFT        0x0018 ///< Camera is on left of device pointing to user's left.
-#define AR_VIDEO_POSITION_RIGHT       0x0020 ///< Camera is on right of device pointing to user's right.
-#define AR_VIDEO_POSITION_TOP         0x0028 ///< Camera is on top of device pointing toward ceiling when device is held upright.
-#define AR_VIDEO_POSITION_BOTTOM      0x0030 ///< Camera is on bottom of device pointing towards floor when device is held upright.
-#define AR_VIDEO_POSITION_OTHER       0x0038 ///< Camera physical position on device is known but none of the above.
+const AR_VIDEO_POSITION_UNKNOWN = $0000; ///< Camera physical position on device unknown.
+const AR_VIDEO_POSITION_FRONT   = $0008; ///< Camera is on front of device pointing towards user.
+const AR_VIDEO_POSITION_BACK    = $0010; ///< Camera is on back of device pointing away from user.
+const AR_VIDEO_POSITION_LEFT    = $0018; ///< Camera is on left of device pointing to user's left.
+const AR_VIDEO_POSITION_RIGHT   = $0020; ///< Camera is on right of device pointing to user's right.
+const AR_VIDEO_POSITION_TOP     = $0028; ///< Camera is on top of device pointing toward ceiling when device is held upright.
+const AR_VIDEO_POSITION_BOTTOM  = $0030; ///< Camera is on bottom of device pointing towards floor when device is held upright.
+const AR_VIDEO_POSITION_OTHER   = $0038; ///< Camera physical position on device is known but none of the above.
 
 ///
 /// @brief Values for device stereo mode, as encoded in ARVideoSourceInfoT.flags & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK.
 ///
-#define AR_VIDEO_STEREO_MODE_MONO                        0x0000 ///< Device is monoscopic.
-#define AR_VIDEO_STEREO_MODE_LEFT                        0x0040 ///< Device is left eye of a stereoscopic pair.
-#define AR_VIDEO_STEREO_MODE_RIGHT                       0x0080 ///< Device is right eye of a stereoscopic pair.
-#define AR_VIDEO_STEREO_MODE_FRAME_SEQUENTIAL            0x00C0 ///< Device is left and right stereo images in sequential frames.
-#define AR_VIDEO_STEREO_MODE_SIDE_BY_SIDE                0x0100 ///< Device is left and right stereo images in a single frame, arranged horizontally with left eye on left.
-#define AR_VIDEO_STEREO_MODE_OVER_UNDER                  0x0140 ///< Device is left and right stereo images in a single frame, arranged vertically with left eye on top.
-#define AR_VIDEO_STEREO_MODE_HALF_SIDE_BY_SIDE           0x0180 ///< Device is left and right stereo images in a single frame with the frames scaled to half-width, arranged horizontally with left eye on left.
-#define AR_VIDEO_STEREO_MODE_OVER_UNDER_HALF_HEIGHT      0x01C0 ///< Device is left and right stereo images in a single frame with the frames scaled to half-height, arranged vertically with left eye on top.
-#define AR_VIDEO_STEREO_MODE_ROW_INTERLACED              0x0200 ///< Device is left and right stereo images in a single frame with row interleaving, where pixels in even-numbered rows are sampled from the left eye, and pixels in odd-number rows from the right eye.
-#define AR_VIDEO_STEREO_MODE_COLUMN_INTERLACED           0x0240 ///< Device is left and right stereo images in a single frame with column interleaving, where pixels in even-numbered columns are sampled from the left eye, and pixels in odd-number columns from the right eye.
-#define AR_VIDEO_STEREO_MODE_ROW_AND_COLUMN_INTERLACED   0x0280 ///< Device is left and right stereo images in a single frame with row and column interleaving, where pixels where the evenness/oddness of the row is the same as the column are sampled from the left eye, and the remaining pixels from the right eye.
-#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RG                 0x02C0 ///< Device is left and right stereo images in a single frame, where both eyes are converted to mono and the left eye is carried in the red channel and the right eye in the green channel.
-#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RB                 0x0300 ///< Device is left and right stereo images in a single frame, where both eyes are converted to mono and the left eye is carried in the red channel and the right eye in the blue channel.
-#define AR_VIDEO_STEREO_MODE_RESERVED0                   0x0340 ///< Reserved for future use.
-#define AR_VIDEO_STEREO_MODE_RESERVED1                   0x0380 ///< Reserved for future use.
-#define AR_VIDEO_STEREO_MODE_RESERVED2                   0x03C0 ///< Reserved for future use.
+const AR_VIDEO_STEREO_MODE_MONO                      = $0000; ///< Device is monoscopic.
+const AR_VIDEO_STEREO_MODE_LEFT                      = $0040; ///< Device is left eye of a stereoscopic pair.
+const AR_VIDEO_STEREO_MODE_RIGHT                     = $0080; ///< Device is right eye of a stereoscopic pair.
+const AR_VIDEO_STEREO_MODE_FRAME_SEQUENTIAL          = $00C0; ///< Device is left and right stereo images in sequential frames.
+const AR_VIDEO_STEREO_MODE_SIDE_BY_SIDE              = $0100; ///< Device is left and right stereo images in a single frame, arranged horizontally with left eye on left.
+const AR_VIDEO_STEREO_MODE_OVER_UNDER                = $0140; ///< Device is left and right stereo images in a single frame, arranged vertically with left eye on top.
+const AR_VIDEO_STEREO_MODE_HALF_SIDE_BY_SIDE         = $0180; ///< Device is left and right stereo images in a single frame with the frames scaled to half-width, arranged horizontally with left eye on left.
+const AR_VIDEO_STEREO_MODE_OVER_UNDER_HALF_HEIGHT    = $01C0; ///< Device is left and right stereo images in a single frame with the frames scaled to half-height, arranged vertically with left eye on top.
+const AR_VIDEO_STEREO_MODE_ROW_INTERLACED            = $0200; ///< Device is left and right stereo images in a single frame with row interleaving, where pixels in even-numbered rows are sampled from the left eye, and pixels in odd-number rows from the right eye.
+const AR_VIDEO_STEREO_MODE_COLUMN_INTERLACED         = $0240; ///< Device is left and right stereo images in a single frame with column interleaving, where pixels in even-numbered columns are sampled from the left eye, and pixels in odd-number columns from the right eye.
+const AR_VIDEO_STEREO_MODE_ROW_AND_COLUMN_INTERLACED = $0280; ///< Device is left and right stereo images in a single frame with row and column interleaving, where pixels where the evenness/oddness of the row is the same as the column are sampled from the left eye, and the remaining pixels from the right eye.
+const AR_VIDEO_STEREO_MODE_ANAGLYPH_RG               = $02C0; ///< Device is left and right stereo images in a single frame, where both eyes are converted to mono and the left eye is carried in the red channel and the right eye in the green channel.
+const AR_VIDEO_STEREO_MODE_ANAGLYPH_RB               = $0300; ///< Device is left and right stereo images in a single frame, where both eyes are converted to mono and the left eye is carried in the red channel and the right eye in the blue channel.
+const AR_VIDEO_STEREO_MODE_RESERVED0                 = $0340; ///< Reserved for future use.
+const AR_VIDEO_STEREO_MODE_RESERVED1                 = $0380; ///< Reserved for future use.
+const AR_VIDEO_STEREO_MODE_RESERVED2                 = $03C0; ///< Reserved for future use.
 
 ///
 /// @brief Values for ARVideoSourceInfoT.flags.
 ///
-#define AR_VIDEO_SOURCE_INFO_FLAG_OFFLINE       0x0001      ///< 0 = unknown or not offline, 1 = offline.
-#define AR_VIDEO_SOURCE_INFO_FLAG_IN_USE        0x0002      ///< 0 = unknown or not in use, 1 = in use.
-#define AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC    0x0004      ///< 0 = open normally, 1 = open async.
-#define AR_VIDEO_SOURCE_INFO_POSITION_MASK      0x0038      ///< compare (value & AR_VIDEO_SOURCE_INFO_POSITION_MASK) against enums.
-#define AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK   0x03C0      ///< compare (value & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK) against enums.
+const AR_VIDEO_SOURCE_INFO_FLAG_OFFLINE     = $0001;      ///< 0 = unknown or not offline, 1 = offline.
+const AR_VIDEO_SOURCE_INFO_FLAG_IN_USE      = $0002;      ///< 0 = unknown or not in use, 1 = in use.
+const AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC  = $0004;      ///< 0 = open normally, 1 = open async.
+const AR_VIDEO_SOURCE_INFO_POSITION_MASK    = $0038;      ///< compare (value & AR_VIDEO_SOURCE_INFO_POSITION_MASK) against enums.
+const AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK = $03C0;      ///< compare (value & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK) against enums.
 
 ///
 /// @brief Values describing a video source.

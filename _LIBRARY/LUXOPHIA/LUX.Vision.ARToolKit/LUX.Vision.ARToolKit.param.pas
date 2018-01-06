@@ -62,22 +62,22 @@ uses LUX.Vision.ARToolKit.ar;
     @brief   Default version for functions accepting a "distortion function version" parameter.
     @details See function arParamObserv2Ideal() for discussion.
 *)
-#define AR_DIST_FUNCTION_VERSION_DEFAULT 4
+const AR_DIST_FUNCTION_VERSION_DEFAULT = 4;
 (*!
     @brief   Maximum version allowable for functions accepting a "distortion function version" parameter.
     @details See function arParamObserv2Ideal() for discussion.
 *)
-#define AR_DIST_FUNCTION_VERSION_MAX 4
+const AR_DIST_FUNCTION_VERSION_MAX = 4;
 (*!
     @brief   Maximum number of values in a distortion factor array.
     @details See function arParamObserv2Ideal() for discussion.
 *)
-#define AR_DIST_FACTOR_NUM_MAX 9
+const AR_DIST_FACTOR_NUM_MAX = 9;
 (*!
     @brief   Default padding added around a lookup-table based camera parameter.
     @details See function arParamLTCreate() for discussion.
 *)
-#define   AR_PARAM_LT_DEFAULT_OFFSET  15
+const AR_PARAM_LT_DEFAULT_OFFSET = 15;
 
 (*!
     @brief   Structure holding camera parameters, including image size, projection matrix and lens distortion parameters.

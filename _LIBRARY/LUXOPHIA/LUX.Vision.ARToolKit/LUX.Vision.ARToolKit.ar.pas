@@ -99,10 +99,10 @@ typedef double            ARdouble;
 {$ENDIF}
 
 #ifndef TRUE
-#  define TRUE 1
+  const TRUE  = 1;
 {$ENDIF}
 #ifndef FALSE
-#  define FALSE 0
+  const FALSE = 0;
 {$ENDIF}
 
 //{$IFDEF __cplusplus }
@@ -184,7 +184,7 @@ typedef enum {
     AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES ///< Heuristic-based rejection of troublesome matrix code which is often generated in error.
 } AR_MARKER_INFO_CUTOFF_PHASE;
 
-#define AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT 10
+const AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT = 10;
 extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT];
 
 (*!
@@ -287,16 +287,16 @@ typedef struct {
 //extern "C" {
 //{$ENDIF}
 
-#define AR_MATRIX_CODE_TYPE_SIZE_MASK 0x000000ff  ///< Mask value, bitwise-OR with matrix code type to find matrix code size.
-#define AR_MATRIX_CODE_TYPE_ECC_NONE 0x00000000   ///< No error detection or correction.
-#define AR_MATRIX_CODE_TYPE_ECC_PARITY 0x00000100 ///< Single-bit parity.
-#define AR_MATRIX_CODE_TYPE_ECC_HAMMING 0x00000200 ///< Hamming code with Hamming distance of 3.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___3 0x00000300 ///< BCH code with Hamming distance of 3.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___5 0x00000400 ///< BCH code with Hamming distance of 5.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___7 0x00000500 ///< BCH code with Hamming distance of 7.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___9 0x00000600 ///< BCH code with Hamming distance of 9.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___11 0x00000700 ///< BCH code with Hamming distance of 11.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___19 0x00000b00 ///< BCH code with Hamming distance of 19.
+const AR_MATRIX_CODE_TYPE_SIZE_MASK    = $000000ff; ///< Mask value, bitwise-OR with matrix code type to find matrix code size.
+const AR_MATRIX_CODE_TYPE_ECC_NONE     = $00000000; ///< No error detection or correction.
+const AR_MATRIX_CODE_TYPE_ECC_PARITY   = $00000100; ///< Single-bit parity.
+const AR_MATRIX_CODE_TYPE_ECC_HAMMING  = $00000200; ///< Hamming code with Hamming distance of 3.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___3  = $00000300; ///< BCH code with Hamming distance of 3.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___5  = $00000400; ///< BCH code with Hamming distance of 5.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___7  = $00000500; ///< BCH code with Hamming distance of 7.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___9  = $00000600; ///< BCH code with Hamming distance of 9.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___11 = $00000700; ///< BCH code with Hamming distance of 11.
+const AR_MATRIX_CODE_TYPE_ECC_BCH___19 = $00000b00; ///< BCH code with Hamming distance of 19.
 
 (*!
     @brief Values specifying the type of matrix code in use.
@@ -364,7 +364,7 @@ typedef struct {
     ICPHandleT          *icpHandle;
 } AR3DHandle;
 
-#define   AR_TRANS_MAT_IDENTITY            ICP_TRANS_MAT_IDENTITY
+const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
 
 (*!
     @brief   Structure holding state of an instance of the stereo pose estimator.
