@@ -230,7 +230,7 @@ typedef struct {
  *)
 typedef struct {
     AR_LABELING_LABEL_TYPE *labelImage;
-#if !AR_DISABLE_LABELING_DEBUG_MODE
+{$IF not AR_DISABLE_LABELING_DEBUG_MODE }
     ARUint8        *bwImage;
 {$ENDIF}
     int             label_num;
@@ -1093,7 +1093,7 @@ int arPattDetach(ARHandle *arHandle);
 
 (* ------------------------------ *)
 
-#if !AR_DISABLE_NON_CORE_FNS
+{$IF not AR_DISABLE_NON_CORE_FNS }
 int            arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
                             ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat,
                             int *x_coord, int *y_coord, int *vertex, ARdouble pattRatio,

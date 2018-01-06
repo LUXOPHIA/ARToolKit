@@ -405,7 +405,7 @@ AR_DLL_API int               arVideoGetCParamAsync  (void (*callback)(const ARPa
 
 AR_DLL_API int               arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat);
 AR_DLL_API const char       *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
-#if !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
+{$IF not AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT }
 AR_DLL_API int               arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality (* 0 to 100 *), const int flipV);
 {$ENDIF} // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 
@@ -514,7 +514,7 @@ AR_DLL_API int               ar2VideoGetCParam       (AR2VideoParamT *vid, ARPar
 AR_DLL_API int               ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata);
 
 
-#if TARGET_PLATFORM_ANDROID
+{$IF TARGET_PLATFORM_ANDROID }
 // JNI interface.
 jint ar2VideoPushInit(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
 jint ar2VideoPush1(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);

@@ -249,12 +249,12 @@ const AR_PIXEL_FORMAT_MAX = AR_PIXEL_FORMAT_NV21;
   {$DEFINE __linux }
 {$ENDIF}
 
-#if defined(__linux) && !defined(ANDROID)
+{$IF defined( __linux ) and not defined( ANDROID ) }
 
 {$DEFINE AR_CALLBACK }
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
-#  if (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || defined(__BIG_ENDIAN__)
+  {$IF ( __BYTE_ORDER__ = __ORDER_BIG_ENDIAN__ ) or defined( __BIG_ENDIAN__ ) }
     {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
     {$UNDEF AR_LITTLE_ENDIAN }
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
@@ -326,7 +326,7 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 {$DEFINE LIBARVIDEO_DYNAMIC }
 
 // Define _WINRT for support Windows Runtime platforms.
-#if defined(WINAPI_FAMILY)
+{$IF defined( WINAPI_FAMILY ) }
 #  if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP) // Windows Phone 8.1 and later.
 #    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
       {$DEFINE _WINRT }
@@ -366,7 +366,7 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 // Other Windows-only configuration.
 const HAVE_LIBJPEG = 1;
 
-#if defined(_M_IX86) || defined(_M_X64)
+{$IF defined( _M_IX86 ) or defined( _M_X64 ) }
   const HAVE_INTEL_SIMD = 1;
 #elif defined(_M_ARM)
   {$UNDEF HAVE_ARM_NEON } // MSVC doesn't support inline assembly on ARM platform.
@@ -389,10 +389,10 @@ const ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGRA;
 //    Note that Android NDK also defines __linux             
 //
 
-#if defined ANDROID
+{$IF defined( ANDROID ) }
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
-#  if (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || defined(__BIG_ENDIAN__)
+  {$IF ( __BYTE_ORDER__ = __ORDER_BIG_ENDIAN__ ) or defined( __BIG_ENDIAN__ ) }
     {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
     {$UNDEF AR_LITTLE_ENDIAN }
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
@@ -427,7 +427,7 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
 //
 //  For macOS                                             
 //
-#if __APPLE__
+{$IF __APPLE__ }
 
 #  include <TargetConditionals.h>
 #  include <AvailabilityMacros.h>
@@ -435,7 +435,7 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
   {$DEFINE AR_CALLBACK }
 
 // Endianness.
-#  if TARGET_RT_BIG_ENDIAN
+  {$IF TARGET_RT_BIG_ENDIAN }
     {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
     {$UNDEF AR_LITTLE_ENDIAN }
 #  elif TARGET_RT_LITTLE_ENDIAN
@@ -445,7 +445,7 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
 #    error
   {$ENDIF}
 
-#if TARGET_IPHONE_SIMULATOR
+{$IF TARGET_IPHONE_SIMULATOR }
 
 #error This release does not support the simulator. Please target an iOS device.
 {$DEFINE ARDOUBLE_IS_FLOAT }
@@ -516,7 +516,7 @@ const ARVIDEO_INPUT_IMAGE_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 // Setup AR_DEFAULT_PIXEL_FORMAT.
 //
  
-#if defined(ARVIDEO_INPUT_DEFAULT_DUMMY)
+{$IF defined( ARVIDEO_INPUT_DEFAULT_DUMMY ) }
   const AR_DEFAULT_PIXEL_FORMAT = ARVIDEO_INPUT_DUMMY_DEFAULT_PIXEL_FORMAT;
 #elif defined(ARVIDEO_INPUT_DEFAULT_V4L2)
   const AR_DEFAULT_PIXEL_FORMAT = ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT;
@@ -544,7 +544,7 @@ const ARVIDEO_INPUT_IMAGE_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 // If trying to minimize memory footprint, disable a few things.
 //
 
-#if AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
+{$IF AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT }
 const AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE = 1;
 const AR_DISABLE_NON_CORE_FNS              = 1;
 const AR_DISABLE_LABELING_DEBUG_MODE       = 1;
