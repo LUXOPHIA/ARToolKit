@@ -35,11 +35,11 @@
  *
  *)
 (*!
-	@file config.h
-	@brief ARToolKit core configuration.
-	@version 5.3.2
-	@details
-	@copyright 2015-2016 Daqri, LLC.
+    @file config.h
+    @brief ARToolKit core configuration.
+    @version 5.3.2
+    @details
+    @copyright 2015-2016 Daqri, LLC.
  *)
 
 
@@ -57,33 +57,33 @@
     The MAJOR version number defines non-backwards compatible
     changes in the ARToolKit API. Range: [0-99].
  *)
-#define AR_HEADER_VERSION_MAJOR		5
+#define AR_HEADER_VERSION_MAJOR        5
 
 (*@
     The MINOR version number defines additions to the ARToolKit
     API, or (occsasionally) other significant backwards-compatible
     changes in runtime functionality. Range: [0-99].
  *)
-#define AR_HEADER_VERSION_MINOR		4
+#define AR_HEADER_VERSION_MINOR        4
 
 (*@
     The TINY version number defines bug-fixes to existing
     functionality. Range: [0-99].
  *)
-#define AR_HEADER_VERSION_TINY		0
+#define AR_HEADER_VERSION_TINY        0
 
 (*@
     The BUILD version number will always be zero in releases,
     but may be non-zero in post-release development builds,
     version-control repository-sourced code, or other. Range: [0-99].
  *)
-#define AR_HEADER_VERSION_DEV		0
+#define AR_HEADER_VERSION_DEV        0
 
 (*@
     The string representation below must match the major, minor
     and tiny release numbers.
  *)
-#define AR_HEADER_VERSION_STRING	"5.4.0"
+#define AR_HEADER_VERSION_STRING    "5.4.0"
 
 (*@
     Convenience macros to enable use of certain ARToolKit header
@@ -113,13 +113,13 @@
 
 (*!
     @typedef AR_PIXEL_FORMAT
-	@brief ARToolKit pixel-format specifiers.
-	@details
-		ARToolKit functions can accept pixel data in a variety of formats.
-		This enumerations provides a set of constants you can use to request
-		data in a particular pixel format from an ARToolKit function that
-		returns data to you, or to specify that data you are providing to an
-		ARToolKit function is in a particular pixel format.
+    @brief ARToolKit pixel-format specifiers.
+    @details
+        ARToolKit functions can accept pixel data in a variety of formats.
+        This enumerations provides a set of constants you can use to request
+        data in a particular pixel format from an ARToolKit function that
+        returns data to you, or to specify that data you are providing to an
+        ARToolKit function is in a particular pixel format.
  *)
 typedef enum {
     (*@
@@ -132,56 +132,56 @@ typedef enum {
      *)
     AR_PIXEL_FORMAT_RGB = 0,
     (*@
-		Each pixel is represented by 24 bits. Eight bits per each Blue, Red, and
-		Green component. This is the native 24 bit format for the Win32 platform.
+        Each pixel is represented by 24 bits. Eight bits per each Blue, Red, and
+        Green component. This is the native 24 bit format for the Win32 platform.
      *)
-	AR_PIXEL_FORMAT_BGR,
+    AR_PIXEL_FORMAT_BGR,
     (*@
-		Each pixel is represented by 32 bits. Eight bits per each Red, Green,
-		Blue, and Alpha component.
+        Each pixel is represented by 32 bits. Eight bits per each Red, Green,
+        Blue, and Alpha component.
      *)
     AR_PIXEL_FORMAT_RGBA,
     (*@
-		Each pixel is represented by 32 bits. Eight bits per each Blue, Green,
-		Red, and Alpha component. This is the native 32 bit format for the Win32
-		and Mac Intel platforms.
+        Each pixel is represented by 32 bits. Eight bits per each Blue, Green,
+        Red, and Alpha component. This is the native 32 bit format for the Win32
+        and Mac Intel platforms.
      *)
     AR_PIXEL_FORMAT_BGRA,
     (*@
-		Each pixel is represented by 32 bits. Eight bits per each Alpha, Blue,
-		Green, and Red component. This is the native 32 bit format for the SGI
-		platform.
+        Each pixel is represented by 32 bits. Eight bits per each Alpha, Blue,
+        Green, and Red component. This is the native 32 bit format for the SGI
+        platform.
      *)
     AR_PIXEL_FORMAT_ABGR,
     (*@
-		Each pixel is represented by 8 bits of luminance information.
+        Each pixel is represented by 8 bits of luminance information.
      *)
     AR_PIXEL_FORMAT_MONO,
     (*@
-		Each pixel is represented by 32 bits. Eight bits per each Alpha, Red,
-		Green, and Blue component. This is the native 32 bit format for the Mac
-		PowerPC platform.
+        Each pixel is represented by 32 bits. Eight bits per each Alpha, Red,
+        Green, and Blue component. This is the native 32 bit format for the Mac
+        PowerPC platform.
      *)
     AR_PIXEL_FORMAT_ARGB,
     (*@
-		8-bit 4:2:2 Component Y'CbCr format. Each 16 bit pixel is represented
-		by an unsigned eight bit luminance component and two unsigned eight bit
-		chroma components. Each pair of pixels shares a common set of chroma
-		values. The components are ordered in memory; Cb, Y0, Cr, Y1. The
-		luminance components have a range of [16, 235], while the chroma value
-		has a range of [16, 240]. This is consistent with the CCIR601 spec.
-		This format is fairly prevalent on both Mac and Win32 platforms.
-		'2vuy' is the Apple QuickTime four-character code for this pixel format.
-		The equivalent Microsoft fourCC is 'UYVY'.
+        8-bit 4:2:2 Component Y'CbCr format. Each 16 bit pixel is represented
+        by an unsigned eight bit luminance component and two unsigned eight bit
+        chroma components. Each pair of pixels shares a common set of chroma
+        values. The components are ordered in memory; Cb, Y0, Cr, Y1. The
+        luminance components have a range of [16, 235], while the chroma value
+        has a range of [16, 240]. This is consistent with the CCIR601 spec.
+        This format is fairly prevalent on both Mac and Win32 platforms.
+        '2vuy' is the Apple QuickTime four-character code for this pixel format.
+        The equivalent Microsoft fourCC is 'UYVY'.
      *)
     AR_PIXEL_FORMAT_2vuy,
     (*@
-		8-bit 4:2:2 Component Y'CbCr format. Identical to the AR_PIXEL_FORMAT_2vuy except
-		each 16 bit word has been byte swapped. This results in a component
-		ordering of; Y0, Cb, Y1, Cr.
-		This is most prevalent yuv 4:2:2 format on both Mac and Win32 platforms.
-		'yuvs' is the Apple QuickTime four-character code for this pixel format.
-		The equivalent Microsoft fourCC is 'YUY2'.
+        8-bit 4:2:2 Component Y'CbCr format. Identical to the AR_PIXEL_FORMAT_2vuy except
+        each 16 bit word has been byte swapped. This results in a component
+        ordering of; Y0, Cb, Y1, Cr.
+        This is most prevalent yuv 4:2:2 format on both Mac and Win32 platforms.
+        'yuvs' is the Apple QuickTime four-character code for this pixel format.
+        The equivalent Microsoft fourCC is 'YUY2'.
      *)
     AR_PIXEL_FORMAT_yuvs,
     (*@

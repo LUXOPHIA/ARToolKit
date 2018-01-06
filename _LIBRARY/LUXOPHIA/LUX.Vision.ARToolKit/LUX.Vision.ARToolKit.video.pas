@@ -1,5 +1,5 @@
 ﻿(*
- *	video.h
+ *  video.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.

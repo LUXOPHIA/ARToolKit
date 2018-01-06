@@ -1,5 +1,5 @@
 ﻿(*
- *	param.h
+ *  param.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -104,8 +104,8 @@ typedef struct {
 } ARParam;
 
 typedef struct {
-	int dist_factor_num;
-	int ARParam_size;
+    int dist_factor_num;
+    int ARParam_size;
 } arParamVersionInfo_t;
 (*!
     @brief   Constant array with parameters applicable to each version of the camera parameter distortion function.
