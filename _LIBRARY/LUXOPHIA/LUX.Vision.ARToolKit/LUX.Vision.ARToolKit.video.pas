@@ -288,7 +288,7 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 #    define AR_DLL_API extern
   {$ENDIF}
 {$ELSE}
-#  define AR_DLL_API
+  {$DEFINE AR_DLL_API }
 {$ENDIF}
 
 #include <AR/videoLuma.h>

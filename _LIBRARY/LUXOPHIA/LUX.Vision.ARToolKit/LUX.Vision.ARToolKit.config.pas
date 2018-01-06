@@ -96,11 +96,11 @@ const AR_HEADER_VERSION_STRING = '5.4.0';
     Tiny version numbers (being bug-fix releases, by definition)
     are NOT included in the AR_HAVE_HEADER_VERSION_ system.
  *)
-#define AR_HAVE_HEADER_VERSION_5
-#define AR_HAVE_HEADER_VERSION_5_1
-#define AR_HAVE_HEADER_VERSION_5_2
-#define AR_HAVE_HEADER_VERSION_5_3
-#define AR_HAVE_HEADER_VERSION_5_4
+{$DEFINE AR_HAVE_HEADER_VERSION_5 }
+{$DEFINE AR_HAVE_HEADER_VERSION_5_1 }
+{$DEFINE AR_HAVE_HEADER_VERSION_5_2 }
+{$DEFINE AR_HAVE_HEADER_VERSION_5_3 }
+{$DEFINE AR_HAVE_HEADER_VERSION_5_4 }
 
 //
 // End version definitions.
@@ -246,37 +246,37 @@ const AR_PIXEL_FORMAT_MAX = AR_PIXEL_FORMAT_NV21;
 //
 
 {$IFDEF EMSCRIPTEN }
-#  define __linux
+  {$DEFINE __linux }
 {$ENDIF}
 
 #if defined(__linux) && !defined(ANDROID)
 
-#define AR_CALLBACK
+{$DEFINE AR_CALLBACK }
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
 #  if (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || defined(__BIG_ENDIAN__)
-#    define  AR_BIG_ENDIAN  // Most Significant Byte has greatest address in memory (ppc).
-#    undef   AR_LITTLE_ENDIAN
+    {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
+    {$UNDEF AR_LITTLE_ENDIAN }
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
-#    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (x86).
-#    define  AR_LITTLE_ENDIAN
+    {$UNDEF AR_BIG_ENDIAN }   // Least significant Byte has greatest address in memory (x86).
+    {$DEFINE AR_LITTLE_ENDIAN }
   {$ELSE}
-#    define  AR_LITTLE_ENDIAN
+    {$DEFINE AR_LITTLE_ENDIAN }
   {$ENDIF}
 
 // Input modules. This is edited by the configure script.
-#undef  ARVIDEO_INPUT_V4L2
-#undef  ARVIDEO_INPUT_1394CAM
-#undef  ARVIDEO_INPUT_GSTREAMER
-#undef  ARVIDEO_INPUT_IMAGE
-#define ARVIDEO_INPUT_DUMMY
+{$UNDEF ARVIDEO_INPUT_V4L2 }
+{$UNDEF ARVIDEO_INPUT_1394CAM }
+{$UNDEF ARVIDEO_INPUT_GSTREAMER }
+{$UNDEF ARVIDEO_INPUT_IMAGE }
+{$DEFINE ARVIDEO_INPUT_DUMMY }
 
 // Default input module. This is edited by the configure script.
-#undef  ARVIDEO_INPUT_DEFAULT_V4L2
-#undef  ARVIDEO_INPUT_DEFAULT_1394
-#undef  ARVIDEO_INPUT_DEFAULT_GSTREAMER
-#undef  ARVIDEO_INPUT_DEFAULT_IMAGE
-#undef  ARVIDEO_INPUT_DEFAULT_DUMMY
+{$UNDEF ARVIDEO_INPUT_DEFAULT_V4L2 }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_1394 }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_GSTREAMER }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_IMAGE }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_DUMMY }
 
 // Other Linux-only configuration.
 const HAVE_LIBJPEG    = 1;
@@ -296,11 +296,11 @@ const ARVIDEO_INPUT_V4L2_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGR;
 (* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_MONO *)
 (* #define  ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGB  *)
 const ARVIDEO_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_MONO;
-#undef   ARVIDEO_INPUT_1394CAM_USE_DRAGONFLY
-#undef   ARVIDEO_INPUT_1394CAM_USE_DF_EXPRESS
-#undef   ARVIDEO_INPUT_1394CAM_USE_FLEA
-#undef   ARVIDEO_INPUT_1394CAM_USE_FLEA_XGA
-#undef   ARVIDEO_INPUT_1394CAM_USE_DFK21AF04
+{$UNDEF ARVIDEO_INPUT_1394CAM_USE_DRAGONFLY }
+{$UNDEF ARVIDEO_INPUT_1394CAM_USE_DF_EXPRESS }
+{$UNDEF ARVIDEO_INPUT_1394CAM_USE_FLEA }
+{$UNDEF ARVIDEO_INPUT_1394CAM_USE_FLEA_XGA }
+{$UNDEF ARVIDEO_INPUT_1394CAM_USE_DFK21AF04 }
 {$ENDIF}
 
 {$IFDEF ARVIDEO_INPUT_GSTREAMER }
@@ -316,30 +316,30 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 
 // Include Windows API.
 {$IFNDEF WIN32_LEAN_AND_MEAN }
-#  define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
+  {$DEFINE WIN32_LEAN_AND_MEAN } // Exclude rarely-used stuff from Windows headers
 {$ENDIF}
 #include <sdkddkver.h> // Minimum supported version. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745.aspx
 #include <windows.h>
 
 #define AR_CALLBACK __stdcall
 #define strdup _strdup
-#define LIBARVIDEO_DYNAMIC
+{$DEFINE LIBARVIDEO_DYNAMIC }
 
 // Define _WINRT for support Windows Runtime platforms.
 #if defined(WINAPI_FAMILY)
 #  if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP) // Windows Phone 8.1 and later.
 #    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
-#      define _WINRT
-#      undef LIBARVIDEO_DYNAMIC
-#      define ARDOUBLE_IS_FLOAT
+      {$DEFINE _WINRT }
+      {$UNDEF LIBARVIDEO_DYNAMIC }
+      {$DEFINE ARDOUBLE_IS_FLOAT }
     {$ELSE}
 #      error ARToolKit for Windows Phone requires Windows Phone 8.1 or later. Please compile with Visual Studio 2013 or later with Windows Phone 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
     {$ENDIF}
 #  elif (WINAPI_FAMILY == WINAPI_FAMILY_PC_APP) // Windows Store 8.1 and later.
 #    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
-#      define _WINRT
-#      undef LIBARVIDEO_DYNAMIC
-#      define ARDOUBLE_IS_FLOAT
+      {$DEFINE _WINRT }
+      {$UNDEF LIBARVIDEO_DYNAMIC }
+      {$DEFINE ARDOUBLE_IS_FLOAT }
     {$ELSE}
 #      error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
     {$ENDIF}
@@ -348,20 +348,20 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 
 // Endianness.
 // Windows on x86, x86-64 and ARM all run little-endian.
-#undef   AR_BIG_ENDIAN
-#define  AR_LITTLE_ENDIAN
+{$UNDEF AR_BIG_ENDIAN }
+{$DEFINE AR_LITTLE_ENDIAN }
 
 // Input modules. This is edited by the configure script.
-#define ARVIDEO_INPUT_DUMMY
-#undef  ARVIDEO_INPUT_IMAGE
-#undef  ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION
-#undef  ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
+{$DEFINE ARVIDEO_INPUT_DUMMY }
+{$UNDEF ARVIDEO_INPUT_IMAGE }
+{$UNDEF ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION }
+{$UNDEF ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE }
 
 // Default input module. This is edited by the configure script.
-#undef  ARVIDEO_INPUT_DEFAULT_DUMMY
-#undef  ARVIDEO_INPUT_DEFAULT_IMAGE
-#undef  ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_FOUNDATION
-#undef  ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_CAPTURE
+{$UNDEF ARVIDEO_INPUT_DEFAULT_DUMMY }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_IMAGE }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_FOUNDATION }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_CAPTURE }
 
 // Other Windows-only configuration.
 const HAVE_LIBJPEG = 1;
@@ -369,7 +369,7 @@ const HAVE_LIBJPEG = 1;
 #if defined(_M_IX86) || defined(_M_X64)
   const HAVE_INTEL_SIMD = 1;
 #elif defined(_M_ARM)
-#  undef HAVE_ARM_NEON // MSVC doesn't support inline assembly on ARM platform.
+  {$UNDEF HAVE_ARM_NEON } // MSVC doesn't support inline assembly on ARM platform.
 {$ENDIF}
 
 {$ENDIF} // _WIN32
@@ -393,24 +393,24 @@ const ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGRA;
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
 #  if (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || defined(__BIG_ENDIAN__)
-#    define  AR_BIG_ENDIAN  // Most Significant Byte has greatest address in memory (ppc).
-#    undef   AR_LITTLE_ENDIAN
+    {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
+    {$UNDEF AR_LITTLE_ENDIAN }
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
-#    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (x86).
-#    define  AR_LITTLE_ENDIAN
+    {$UNDEF AR_BIG_ENDIAN }   // Least significant Byte has greatest address in memory (x86).
+    {$DEFINE AR_LITTLE_ENDIAN }
   {$ELSE}
-#    define  AR_LITTLE_ENDIAN
+    {$DEFINE AR_LITTLE_ENDIAN }
   {$ENDIF}
 
-#define AR_CALLBACK
-#define ARDOUBLE_IS_FLOAT
+{$DEFINE AR_CALLBACK }
+{$DEFINE ARDOUBLE_IS_FLOAT }
 
-#undef  ARVIDEO_INPUT_DUMMY
-#define ARVIDEO_INPUT_ANDROID
-#undef  ARVIDEO_INPUT_IMAGE
-#undef  ARVIDEO_INPUT_DEFAULT_DUMMY
-#define ARVIDEO_INPUT_DEFAULT_ANDROID
-#undef  ARVIDEO_INPUT_DEFAULT_IMAGE
+{$UNDEF ARVIDEO_INPUT_DUMMY }
+{$DEFINE ARVIDEO_INPUT_ANDROID }
+{$UNDEF ARVIDEO_INPUT_IMAGE }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_DUMMY }
+{$DEFINE ARVIDEO_INPUT_DEFAULT_ANDROID }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_IMAGE }
 
 const HAVE_LIBJPEG      = 1;
 const USE_OPENGL_ES     = 1;
@@ -432,15 +432,15 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
 #  include <TargetConditionals.h>
 #  include <AvailabilityMacros.h>
 
-#  define AR_CALLBACK
+  {$DEFINE AR_CALLBACK }
 
 // Endianness.
 #  if TARGET_RT_BIG_ENDIAN
-#    define  AR_BIG_ENDIAN  // Most Significant Byte has greatest address in memory (ppc).
-#    undef   AR_LITTLE_ENDIAN
+    {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
+    {$UNDEF AR_LITTLE_ENDIAN }
 #  elif TARGET_RT_LITTLE_ENDIAN
-#    undef   AR_BIG_ENDIAN
-#    define  AR_LITTLE_ENDIAN
+    {$UNDEF AR_BIG_ENDIAN }
+    {$DEFINE AR_LITTLE_ENDIAN }
   {$ELSE}
 #    error
   {$ENDIF}
@@ -448,19 +448,19 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
 #if TARGET_IPHONE_SIMULATOR
 
 #error This release does not support the simulator. Please target an iOS device.
-#define ARDOUBLE_IS_FLOAT
-#define ARVIDEO_INPUT_DUMMY
-#define ARVIDEO_INPUT_DEFAULT_DUMMY
+{$DEFINE ARDOUBLE_IS_FLOAT }
+{$DEFINE ARVIDEO_INPUT_DUMMY }
+{$DEFINE ARVIDEO_INPUT_DEFAULT_DUMMY }
 
 #elif TARGET_OS_IPHONE
 
-#define ARDOUBLE_IS_FLOAT
-#define ARVIDEO_INPUT_AVFOUNDATION
-#undef  ARVIDEO_INPUT_DUMMY
-#define ARVIDEO_INPUT_IMAGE
-#define ARVIDEO_INPUT_DEFAULT_AVFOUNDATION
-#undef  ARVIDEO_INPUT_DEFAULT_DUMMY
-#undef  ARVIDEO_INPUT_DEFAULT_IMAGE
+{$DEFINE ARDOUBLE_IS_FLOAT }
+{$DEFINE ARVIDEO_INPUT_AVFOUNDATION }
+{$UNDEF ARVIDEO_INPUT_DUMMY }
+{$DEFINE ARVIDEO_INPUT_IMAGE }
+{$DEFINE ARVIDEO_INPUT_DEFAULT_AVFOUNDATION }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_DUMMY }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_IMAGE }
 const HAVE_LIBJPEG  = 1;
 const USE_OPENGL_ES = 1;
 {$IFDEF __LP64__ }
@@ -472,12 +472,12 @@ const USE_CPARAM_SEARCH = 1;
 
 #elif TARGET_OS_MAC
 
-#define ARVIDEO_INPUT_AVFOUNDATION
-#define ARVIDEO_INPUT_DUMMY
-#define ARVIDEO_INPUT_IMAGE
-#define ARVIDEO_INPUT_DEFAULT_AVFOUNDATION
-#undef  ARVIDEO_INPUT_DEFAULT_DUMMY
-#undef  ARVIDEO_INPUT_DEFAULT_IMAGE
+{$DEFINE ARVIDEO_INPUT_AVFOUNDATION }
+{$DEFINE ARVIDEO_INPUT_DUMMY }
+{$DEFINE ARVIDEO_INPUT_IMAGE }
+{$DEFINE ARVIDEO_INPUT_DEFAULT_AVFOUNDATION }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_DUMMY }
+{$UNDEF ARVIDEO_INPUT_DEFAULT_IMAGE }
 const HAVE_LIBJPEG    = 1;
 const HAVE_INTEL_SIMD = 1;
 
@@ -496,7 +496,7 @@ const ARVIDEO_INPUT_AVFOUNDATION_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGRA;
 //
 
 {$IFDEF EMSCRIPTEN }
-#define ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN
+{$DEFINE ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN }
 const ARVIDEO_INPUT_EMSCRIPTEN_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGBA;
 {$ENDIF}
 
