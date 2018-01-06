@@ -121,117 +121,117 @@ const AR_HEADER_VERSION_STRING = '5.4.0';
         returns data to you, or to specify that data you are providing to an
         ARToolKit function is in a particular pixel format.
  *)
-typedef enum {
-    (*@
-        Value indicating pixel format is invalid or unset.
-     *)
-    AR_PIXEL_FORMAT_INVALID = -1,
-    (*@
-        Each pixel is represented by 24 bits. Eight bits per each Red, Green,
-        and Blue component. This is the native 24 bit format for the Mac platform.
-     *)
-    AR_PIXEL_FORMAT_RGB = 0,
-    (*@
-        Each pixel is represented by 24 bits. Eight bits per each Blue, Red, and
-        Green component. This is the native 24 bit format for the Win32 platform.
-     *)
-    AR_PIXEL_FORMAT_BGR,
-    (*@
-        Each pixel is represented by 32 bits. Eight bits per each Red, Green,
-        Blue, and Alpha component.
-     *)
-    AR_PIXEL_FORMAT_RGBA,
-    (*@
-        Each pixel is represented by 32 bits. Eight bits per each Blue, Green,
-        Red, and Alpha component. This is the native 32 bit format for the Win32
-        and Mac Intel platforms.
-     *)
-    AR_PIXEL_FORMAT_BGRA,
-    (*@
-        Each pixel is represented by 32 bits. Eight bits per each Alpha, Blue,
-        Green, and Red component. This is the native 32 bit format for the SGI
-        platform.
-     *)
-    AR_PIXEL_FORMAT_ABGR,
-    (*@
-        Each pixel is represented by 8 bits of luminance information.
-     *)
-    AR_PIXEL_FORMAT_MONO,
-    (*@
-        Each pixel is represented by 32 bits. Eight bits per each Alpha, Red,
-        Green, and Blue component. This is the native 32 bit format for the Mac
-        PowerPC platform.
-     *)
-    AR_PIXEL_FORMAT_ARGB,
-    (*@
-        8-bit 4:2:2 Component Y'CbCr format. Each 16 bit pixel is represented
-        by an unsigned eight bit luminance component and two unsigned eight bit
-        chroma components. Each pair of pixels shares a common set of chroma
-        values. The components are ordered in memory; Cb, Y0, Cr, Y1. The
-        luminance components have a range of [16, 235], while the chroma value
-        has a range of [16, 240]. This is consistent with the CCIR601 spec.
-        This format is fairly prevalent on both Mac and Win32 platforms.
-        '2vuy' is the Apple QuickTime four-character code for this pixel format.
-        The equivalent Microsoft fourCC is 'UYVY'.
-     *)
-    AR_PIXEL_FORMAT_2vuy,
-    (*@
-        8-bit 4:2:2 Component Y'CbCr format. Identical to the AR_PIXEL_FORMAT_2vuy except
-        each 16 bit word has been byte swapped. This results in a component
-        ordering of; Y0, Cb, Y1, Cr.
-        This is most prevalent yuv 4:2:2 format on both Mac and Win32 platforms.
-        'yuvs' is the Apple QuickTime four-character code for this pixel format.
-        The equivalent Microsoft fourCC is 'YUY2'.
-     *)
-    AR_PIXEL_FORMAT_yuvs,
-    (*@
-        A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
-        information in bits 15-11, 6 bits of green color information in bits 10-5,
-        and 5 bits of blue color information in bits 4-0. Byte ordering is big-endian.
-     *)
-    AR_PIXEL_FORMAT_RGB_565,
-    (*@
-        A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
-        information in bits 15-11, 5 bits of green color information in bits 10-6,
-        5 bits of blue color information in bits 5-1, and a single alpha bit in bit 0.
-        Byte ordering is big-endian.
-     *)
-    AR_PIXEL_FORMAT_RGBA_5551,
-    (*@
-        A packed-pixel format. Each 16 bit pixel consists of 4 bits of red color
-        information in bits 15-12, 6 bits of green color information in bits 11-8,
-        4 bits of blue color information in bits 7-4, and 4 bits of alpha information
-        in bits 3-0. Byte ordering is big-endian.
-     *)
-    AR_PIXEL_FORMAT_RGBA_4444,
-    (*@
-         8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
-         by 4 unsigned eight bit luminance values and two unsigned eight bit
-         chroma values. The chroma plane and luma plane are separated in memory. The
-         luminance components have a range of [16, 235], while the chroma value
-         has a range of [16, 240]. This is consistent with the CCIR601 spec.
-         '420v' is the Apple Core Video four-character code for this pixel format.
-     *)
-    AR_PIXEL_FORMAT_420v,
-    (*@
-         8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
-         by 4 unsigned eight bit luminance components and two unsigned eight bit
-         chroma components. The chroma plane and luma plane are separated in memory. The
-         luminance components have a range of [0, 255], while the chroma value
-         has a range of [1, 255].
-         '420f' is the Apple Core Video four-character code for this pixel format.
-         The equivalent Microsoft fourCC is 'NV12'.
-     *)
-    AR_PIXEL_FORMAT_420f,
-    (*@
-        8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
-        by 4 unsigned eight bit luminance components and two unsigned eight bit
-        chroma components. The chroma plane and luma plane are separated in memory. The
-        luminance components have a range of [0, 255], while the chroma value
-        has a range of [1, 255].
-     *)
-    AR_PIXEL_FORMAT_NV21
-} AR_PIXEL_FORMAT;
+type T_AR_PIXEL_FORMAT = (
+       (*@
+           Value indicating pixel format is invalid or unset.
+        *)
+       AR_PIXEL_FORMAT_INVALID = -1,
+       (*@
+           Each pixel is represented by 24 bits. Eight bits per each Red, Green,
+           and Blue component. This is the native 24 bit format for the Mac platform.
+        *)
+       AR_PIXEL_FORMAT_RGB = 0,
+       (*@
+           Each pixel is represented by 24 bits. Eight bits per each Blue, Red, and
+           Green component. This is the native 24 bit format for the Win32 platform.
+        *)
+       AR_PIXEL_FORMAT_BGR,
+       (*@
+           Each pixel is represented by 32 bits. Eight bits per each Red, Green,
+           Blue, and Alpha component.
+        *)
+       AR_PIXEL_FORMAT_RGBA,
+       (*@
+           Each pixel is represented by 32 bits. Eight bits per each Blue, Green,
+           Red, and Alpha component. This is the native 32 bit format for the Win32
+           and Mac Intel platforms.
+        *)
+       AR_PIXEL_FORMAT_BGRA,
+       (*@
+           Each pixel is represented by 32 bits. Eight bits per each Alpha, Blue,
+           Green, and Red component. This is the native 32 bit format for the SGI
+           platform.
+        *)
+       AR_PIXEL_FORMAT_ABGR,
+       (*@
+           Each pixel is represented by 8 bits of luminance information.
+        *)
+       AR_PIXEL_FORMAT_MONO,
+       (*@
+           Each pixel is represented by 32 bits. Eight bits per each Alpha, Red,
+           Green, and Blue component. This is the native 32 bit format for the Mac
+           PowerPC platform.
+        *)
+       AR_PIXEL_FORMAT_ARGB,
+       (*@
+           8-bit 4:2:2 Component Y'CbCr format. Each 16 bit pixel is represented
+           by an unsigned eight bit luminance component and two unsigned eight bit
+           chroma components. Each pair of pixels shares a common set of chroma
+           values. The components are ordered in memory; Cb, Y0, Cr, Y1. The
+           luminance components have a range of [16, 235], while the chroma value
+           has a range of [16, 240]. This is consistent with the CCIR601 spec.
+           This format is fairly prevalent on both Mac and Win32 platforms.
+           '2vuy' is the Apple QuickTime four-character code for this pixel format.
+           The equivalent Microsoft fourCC is 'UYVY'.
+        *)
+       AR_PIXEL_FORMAT_2vuy,
+       (*@
+           8-bit 4:2:2 Component Y'CbCr format. Identical to the AR_PIXEL_FORMAT_2vuy except
+           each 16 bit word has been byte swapped. This results in a component
+           ordering of; Y0, Cb, Y1, Cr.
+           This is most prevalent yuv 4:2:2 format on both Mac and Win32 platforms.
+           'yuvs' is the Apple QuickTime four-character code for this pixel format.
+           The equivalent Microsoft fourCC is 'YUY2'.
+        *)
+       AR_PIXEL_FORMAT_yuvs,
+       (*@
+           A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
+           information in bits 15-11, 6 bits of green color information in bits 10-5,
+           and 5 bits of blue color information in bits 4-0. Byte ordering is big-endian.
+        *)
+       AR_PIXEL_FORMAT_RGB_565,
+       (*@
+           A packed-pixel format. Each 16 bit pixel consists of 5 bits of red color
+           information in bits 15-11, 5 bits of green color information in bits 10-6,
+           5 bits of blue color information in bits 5-1, and a single alpha bit in bit 0.
+           Byte ordering is big-endian.
+        *)
+       AR_PIXEL_FORMAT_RGBA_5551,
+       (*@
+           A packed-pixel format. Each 16 bit pixel consists of 4 bits of red color
+           information in bits 15-12, 6 bits of green color information in bits 11-8,
+           4 bits of blue color information in bits 7-4, and 4 bits of alpha information
+           in bits 3-0. Byte ordering is big-endian.
+        *)
+       AR_PIXEL_FORMAT_RGBA_4444,
+       (*@
+            8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
+            by 4 unsigned eight bit luminance values and two unsigned eight bit
+            chroma values. The chroma plane and luma plane are separated in memory. The
+            luminance components have a range of [16, 235], while the chroma value
+            has a range of [16, 240]. This is consistent with the CCIR601 spec.
+            '420v' is the Apple Core Video four-character code for this pixel format.
+        *)
+       AR_PIXEL_FORMAT_420v,
+       (*@
+            8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
+            by 4 unsigned eight bit luminance components and two unsigned eight bit
+            chroma components. The chroma plane and luma plane are separated in memory. The
+            luminance components have a range of [0, 255], while the chroma value
+            has a range of [1, 255].
+            '420f' is the Apple Core Video four-character code for this pixel format.
+            The equivalent Microsoft fourCC is 'NV12'.
+        *)
+       AR_PIXEL_FORMAT_420f,
+       (*@
+           8-bit 4:2:0 Component Y'CbCr format. Each 2x2 pixel block is represented
+           by 4 unsigned eight bit luminance components and two unsigned eight bit
+           chroma components. The chroma plane and luma plane are separated in memory. The
+           luminance components have a range of [0, 255], while the chroma value
+           has a range of [1, 255].
+        *)
+       AR_PIXEL_FORMAT_NV21
+     );
 const AR_PIXEL_FORMAT_UYVY = AR_PIXEL_FORMAT_2vuy;
 const AR_PIXEL_FORMAT_YUY2 = AR_PIXEL_FORMAT_yuvs;
 
@@ -318,30 +318,30 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 {$IFNDEF WIN32_LEAN_AND_MEAN }
   {$DEFINE WIN32_LEAN_AND_MEAN } // Exclude rarely-used stuff from Windows headers
 {$ENDIF}
-#include <sdkddkver.h> // Minimum supported version. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745.aspx
-#include <windows.h>
+//#include <sdkddkver.h> // Minimum supported version. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745.aspx
+//#include <windows.h>
 
-#define AR_CALLBACK __stdcall
-#define strdup _strdup
+//#define AR_CALLBACK __stdcall
+//#define strdup _strdup
 {$DEFINE LIBARVIDEO_DYNAMIC }
 
 // Define _WINRT for support Windows Runtime platforms.
 {$IF defined( WINAPI_FAMILY ) }
-#  if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP) // Windows Phone 8.1 and later.
-#    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
+  {$IF ( WINAPI_FAMILY = WINAPI_FAMILY_PHONE_APP) } // Windows Phone 8.1 and later.
+    {$IF ( _WIN32_WINNT >= $0603 ) } // (_WIN32_WINNT_WINBLUE)
       {$DEFINE _WINRT }
       {$UNDEF LIBARVIDEO_DYNAMIC }
       {$DEFINE ARDOUBLE_IS_FLOAT }
     {$ELSE}
-#      error ARToolKit for Windows Phone requires Windows Phone 8.1 or later. Please compile with Visual Studio 2013 or later with Windows Phone 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
+      //#error ARToolKit for Windows Phone requires Windows Phone 8.1 or later. Please compile with Visual Studio 2013 or later with Windows Phone 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
     {$ENDIF}
-#  elif (WINAPI_FAMILY == WINAPI_FAMILY_PC_APP) // Windows Store 8.1 and later.
-#    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
+  {$ELSEIF ( WINAPI_FAMILY = WINAPI_FAMILY_PC_APP ) } // Windows Store 8.1 and later.
+    {$IF ( _WIN32_WINNT >= $0603 ) } // (_WIN32_WINNT_WINBLUE)
       {$DEFINE _WINRT }
       {$UNDEF LIBARVIDEO_DYNAMIC }
       {$DEFINE ARDOUBLE_IS_FLOAT }
     {$ELSE}
-#      error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
+      //#error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
     {$ENDIF}
   {$ENDIF}
 {$ENDIF}
@@ -429,8 +429,8 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
 //
 {$IF __APPLE__ }
 
-#  include <TargetConditionals.h>
-#  include <AvailabilityMacros.h>
+  //#include <TargetConditionals.h>
+  //#include <AvailabilityMacros.h>
 
   {$DEFINE AR_CALLBACK }
 
@@ -442,12 +442,12 @@ const ARVIDEO_INPUT_ANDROID_PIXEL_FORMAT = AR_PIXEL_FORMAT_NV21;
     {$UNDEF AR_BIG_ENDIAN }
     {$DEFINE AR_LITTLE_ENDIAN }
   {$ELSE}
-#    error
+    //#error
   {$ENDIF}
 
 {$IF TARGET_IPHONE_SIMULATOR }
 
-#error This release does not support the simulator. Please target an iOS device.
+//#error This release does not support the simulator. Please target an iOS device.
 {$DEFINE ARDOUBLE_IS_FLOAT }
 {$DEFINE ARVIDEO_INPUT_DUMMY }
 {$DEFINE ARVIDEO_INPUT_DEFAULT_DUMMY }
@@ -537,7 +537,7 @@ const ARVIDEO_INPUT_IMAGE_DEFAULT_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 {$ELSEIF defined( ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN ) }
   const AR_DEFAULT_PIXEL_FORMAT = ARVIDEO_INPUT_EMSCRIPTEN_PIXEL_FORMAT;
 {$ELSE}
-#  error
+//#  error
 {$ENDIF}
 
 //
