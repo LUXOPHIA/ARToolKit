@@ -98,10 +98,10 @@ typedef float             ARdouble;
 typedef double            ARdouble;
 {$ENDIF}
 
-#ifndef TRUE
+{$IFNDEF TRUE }
   const TRUE  = 1;
 {$ENDIF}
-#ifndef FALSE
+{$IFNDEF FALSE }
   const FALSE = 0;
 {$ENDIF}
 
@@ -1672,7 +1672,7 @@ char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAV
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
 {$ENDIF}
 
-#ifndef _WINRT
+{$IFNDEF _WINRT }
 (*!
     @brief   Change to the resources directory using the specified behavior.
     @details

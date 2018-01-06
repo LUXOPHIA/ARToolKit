@@ -315,7 +315,7 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 {$IFDEF _WIN32 }
 
 // Include Windows API.
-#ifndef WIN32_LEAN_AND_MEAN
+{$IFNDEF WIN32_LEAN_AND_MEAN }
 #  define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
 {$ENDIF}
 #include <sdkddkver.h> // Minimum supported version. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745.aspx
