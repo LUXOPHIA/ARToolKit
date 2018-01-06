@@ -1,4 +1,6 @@
-﻿(*
+﻿unit LUX.Vision.ARToolKit.videoConfig;
+
+(*
  *  videoConfig.h
  *  ARToolKit5
  *
@@ -35,8 +37,7 @@
  *
  *)
 
-#ifndef AR_VIDEO_CONFIG_H
-#define AR_VIDEO_CONFIG_H
+interface //#################################################################### ■
 
 #include <AR/config.h>
 
@@ -168,4 +169,7 @@ enum {
 #ifdef  __cplusplus
 }
 #endif
-#endif // !AR_VIDEO_CONFIG_H
+
+implementation //############################################################### ■
+
+end. //######################################################################### ■

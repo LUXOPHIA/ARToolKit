@@ -1,4 +1,6 @@
-﻿(*
+﻿unit LUX.Vision.ARToolKit.param;
+
+(*
  *  param.h
  *  ARToolKit5
  *
@@ -47,8 +49,7 @@
  *
  *******************************************************)
 
-#ifndef AR_PARAM_H
-#define AR_PARAM_H
+interface //#################################################################### ■
 
 #include <AR/ar.h>
 
@@ -443,4 +444,7 @@ int         arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox,
 #ifdef __cplusplus
 }
 #endif
-#endif
+
+implementation //############################################################### ■
+
+end. //######################################################################### ■

@@ -1,4 +1,6 @@
-﻿(*
+﻿unit LUX.Vision.ARToolKit.config;
+
+(*
  *  config.h
  *  ARToolKit5
  *
@@ -42,9 +44,7 @@
     @copyright 2015-2016 Daqri, LLC.
  *)
 
-
-#ifndef AR_CONFIG0_H
-#define AR_CONFIG0_H
+interface //#################################################################### ■
 
 //
 // As of version 2.72 and 4.1, ARToolKit supports an OpenGL-like
@@ -550,4 +550,6 @@ typedef enum {
 #define AR_DISABLE_LABELING_DEBUG_MODE 1
 #endif
 
-#endif // !AR_CONFIG0_H
+implementation //############################################################### ■
+
+end. //######################################################################### ■

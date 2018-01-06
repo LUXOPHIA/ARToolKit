@@ -1,4 +1,6 @@
-﻿(*
+﻿unit LUX.Vision.ARToolKit.video;
+
+(*
  *  video.h
  *  ARToolKit5
  *
@@ -46,8 +48,7 @@
  *
  *)
 
-#ifndef AR_VIDEO_H
-#define AR_VIDEO_H
+interface //#################################################################### ■
 
 #include <AR/ar.h>
 #include <AR/videoConfig.h>
@@ -532,4 +533,7 @@ jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj);
 #ifdef  __cplusplus
 }
 #endif
-#endif // !AR_VIDEO_H
+
+implementation //############################################################### ■
+
+end. //######################################################################### ■
