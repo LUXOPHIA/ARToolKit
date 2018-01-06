@@ -65,7 +65,8 @@ interface //####################################################################
 //#include <stdlib.h>
 //#include <stdint.h>
 //#include <string.h>
-uses LUX.Vision.ARToolKit.config,
+uses LUX.Code.C,
+     LUX.Vision.ARToolKit.config,
      LUX.Vision.ARToolKit.arConfig;
 //{$IFDEF __ANDROID__ }
 //#  include <jni.h>
@@ -85,32 +86,32 @@ uses LUX.Vision.ARToolKit.config,
 //{ if( ((V) = (T *)calloc( (S), sizeof(T) )) == NULL ) \
 //{ARLOGe("Out of memory!!\n"); exit(1);} }
 
-typedef char              ARInt8;
-typedef short             ARInt16;
-typedef int               ARInt32;
-typedef unsigned char     ARUint8;
-typedef unsigned short    ARUint16;
-typedef unsigned int      ARUint32;
-typedef float             ARfloat;
+type T_ARInt8   = T_char;
+type T_ARInt16  = T_short;
+type T_ARInt32  = T_int;
+type T_ARUint8  = T_unsigned_char;
+type T_ARUint16 = T_unsigned_short;
+type T_ARUint32 = T_unsigned_int;
+type T_ARfloat  = T_float;
 {$IFDEF ARDOUBLE_IS_FLOAT }
-typedef float             ARdouble;
+type T_ARdouble = T_float;
 {$ELSE}
-typedef double            ARdouble;
+type T_ARdouble = T_double;
 {$ENDIF}
 
-{$IFNDEF TRUE }
-  const TRUE  = 1;
-{$ENDIF}
-{$IFNDEF FALSE }
-  const FALSE = 0;
-{$ENDIF}
+//{$IFNDEF TRUE }
+//  const TRUE  = 1;
+//{$ENDIF}
+//{$IFNDEF FALSE }
+//  const FALSE = 0;
+//{$ENDIF}
 
 //{$IFDEF __cplusplus }
 //}
 //{$ENDIF}
 
-#include <AR/matrix.h>
-#include <AR/icp.h>
+//#include <AR/matrix.h>
+//#include <AR/icp.h>
 
 //{$IFDEF __cplusplus }
 //extern "C" {
@@ -133,7 +134,7 @@ typedef struct {
 typedef struct {
     ARUint8            *buff;           ///< A pointer to the packed video data for this video frame. The video data pixel format is as specified by arVideoGetPixelFormat(). For multi-planar frames, this pointer is a copy of bufPlanes[0].
     ARUint8           **bufPlanes;      ///< For multi-planar video frames, this must be an array of length bufPlaneCount of (ARUint8*), into which will be copied pointers to the packed video data for each plane. For single-plane formats, this will be NULL.
-    unsigned int        bufPlaneCount;  ///< For multi-planar video frames, this is the number of frame planes. For single-plane formats, this will be 0.
+    unsigned_int        bufPlaneCount;  ///< For multi-planar video frames, this is the number of frame planes. For single-plane formats, this will be 0.
     ARUint8            *buffLuma;       ///< A pointer to a luminance-only version of the image. For luminance-only video formats this pointer is a copy of buff. For multi-planar formats which include a luminance-only plane, this pointer is a copy of one of the bufPlanes[] pointers. In all other cases, this pointer points to a buffer containing a copy of the video frame converted to luminance only.
     int                 fillFlag;       ///< Set non-zero when buff is valid.
     AR2VideoTimestampT  time;           ///< Time at which buff was filled.

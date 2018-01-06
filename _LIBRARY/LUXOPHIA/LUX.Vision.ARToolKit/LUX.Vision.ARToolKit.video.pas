@@ -50,32 +50,33 @@
 
 interface //#################################################################### ■
 
-uses LUX.Vision.ARToolKit.ar,
+uses LUX.Code.C,
+     LUX.Vision.ARToolKit.ar,
      LUX.Vision.ARToolKit.videoConfig;
 //#include <limits.h>
 
-typedef enum {
-    AR_VIDEO_MODULE_DUMMY              = 0,
-    AR_VIDEO_MODULE_RESERVED1          = 1,
-    AR_VIDEO_MODULE_RESERVED2          = 2,
-    AR_VIDEO_MODULE_1394               = 3,
-    AR_VIDEO_MODULE_RESERVED4          = 4,
-    AR_VIDEO_MODULE_RESERVED5          = 5,
-    AR_VIDEO_MODULE_RESERVED6          = 6,
-    AR_VIDEO_MODULE_RESERVED7          = 7,
-    AR_VIDEO_MODULE_RESERVED8          = 8,
-    AR_VIDEO_MODULE_RESERVED9          = 9,
-    AR_VIDEO_MODULE_RESERVED10         = 10,
-    AR_VIDEO_MODULE_GSTREAMER          = 11,
-    AR_VIDEO_MODULE_AVFOUNDATION       = 12,
-    AR_VIDEO_MODULE_RESERVED13         = 13,
-    AR_VIDEO_MODULE_IMAGE              = 14,
-    AR_VIDEO_MODULE_ANDROID            = 15,
-    AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION = 16,
-    AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE = 17,
-    AR_VIDEO_MODULE_V4L2               = 18,
-    AR_VIDEO_MODULE_MAX                = 18,
-} AR_VIDEO_MODULE;
+type T_AR_VIDEO_MODULE = (
+       AR_VIDEO_MODULE_DUMMY                    = 0,
+       AR_VIDEO_MODULE_RESERVED1                = 1,
+       AR_VIDEO_MODULE_RESERVED2                = 2,
+       AR_VIDEO_MODULE_1394                     = 3,
+       AR_VIDEO_MODULE_RESERVED4                = 4,
+       AR_VIDEO_MODULE_RESERVED5                = 5,
+       AR_VIDEO_MODULE_RESERVED6                = 6,
+       AR_VIDEO_MODULE_RESERVED7                = 7,
+       AR_VIDEO_MODULE_RESERVED8                = 8,
+       AR_VIDEO_MODULE_RESERVED9                = 9,
+       AR_VIDEO_MODULE_RESERVED10               = 10,
+       AR_VIDEO_MODULE_GSTREAMER                = 11,
+       AR_VIDEO_MODULE_AVFOUNDATION             = 12,
+       AR_VIDEO_MODULE_RESERVED13               = 13,
+       AR_VIDEO_MODULE_IMAGE                    = 14,
+       AR_VIDEO_MODULE_ANDROID                  = 15,
+       AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION = 16,
+       AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE    = 17,
+       AR_VIDEO_MODULE_V4L2                     = 18,
+       AR_VIDEO_MODULE_MAX                      = 18
+     );
 
 //
 // arVideoParamGet/arVideoParamSet names.
@@ -148,72 +149,72 @@ const AR_VIDEO_FOCUS_MODE_MANUAL            = 3;
 ///
 /// @brief Values returned by arVideoParamGeti(AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE, ...)
 ///
-typedef enum {
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE3G = 1,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE3GS,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE4,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPODTOUCH4,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD2,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD3,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE_GENERIC,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPOD_GENERIC,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD_GENERIC,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE4S,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_APPLETV_GENERIC,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPODTOUCH5,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD4,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5C,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5S,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADAIR,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI2,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI3,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI4,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADAIR2,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6PLUS,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6S,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6SPLUS,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONESE,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADPRO129,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE7,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE7PLUS,
-    AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADPRO97,
-} AR_VIDEO_AVFOUNDATION_IOS_DEVICE;
+type T_AR_VIDEO_AVFOUNDATION_IOS_DEVICE = (
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE3G        = 1,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE3GS          ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE4            ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPODTOUCH4         ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD2              ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD3              ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE_GENERIC     ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPOD_GENERIC       ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD_GENERIC       ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE4S           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_APPLETV_GENERIC    ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5            ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPODTOUCH5         ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPAD4              ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5C           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE5S           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADAIR            ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI2          ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI3          ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADMINI4          ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADAIR2           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6            ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6PLUS        ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6S           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE6SPLUS       ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONESE           ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADPRO129         ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE7            ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPHONE7PLUS        ,
+       AR_VIDEO_AVFOUNDATION_IOS_DEVICE_IPADPRO97
+     );
 
 ///
 /// @brief Values returned by arVideoParamGeti/arVideoParamSeti(AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET, ...)
 ///
-typedef enum {
-    AR_VIDEO_AVFOUNDATION_FOCUS_NONE = 0,   ///< No focus preset set.
-    AR_VIDEO_AVFOUNDATION_FOCUS_MACRO,      ///< Focus preset to camera's shortest macro setting.
-    AR_VIDEO_AVFOUNDATION_FOCUS_0_3M,       ///< Focus preset to 0.3 metres.
-    AR_VIDEO_AVFOUNDATION_FOCUS_1_0M,       ///< Focus preset to 1.0 metres.
-    AR_VIDEO_AVFOUNDATION_FOCUS_INF         ///< Focus preset to optical infinity.
-} AR_VIDEO_AVFOUNDATION_FOCUS_PRESET;
+type T_AR_VIDEO_AVFOUNDATION_FOCUS_PRESET = (
+       AR_VIDEO_AVFOUNDATION_FOCUS_NONE  = 0, ///< No focus preset set.
+       AR_VIDEO_AVFOUNDATION_FOCUS_MACRO    , ///< Focus preset to camera's shortest macro setting.
+       AR_VIDEO_AVFOUNDATION_FOCUS_0_3M     , ///< Focus preset to 0.3 metres.
+       AR_VIDEO_AVFOUNDATION_FOCUS_1_0M     , ///< Focus preset to 1.0 metres.
+       AR_VIDEO_AVFOUNDATION_FOCUS_INF        ///< Focus preset to optical infinity.
+     );
 
 ///
 /// @brief Values returned by arVideoParamGeti(AR_VIDEO_PARAM_AVFOUNDATION_CAMERA_POSITION, ...)
 ///
-typedef enum {
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_UNKNOWN = -1,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_UNSPECIFIED = 0,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR_STEREO_LEFT,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR_STEREO_RIGHT,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT_STEREO_LEFT,
-    AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT_STEREO_RIGHT
-} AR_VIDEO_AVFOUNDATION_CAMERA_POSITION;
+type T_AR_VIDEO_AVFOUNDATION_CAMERA_POSITION = (
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_UNKNOWN            = -1,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_UNSPECIFIED        =  0,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR                   ,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT                  ,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR_STEREO_LEFT       ,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_REAR_STEREO_RIGHT      ,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT_STEREO_LEFT      ,
+       AR_VIDEO_AVFOUNDATION_CAMERA_POSITION_FRONT_STEREO_RIGHT
+     );
 
 ///
 /// @brief Values returned by  arVideoParamGeti(AR_VIDEO_PARAM_ANDROID_CAMERA_FACE, ...)
 ///
-typedef enum {
-    AR_VIDEO_ANDROID_CAMERA_FACE_REAR = 0,
-    AR_VIDEO_ANDROID_CAMERA_FACE_FRONT,
-} AR_VIDEO_ANDROID_CAMERA_FACE;
+type T_AR_VIDEO_ANDROID_CAMERA_FACE = (
+       AR_VIDEO_ANDROID_CAMERA_FACE_REAR  = 0,
+       AR_VIDEO_ANDROID_CAMERA_FACE_FRONT
+     );
 
 ///
 /// @brief Values for device position, as encoded in ARVideoSourceInfoT.flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK.
@@ -259,45 +260,45 @@ const AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK = $03C0;      ///< compare (value & 
 ///
 /// @brief Values describing a video source.
 ///
-typedef struct {
-    char *name;             ///< UTF-8 encoded string representing the name of the source, in a form suitable for presentation to an end-user, e.g. in a list of inputs.
-    char *model;            ///< UTF-8 encoded string representing the model of the source, where this information is available. May be NULL if model information is not attainable.
-    char *UID;              ///< UTF-8 encoded string representing a unique ID for this source, and suitable for passing to arVideoOpen/ar2VideoOpen as a UID in the configuration. May be NULL if sources cannot be uniquely identified.
-    uint32_t flags;
-    char *open_token;       ///< UTF-8 encoded string containing the token that should be passed (in the space-separated list of tokens to arVideoOpen/ar2VideoOpen, in order to select this source to be opened. Note that this token is only valid so long as the underlying video hardware configuration does not change, so should not be stored between sessions.
-} ARVideoSourceInfoT;
+type T_ARVideoSourceInfoT = record
+       name       :P_char;     ///< UTF-8 encoded string representing the name of the source, in a form suitable for presentation to an end-user, e.g. in a list of inputs.
+       model      :P_char;     ///< UTF-8 encoded string representing the model of the source, where this information is available. May be NULL if model information is not attainable.
+       UID        :P_char;     ///< UTF-8 encoded string representing a unique ID for this source, and suitable for passing to arVideoOpen/ar2VideoOpen as a UID in the configuration. May be NULL if sources cannot be uniquely identified.
+       flags      :T_uint32_t;
+       open_token :P_char;     ///< UTF-8 encoded string containing the token that should be passed (in the space-separated list of tokens to arVideoOpen/ar2VideoOpen, in order to select this source to be opened. Note that this token is only valid so long as the underlying video hardware configuration does not change, so should not be stored between sessions.
+     end;
 
 ///
 /// @brief Values describing a list of video sources.
 ///
-typedef struct {
-    int count;
-    ARVideoSourceInfoT *info;
-} ARVideoSourceInfoListT;
+type T_ARVideoSourceInfoListT = record
+       count :T_int;
+       info  :P_ARVideoSourceInfoT;
+     end;
 
 typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 
 {$IFDEF _WIN32 }
   {$IFDEF LIBARVIDEO_DYNAMIC }
     {$IFDEF LIBARVIDEO_EXPORTS }
-#      define AR_DLL_API __declspec(dllexport)
+      //#define AR_DLL_API __declspec(dllexport)
     {$ELSE}
-#      define AR_DLL_API __declspec(dllimport)
+      //#define AR_DLL_API __declspec(dllimport)
     {$ENDIF}
   {$ELSE}
-#    define AR_DLL_API extern
+    //#define AR_DLL_API extern
   {$ENDIF}
 {$ELSE}
   {$DEFINE AR_DLL_API }
 {$ENDIF}
 
-#include <AR/videoLuma.h>
+//#include <AR/videoLuma.h>
 
-typedef struct {
-    int module;
-    void *moduleParam;
-    ARVideoLumaInfo *lumaInfo;
-} AR2VideoParamT;
+type T_AR2VideoParamT = record
+       module      :T_int;
+       moduleParam :P_void;
+       lumaInfo    :P_ARVideoLumaInfo;
+     end;
 
 AR_DLL_API AR_VIDEO_MODULE   arVideoGetDefaultModule(void);
 AR_DLL_API int               arVideoOpen            (const char *config);

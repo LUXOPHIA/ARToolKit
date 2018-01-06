@@ -51,7 +51,8 @@
 
 interface //#################################################################### ■
 
-uses LUX.Vision.ARToolKit.ar;
+uses LUX.Code.C,
+     LUX.Vision.ARToolKit.ar;
 
 (*!
     @file param.h
@@ -92,35 +93,35 @@ const AR_PARAM_LT_DEFAULT_OFFSET = 15;
     @see    arParamLoad
     @see    arParamSave
  *)
-typedef struct {
-    int      xsize;                 ///< The width in pixels of images returned by arVideoGetImage() for the camera.
-    int      ysize;                 ///< The height in pixels of images returned by arVideoGetImage() for the camera.
-    ARdouble mat[3][4];             ///< The projection matrix for the calibrated camera parameters. This can be converted to an OpenGL projection matrix by the function arglCameraFrustumRHf().
-    ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX]; ///< See function arParamObserv2Ideal() for discussion.
-    int      dist_function_version; ///< See function arParamObserv2Ideal() for discussion. Must be last field in structure (as will not be written to disk).
-} ARParam;
+type T_ARParam = record
+       xsize                 :T_int;                                               ///< The width in pixels of images returned by arVideoGetImage() for the camera.
+       ysize                 :T_int;                                               ///< The height in pixels of images returned by arVideoGetImage() for the camera.
+       mat                   :array [ 0..3-1, 0..4-1 ] of T_ARdouble;              ///< The projection matrix for the calibrated camera parameters. This can be converted to an OpenGL projection matrix by the function arglCameraFrustumRHf().
+       dist_factor           :array [ 0..AR_DIST_FACTOR_NUM_MAX-1 ] of T_ARdouble; ///< See function arParamObserv2Ideal() for discussion.
+       dist_function_version :T_int;                                               ///< See function arParamObserv2Ideal() for discussion. Must be last field in structure (as will not be written to disk).
+     end;
 
-typedef struct {
-    int dist_factor_num;
-    int ARParam_size;
-} arParamVersionInfo_t;
+type T_arParamVersionInfo_t = record
+       dist_factor_num :T_int;
+       ARParam_size    :T_int;
+     end;
 (*!
     @brief   Constant array with parameters applicable to each version of the camera parameter distortion function.
  *)
-extern const arParamVersionInfo_t arParamVersionInfo[AR_DIST_FUNCTION_VERSION_MAX];
+var arParamVersionInfo :array [ 0..AR_DIST_FUNCTION_VERSION_MAX-1 ] of T_arParamVersionInfo_t;
 
 (*!
     @brief   Structure holding camera parameters, in lookup table form; floating point version.
     @see ARParamLT
  *)
-typedef struct {
-    float   *i2o;       ///< Ideal-to-observed; for the location in the array corresponding to the idealised location, gives the location in the observed image.
-    float   *o2i;       ///< Observed-to-ideal; for the location in the array corresponding to the observed location, gives the location in the idealised image.
-    int      xsize;     ///< The number of pixels in the array's x dimension, including the offset areas on the left and right sides, i.e. ARParam.xsize + xOff*2.
-    int      ysize;     ///< The number of pixels in the array's x dimension, including the offset areas on the top and bottom.xsize, i.e. ARParam.ysize + yOff*2.
-    int      xOff;      ///< The number of pixels from the left edge of the array to column zero of the input.
-    int      yOff;      ///< The number of pixels from the top edge of the array to row zero of the input.
-} ARParamLTf;
+type T_ARParamLTf = record
+       i2o   :P_float; ///< Ideal-to-observed; for the location in the array corresponding to the idealised location, gives the location in the observed image.
+       o2i   :P_float; ///< Observed-to-ideal; for the location in the array corresponding to the observed location, gives the location in the idealised image.
+       xsize :T_int;   ///< The number of pixels in the array's x dimension, including the offset areas on the left and right sides, i.e. ARParam.xsize + xOff*2.
+       ysize :T_int;   ///< The number of pixels in the array's x dimension, including the offset areas on the top and bottom.xsize, i.e. ARParam.ysize + yOff*2.
+       xOff  :T_int;   ///< The number of pixels from the left edge of the array to column zero of the input.
+       yOff  :T_int;   ///< The number of pixels from the top edge of the array to row zero of the input.
+     end;
     
 //typedef struct {
 //    short   *i2o;
@@ -144,11 +145,11 @@ typedef struct {
         This version of the structure contains a pre-calculated lookup table of
         values covering the camera image width and height, plus a padded border.
 *)
-typedef struct {
-    ARParam      param;         ///< A copy of original ARParam from which the lookup table was calculated.
-    ARParamLTf   paramLTf;      ///< The lookup table.
-    //ARParamLTi   paramLTi;
-} ARParamLT;
+type T_ARParamLT = record
+       param    :T_ARParam;    ///< A copy of original ARParam from which the lookup table was calculated.
+       paramLTf :T_ARParamLTf; ///< The lookup table.
+     //paramLTi :T_ARParamLTi;
+     end;
 
 int    arParamDisp( const ARParam *param );
 
