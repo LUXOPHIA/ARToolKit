@@ -260,9 +260,9 @@ typedef enum {
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
 #    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (x86).
 #    define  AR_LITTLE_ENDIAN
-#  else
+  {$ELSE}
 #    define  AR_LITTLE_ENDIAN
-#  endif
+  {$ENDIF}
 
 // Input modules. This is edited by the configure script.
 #undef  ARVIDEO_INPUT_V4L2
@@ -332,18 +332,18 @@ typedef enum {
 #      define _WINRT
 #      undef LIBARVIDEO_DYNAMIC
 #      define ARDOUBLE_IS_FLOAT
-#    else
+    {$ELSE}
 #      error ARToolKit for Windows Phone requires Windows Phone 8.1 or later. Please compile with Visual Studio 2013 or later with Windows Phone 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
-#    endif
+    {$ENDIF}
 #  elif (WINAPI_FAMILY == WINAPI_FAMILY_PC_APP) // Windows Store 8.1 and later.
 #    if (_WIN32_WINNT >= 0x0603) // (_WIN32_WINNT_WINBLUE)
 #      define _WINRT
 #      undef LIBARVIDEO_DYNAMIC
 #      define ARDOUBLE_IS_FLOAT
-#    else
+    {$ELSE}
 #      error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
-#    endif
-#  endif
+    {$ENDIF}
+  {$ENDIF}
 {$ENDIF}
 
 // Endianness.
@@ -398,9 +398,9 @@ typedef enum {
 #  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
 #    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (x86).
 #    define  AR_LITTLE_ENDIAN
-#  else
+  {$ELSE}
 #    define  AR_LITTLE_ENDIAN
-#  endif
+  {$ENDIF}
 
 #define AR_CALLBACK
 #define ARDOUBLE_IS_FLOAT
@@ -441,9 +441,9 @@ typedef enum {
 #  elif TARGET_RT_LITTLE_ENDIAN
 #    undef   AR_BIG_ENDIAN
 #    define  AR_LITTLE_ENDIAN
-#  else
+  {$ELSE}
 #    error
-#  endif
+  {$ENDIF}
 
 #if TARGET_IPHONE_SIMULATOR
 
@@ -465,7 +465,7 @@ typedef enum {
 #define USE_OPENGL_ES 1
 #ifdef __LP64__
 #  define HAVE_ARM64_NEON 1
-#else
+{$ELSE}
 #  define HAVE_ARM_NEON 1
 {$ENDIF}
 #define USE_CPARAM_SEARCH 1
@@ -536,7 +536,7 @@ typedef enum {
 #  define AR_DEFAULT_PIXEL_FORMAT   ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT
 #elif defined(ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN)
 #  define AR_DEFAULT_PIXEL_FORMAT   ARVIDEO_INPUT_EMSCRIPTEN_PIXEL_FORMAT
-#else
+{$ELSE}
 #  error
 {$ENDIF}
 

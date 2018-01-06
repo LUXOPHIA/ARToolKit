@@ -94,7 +94,7 @@ typedef unsigned int      ARUint32;
 typedef float             ARfloat;
 #ifdef ARDOUBLE_IS_FLOAT
 typedef float             ARdouble;
-#else
+{$ELSE}
 typedef double            ARdouble;
 {$ENDIF}
 
@@ -1449,7 +1449,7 @@ int            arUtilMatMul( const ARdouble s1[3][4], const ARdouble s2[3][4], A
 #define arUtilMatInvf arUtilMatInv
 #define arUtilMatMulf arUtilMatMul
 #define arUtilMatMuldff arUtilMatMul
-#else
+{$ELSE}
 int            arUtilMatInvf( const float s[3][4], float d[3][4] );
 int            arUtilMatMulf( const float s1[3][4], const float s2[3][4], float d[3][4] );
 int            arUtilMatMuldff( const ARdouble s1[3][4], const float s2[3][4], float d[3][4] );
@@ -1647,7 +1647,7 @@ typedef enum {
  *)
 #ifdef ANDROID
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
-#else
+{$ELSE}
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
 {$ENDIF}
 
@@ -1668,7 +1668,7 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
  *)
 #ifdef ANDROID
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
-#else
+{$ELSE}
 char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
 {$ENDIF}
 
@@ -1695,7 +1695,7 @@ char *arUtilGetAndCreateResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAV
  *)
 #ifdef ANDROID
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path, jobject instanceOfAndroidContext);
-#else
+{$ELSE}
 int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, const char *path);
 {$ENDIF}
 {$ENDIF} // !_WINRT

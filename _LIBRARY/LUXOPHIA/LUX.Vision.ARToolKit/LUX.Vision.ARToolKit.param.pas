@@ -201,7 +201,7 @@ int    arParamDecompMat( const ARdouble source[3][4], ARdouble cpara[3][4], ARdo
 
 #ifdef ARDOUBLE_IS_FLOAT
 #define arParamDecompMatf arParamDecompMat
-#else
+{$ELSE}
 int    arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float trans[3][4] );
 {$ENDIF}
 

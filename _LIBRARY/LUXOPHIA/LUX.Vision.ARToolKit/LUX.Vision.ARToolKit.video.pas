@@ -285,13 +285,13 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 #  ifdef LIBARVIDEO_DYNAMIC
 #    ifdef LIBARVIDEO_EXPORTS
 #      define AR_DLL_API __declspec(dllexport)
-#    else
+    {$ELSE}
 #      define AR_DLL_API __declspec(dllimport)
-#    endif
-#  else
+    {$ENDIF}
+  {$ELSE}
 #    define AR_DLL_API extern
-#  endif
-#else
+  {$ENDIF}
+{$ELSE}
 #  define AR_DLL_API
 {$ENDIF}
 
