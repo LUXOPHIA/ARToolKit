@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  arConfig.h
  *  ARToolKit5
  *

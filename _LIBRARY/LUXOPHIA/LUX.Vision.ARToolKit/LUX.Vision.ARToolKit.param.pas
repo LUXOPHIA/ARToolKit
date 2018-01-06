@@ -1,4 +1,4 @@
-/*
+﻿/*
  *	param.h
  *  ARToolKit5
  *

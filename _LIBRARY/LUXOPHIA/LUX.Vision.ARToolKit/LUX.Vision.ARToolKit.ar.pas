@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  ar.h
  *  ARToolKit5
  *

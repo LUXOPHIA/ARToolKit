@@ -1,4 +1,4 @@
-/*
+﻿/*
  *	video.h
  *  ARToolKit5
  *
