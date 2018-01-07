@@ -43,54 +43,55 @@
     @details
 *)
 
-#ifndef AR_IMAGEPROC_H
-#define AR_IMAGEPROC_H
+interface //#################################################################### ■
 
-#ifndef TRUE
-#  define TRUE 1
-#endif
-#ifndef FALSE
-#  define FALSE 0
-#endif
+//#ifndef TRUE
+//#  define TRUE 1
+//#endif
+//#ifndef FALSE
+//#  define FALSE 0
+//#endif
 
-#include <AR/config.h>
+uses LUX.Code.C,
+     LUX.Vision.ARToolKit.config,
+     LUX.Vision.ARToolKit.ar;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
 
-#ifdef __APPLE__
-#  if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
-#    define AR_IMAGEPROC_USE_VIMAGE 1
-#  endif
-#endif
+{$IFDEF __APPLE__ }
+  {$IF not AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE }
+    const AR_IMAGEPROC_USE_VIMAGE = 1;
+  {$ENDIF}
+{$ENDIF}
 
 (*!
     @brief Structure holding settings for an instance of the image-processing pipeline.
  *)
-struct _ARImageProcInfo {
-    unsigned char *__restrict image2;   ///< Extra buffer, allocated as required.
-    int imageX;                         ///< Width of image buffer.
-    int imageY;                         ///< Height of image buffer.
-    unsigned long histBins[256];        ///< Luminance histogram.
-    unsigned long cdfBins[256];         ///< Luminance cumulative density function.
-    unsigned char min;                  ///< Minimum luminance.
-    unsigned char max;                  ///< Maximum luminance.
-#if AR_IMAGEPROC_USE_VIMAGE
-    void *tempBuffer;                   ///< Extra buffer when using macOS/iOS vImage framework.
-#endif
-};
-typedef struct _ARImageProcInfo ARImageProcInfo;
+type T_ARImageProcInfo = record
+       image2     :P_unsigned_char;                        ///< Extra buffer, allocated as required.
+       imageX     :T_int ;                                 ///< Width of image buffer.
+       imageY     :T_int ;                                 ///< Height of image buffer.
+       histBins   :array [ 0..256-1 ] of T_unsigned_long;  ///< Luminance histogram.
+       cdfBins    :array [ 0..256-1 ] of T_unsigned_long;  ///< Luminance cumulative density function.
+       min        :T_unsigned_char;                        ///< Minimum luminance.
+       max        :T_unsigned_char;                        ///< Maximum luminance.
+{$IF AR_IMAGEPROC_USE_VIMAGE }
+       tempBuffer :P_void;                                 ///< Extra buffer when using macOS/iOS vImage framework.
+{$ENDIF}
+     end;
+//typedef struct _ARImageProcInfo ARImageProcInfo;
     
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
 
-#include <AR/ar.h>
+//#include <AR/ar.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
 
 (*!
     @brief Initialise image processing.
@@ -189,9 +190,9 @@ int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8 *__restrict d
         to be processed, as created by arImageProcInit.
     @result 0 in case of success, or a value less than 0 in case of error.
  *)
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
+{$IF not AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE }
 int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const int boxSize, const int bias);
-#endif
+{$ENDIF}
 
 (*!
     @brief Calculate image histogram, cumulative density function, and minimum and maximum luminance values.
@@ -201,8 +202,10 @@ int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 
  *)
 int arImageProcLumaHistAndCDFAndLevels(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr);
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
 
-#endif // !AR_IMAGEPROC_H
+implementation //############################################################### ■
+
+end. //######################################################################### ■
