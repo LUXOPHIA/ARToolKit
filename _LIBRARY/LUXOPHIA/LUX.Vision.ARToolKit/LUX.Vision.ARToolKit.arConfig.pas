@@ -97,10 +97,12 @@ const AR_SQUARE_FIT_THRESH = 1.0;
 const AR_LABELING_32_BIT = 0;  // 0 = 16 bits per label, 1 = 32 bits per label.
 {$IF AR_LABELING_32_BIT }
 const AR_LABELING_WORK_SIZE = 1024*32*16;
-type AR_LABELING_LABEL_TYPE = ARInt32;
+//type T_AR_LABELING_LABEL_TYPE = T_ARInt32;
+//     P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
 {$ELSE}
 const AR_LABELING_WORK_SIZE = 1024*32;  // This number may not exceed 65535 when using 16-bits labels.
-type AR_LABELING_LABEL_TYPE = ARInt16;
+//type T_AR_LABELING_LABEL_TYPE = T_ARInt16;
+//     P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
 {$ENDIF}
 
 {$IF AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT }
@@ -111,12 +113,12 @@ const AR_SQUARE_MAX = 60;  // Maxiumum number of marker squares per frame.
 const AR_CHAIN_MAX = 10000;
 
 const AR_LABELING_THRESH_AUTO_INTERVAL_DEFAULT        = 7;  // Number of frames between auto-threshold calculations.
-const AR_LABELING_THRESH_MODE_DEFAULT                 = AR_LABELING_THRESH_MODE_MANUAL;
+//const AR_LABELING_THRESH_MODE_DEFAULT                 = AR_LABELING_THRESH_MODE_MANUAL;
 const AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT = 9;
 const AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT        = -7;
 
 const AR_CONFIDENCE_CUTOFF_DEFAULT = 0.5;
-const AR_MATRIX_CODE_TYPE_DEFAULT  = AR_MATRIX_CODE_3x3;
+//const AR_MATRIX_CODE_TYPE_DEFAULT  = AR_MATRIX_CODE_3x3;
 
 implementation //############################################################### ■
 
