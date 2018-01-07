@@ -122,46 +122,46 @@ type T_ARdouble = T_double;
 (*!
     @brief A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch.
  *)
-typedef struct {
+type T_AR2VideoTimestampT = record
     uint64_t sec;
     uint32_t usec;
-} AR2VideoTimestampT;
+     end;
 
 (*!
     @brief A structure which carries information about a video frame retrieved by the video library.
     @see arVideoGetPixelFormat arVideoGetPixelFormat
  *)
-typedef struct {
+type T_AR2VideoBufferT = record
     ARUint8            *buff;           ///< A pointer to the packed video data for this video frame. The video data pixel format is as specified by arVideoGetPixelFormat(). For multi-planar frames, this pointer is a copy of bufPlanes[0].
     ARUint8           **bufPlanes;      ///< For multi-planar video frames, this must be an array of length bufPlaneCount of (ARUint8*), into which will be copied pointers to the packed video data for each plane. For single-plane formats, this will be NULL.
     unsigned_int        bufPlaneCount;  ///< For multi-planar video frames, this is the number of frame planes. For single-plane formats, this will be 0.
     ARUint8            *buffLuma;       ///< A pointer to a luminance-only version of the image. For luminance-only video formats this pointer is a copy of buff. For multi-planar formats which include a luminance-only plane, this pointer is a copy of one of the bufPlanes[] pointers. In all other cases, this pointer points to a buffer containing a copy of the video frame converted to luminance only.
     int                 fillFlag;       ///< Set non-zero when buff is valid.
     AR2VideoTimestampT  time;           ///< Time at which buff was filled.
-} AR2VideoBufferT;
+     end;
 
 (*!
     @brief Values controlling the labeling thresholding mode.
  *)
-typedef enum {
-    AR_LABELING_THRESH_MODE_MANUAL = 0,     ///< Manual threshold selection via arSetLabelingThresh.
-    AR_LABELING_THRESH_MODE_AUTO_MEDIAN,    ///< Automatic threshold selection via full-image histogram median.
-    AR_LABELING_THRESH_MODE_AUTO_OTSU,      ///< Automatic threshold selection via Otsu's method for foreground/background selection.
-    AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE,  ///< Adaptive thresholding.
-    AR_LABELING_THRESH_MODE_AUTO_BRACKETING ///< Automatic threshold selection via heuristic-based exposure bracketing.
-} AR_LABELING_THRESH_MODE;
+type T_AR_LABELING_THRESH_MODE = (
+       AR_LABELING_THRESH_MODE_MANUAL          = 0, ///< Manual threshold selection via arSetLabelingThresh.
+       AR_LABELING_THRESH_MODE_AUTO_MEDIAN        , ///< Automatic threshold selection via full-image histogram median.
+       AR_LABELING_THRESH_MODE_AUTO_OTSU          , ///< Automatic threshold selection via Otsu's method for foreground/background selection.
+       AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE      , ///< Adaptive thresholding.
+       AR_LABELING_THRESH_MODE_AUTO_BRACKETING      ///< Automatic threshold selection via heuristic-based exposure bracketing.
+     );
 
 (*!
     @brief Captures detail of a trapezoidal region which is a candidate for marker detection.
  *)
-typedef struct {
+type T_ARMarkerInfo2 = record
     int             area;                   ///< Area in pixels.
     ARdouble        pos[2];                 ///< Center.
     int             coord_num;              ///< Number of coordinates in x_coord, y_coord.
     int             x_coord[AR_CHAIN_MAX];  ///< X values of coordinates.
     int             y_coord[AR_CHAIN_MAX];  ///< Y values of coordinates.
     int             vertex[5];              ///< Vertices.
-} ARMarkerInfo2;
+     end;
 
 (*!
     @brief Result codes returned by arDetectMarker to report state of individual detected trapezoidal regions.
@@ -172,18 +172,18 @@ typedef struct {
     into the ARMarkerInfo.cutoffPhase field of regions rejected during the arDetectMarker() call.
     Note that the ARMarkerInfo.id of such rejected regions will be -1.
  *)
-typedef enum {
-    AR_MARKER_INFO_CUTOFF_PHASE_NONE,                   ///< Marker OK.
-    AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION,     ///< Failure during pattern extraction.
-    AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC,          ///< Generic error during matching phase.
-    AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST,         ///< Insufficient contrast during matching.
-    AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND,///< Barcode matching could not find correct barcode locator pattern.
-    AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL, ///< Barcode matching error detection/correction found unrecoverable error.
-    AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE,       ///< Matching confidence cutoff value not reached.
-    AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR,             ///< Maximum allowable pose error exceeded.
-    AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI,       ///< Multi-marker pose error value exceeded.
-    AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES ///< Heuristic-based rejection of troublesome matrix code which is often generated in error.
-} AR_MARKER_INFO_CUTOFF_PHASE;
+type T_AR_MARKER_INFO_CUTOFF_PHASE = (
+       AR_MARKER_INFO_CUTOFF_PHASE_NONE                              , ///< Marker OK.
+       AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION                , ///< Failure during pattern extraction.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC                     , ///< Generic error during matching phase.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST                    , ///< Insufficient contrast during matching.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND           , ///< Barcode matching could not find correct barcode locator pattern.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL            , ///< Barcode matching error detection/correction found unrecoverable error.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE                  , ///< Matching confidence cutoff value not reached.
+       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR                        , ///< Maximum allowable pose error exceeded.
+       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI                  , ///< Multi-marker pose error value exceeded.
+       AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES  ///< Heuristic-based rejection of troublesome matrix code which is often generated in error.
+     );
 
 const AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT = 10;
 extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT];
@@ -196,7 +196,7 @@ extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHA
         with marker images (in pattern mode) or barcodes (in matrix mode) will have valid values assigned to the
         appropriate id field.
  *)
-typedef struct {
+type T_ARMarkerInfo = record
     int             area;                   ///< Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is not the same as the actual onscreen area inside the marker border.
     int             id;                     ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
     int             idPatt;                 ///< If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
@@ -214,16 +214,16 @@ typedef struct {
     AR_MARKER_INFO_CUTOFF_PHASE cutoffPhase;///< If a trapezoidal region is detected, but is eliminated from the candidates for tracking, this field is filled out with the tracking phase at which the marker was cut off. An English-language description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
     int             errorCorrected;         ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
     uint64_t        globalID;               ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
-} ARMarkerInfo;
+     end;
 
 (*!
     @brief   (description)
     @details (description)
  *)
-typedef struct {
+type T_ARTrackingHistory = record
     ARMarkerInfo    marker;         ///< 
     int             count;          ///< 
-} ARTrackingHistory;
+     end;
 
 (*!
     @brief   (description)
@@ -250,7 +250,7 @@ typedef struct {
         to be supplied to the matching functions. This structure holds such details. It is
         generally setup by loading pattern files from disk.
 *)
-typedef struct {
+type T_ARPattHandle = record
     int             patt_num;       ///< Number of valid patterns in the structure.
     int             patt_num_max;   ///< Maximum number of patterns that may be loaded in this structure.
     int            *pattf;          ///< 0 = no pattern loaded at this position. 1 = pattern loaded and activated. 2 = pattern loaded but deactivated.
@@ -260,7 +260,7 @@ typedef struct {
     ARdouble       *pattpowBW;      ///< Root-mean-square of the pattern intensities.
     //ARdouble        pattRatio;      ///< 
     int             pattSize;       ///< Number of rows/columns in the pattern.
-} ARPattHandle;
+     end;
 
 (*!
     @brief Defines a pattern rectangle as a sub-portion of a marker image.
@@ -268,12 +268,12 @@ typedef struct {
         A standard ARToolKit marker with a pattern ratio of 0.5 has coordinates
         {0.25f, 0.25f, 0.75f, 0.75f}.
  *)
-typedef struct {
+type T_ARPattRectInfo = record
     float   topLeftX;       ///< Horizontal coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
     float   topLeftY;       ///< Vertical coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
     float   bottomRightX;   ///< Horizontal coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
     float   bottomRightY;   ///< Vertical coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
-} ARPattRectInfo;
+     end;
 
 (* --------------------------------------------------*)
 
@@ -302,19 +302,19 @@ const AR_MATRIX_CODE_TYPE_ECC_BCH___19 = $00000b00; ///< BCH code with Hamming d
 (*!
     @brief Values specifying the type of matrix code in use.
  *)
-typedef enum {
-    AR_MATRIX_CODE_3x3 = 0x03,                                                  ///< Matrix code in range 0-63.
-    AR_MATRIX_CODE_3x3_PARITY65 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY,        ///< Matrix code in range 0-31.
-    AR_MATRIX_CODE_3x3_HAMMING63 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING,      ///< Matrix code in range 0-7.
-    AR_MATRIX_CODE_4x4 = 0x04,                                                  ///< Matrix code in range 0-8191.
-    AR_MATRIX_CODE_4x4_BCH_13_9_3 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___3,     ///< Matrix code in range 0-511.
-    AR_MATRIX_CODE_4x4_BCH_13_5_5 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___5,     ///< Matrix code in range 0-31.
-    AR_MATRIX_CODE_5x5_BCH_22_12_5 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___5,    ///< Matrix code in range 0-4095.
-    AR_MATRIX_CODE_5x5_BCH_22_7_7 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___7,     ///< Matrix code in range 0-127.
-    AR_MATRIX_CODE_5x5 = 0x05,                                                  ///< Matrix code in range 0-4194303.
-    AR_MATRIX_CODE_6x6 = 0x06,                                                  ///< Matrix code in range 0-8589934591.
-    AR_MATRIX_CODE_GLOBAL_ID = 0x0e | AR_MATRIX_CODE_TYPE_ECC_BCH___19
-} AR_MATRIX_CODE_TYPE;
+type T_AR_MATRIX_CODE_TYPE = (
+       AR_MATRIX_CODE_3x3                                                      = 0x03,                                                  ///< Matrix code in range 0-63.
+       AR_MATRIX_CODE_3x3_PARITY65 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY           ,  ///< Matrix code in range 0-31.
+       AR_MATRIX_CODE_3x3_HAMMING63 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING         ,  ///< Matrix code in range 0-7.
+       AR_MATRIX_CODE_4x4                                                      = 0x04,  ///< Matrix code in range 0-8191.
+       AR_MATRIX_CODE_4x4_BCH_13_9_3 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___3        ,  ///< Matrix code in range 0-511.
+       AR_MATRIX_CODE_4x4_BCH_13_5_5 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___5        ,  ///< Matrix code in range 0-31.
+       AR_MATRIX_CODE_5x5_BCH_22_12_5 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___5       ,  ///< Matrix code in range 0-4095.
+       AR_MATRIX_CODE_5x5_BCH_22_7_7 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___7        ,  ///< Matrix code in range 0-127.
+       AR_MATRIX_CODE_5x5                                                      = 0x05,  ///< Matrix code in range 0-4194303.
+       AR_MATRIX_CODE_6x6                                                      = 0x06,  ///< Matrix code in range 0-8589934591.
+       AR_MATRIX_CODE_GLOBAL_ID = 0x0e | AR_MATRIX_CODE_TYPE_ECC_BCH___19
+     );
 
 (*!
     @brief   Structure holding state of an instance of the square marker tracker.
@@ -324,7 +324,7 @@ typedef enum {
     @see        arCreateHandle
     @see        arDeteleHandle
  *)
-typedef struct {
+type T_ARHandle = record
     int                arDebug;
     AR_PIXEL_FORMAT    arPixelFormat;
     int                arPixelSize;
@@ -352,7 +352,7 @@ typedef struct {
     ARImageProcInfo   *arImageProcInfo;
     ARdouble           pattRatio;                           ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
     AR_MATRIX_CODE_TYPE matrixCodeType;                     ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
-} ARHandle;
+     end;
 
 
 (* --------------------------------------------------*)
@@ -361,9 +361,9 @@ typedef struct {
     @brief   Structure holding state of an instance of the monocular pose estimator.
     @details (description)
 *)
-typedef struct {
+type T_AR3DHandle = record
     ICPHandleT          *icpHandle;
-} AR3DHandle;
+     end;
 
 const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
 
@@ -371,9 +371,9 @@ const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
     @brief   Structure holding state of an instance of the stereo pose estimator.
     @details (description)
 *)
-typedef struct {
+type T_AR3DStereoHandle = record
     ICPStereoHandleT    *icpStereoHandle;
-} AR3DStereoHandle;
+     end;
 
 
 (***********************************)
@@ -1574,62 +1574,62 @@ char *arUtilGetFileURI(const char *path);
     @see arUtilGetResourcesDirectoryPath
     @see arUtilChangeToResourcesDirectory
  *)
-typedef enum {
-    (*!
-        Use a platform-dependent recommended-best option.
-        Note the this behavior is subject to change in future versions of ARToolKit.
-        At present, on macOS and iOS, this will change to the Apple-provided resources directory inside the application bundle.
-        At present, on other platforms, this will change to the same directory as the executable.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST = 0,
-    (*!
-        Use the current working directory. For arUtilChangeToResourcesDirectory, this will leave the current working directory unchanged.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_CWD,
-    (*!
-        Change to the working directory specified.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_SUPPLIED_PATH,
-    (*!
-        Change to the same directory as the executable.
-        On OS X and iOS, this corresponds to the directory of the binary executable inside the app bundle, not the directory containing the app bundle.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_EXECUTABLE_DIR,
-    (*!
-        Change to the resources directory.
-        On macOS and iOS, this is the Resources directory inside the application bundle.
-        On Linux, this is a directory formed by taking the path to the directory containing
-        the executable, appending "/../share" to it, and then pointing to a subdirectory under
-        this path with the same name as the executable. Note that the existence of this path
-        is not guaranteed. E.g. for an executable at path '/usr/bin/myapp' the returned path
-        will be '/usr/bin/../share/myapp'.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_BUNDLE_RESOURCES_DIR,
-    (*!
-        Change to the root of the implementation-dependent user-writable root.
-        On iOS and sandboxed macOS, this is equivalent to the root of the application sandbox.
-        On Linux and non-sandboxed macOS, this is equivalent to the "~" user home.
-        On Android, this is the root of the "external" storage (e.g. an SD card).
-        On Windows, this is the user home directory, typically "C:\Documents and Settings\USERNAME" or "C:\Users\USERNAME".
-        On Windows UWP
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_USER_ROOT,
-    (*!
-        Change to a writable cache directory, i.e. a directory which is not normally shown to the user, in which files which may be subject to deletion by the system or the user.
+type T_AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR = (
+       (*!
+           Use a platform-dependent recommended-best option.
+           Note the this behavior is subject to change in future versions of ARToolKit.
+           At present, on macOS and iOS, this will change to the Apple-provided resources directory inside the application bundle.
+           At present, on other platforms, this will change to the same directory as the executable.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST = 0,
+       (*!
+           Use the current working directory. For arUtilChangeToResourcesDirectory, this will leave the current working directory unchanged.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_CWD,
+       (*!
+           Change to the working directory specified.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_SUPPLIED_PATH,
+       (*!
+           Change to the same directory as the executable.
+           On OS X and iOS, this corresponds to the directory of the binary executable inside the app bundle, not the directory containing the app bundle.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_EXECUTABLE_DIR,
+       (*!
+           Change to the resources directory.
+           On macOS and iOS, this is the Resources directory inside the application bundle.
+           On Linux, this is a directory formed by taking the path to the directory containing
+           the executable, appending "/../share" to it, and then pointing to a subdirectory under
+           this path with the same name as the executable. Note that the existence of this path
+           is not guaranteed. E.g. for an executable at path '/usr/bin/myapp' the returned path
+           will be '/usr/bin/../share/myapp'.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_BUNDLE_RESOURCES_DIR,
+       (*!
+           Change to the root of the implementation-dependent user-writable root.
+           On iOS and sandboxed macOS, this is equivalent to the root of the application sandbox.
+           On Linux and non-sandboxed macOS, this is equivalent to the "~" user home.
+           On Android, this is the root of the "external" storage (e.g. an SD card).
+           On Windows, this is the user home directory, typically "C:\Documents and Settings\USERNAME" or "C:\Users\USERNAME".
+           On Windows UWP
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_USER_ROOT,
+       (*!
+           Change to a writable cache directory, i.e. a directory which is not normally shown to the user, in which files which may be subject to deletion by the system or the user.
+           On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_CACHE_DIR,
+       (*!
+           Change to a writable data directory, i.e. a directory which is not normally shown to the user, but in which files are retained permanently.
+           On Android, this is the applications's (internal) files directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_DATA_DIR,
+       (*!
+        Change to a writable temporary directory, i.e. a directory which is not normally shown to the user, and from which files may be deleted at the end of program execution.
         On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_CACHE_DIR,
-    (*!
-        Change to a writable data directory, i.e. a directory which is not normally shown to the user, but in which files are retained permanently.
-        On Android, this is the applications's (internal) files directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_DATA_DIR,
-    (*!
-     Change to a writable temporary directory, i.e. a directory which is not normally shown to the user, and from which files may be deleted at the end of program execution.
-     On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
-     *)
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_TMP_DIR
-} AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR;
+        *)
+       AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_TMP_DIR
+     );
 
 (*!
     @brief   Get the path to the resources directory using the specified behavior.
