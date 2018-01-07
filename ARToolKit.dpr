@@ -55,7 +55,8 @@ uses
   LUX.Vision.ARToolKit.videoConfig in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.videoConfig.pas',
   LUX.Vision.ARToolKit.ar in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.ar.pas',
   LUX.Vision.ARToolKit.arConfig in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.arConfig.pas',
-  LUX.Vision.ARToolKit.config in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.config.pas';
+  LUX.Vision.ARToolKit.config in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.config.pas',
+  LUX.Vision.ARToolKit.arImageProc in '_LIBRARY\LUXOPHIA\LUX.Vision.ARToolKit\LUX.Vision.ARToolKit.arImageProc.pas';
 
 {$R *.res}
 
