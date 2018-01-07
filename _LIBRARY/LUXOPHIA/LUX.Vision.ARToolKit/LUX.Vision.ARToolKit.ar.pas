@@ -123,8 +123,8 @@ type T_ARdouble = T_double;
     @brief A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch.
  *)
 type T_AR2VideoTimestampT = record
-    uint64_t sec;
-    uint32_t usec;
+       sec  :T_uint64_t;
+       usec :T_uint32_t;
      end;
 
 (*!
@@ -132,12 +132,12 @@ type T_AR2VideoTimestampT = record
     @see arVideoGetPixelFormat arVideoGetPixelFormat
  *)
 type T_AR2VideoBufferT = record
-    ARUint8            *buff;           ///< A pointer to the packed video data for this video frame. The video data pixel format is as specified by arVideoGetPixelFormat(). For multi-planar frames, this pointer is a copy of bufPlanes[0].
-    ARUint8           **bufPlanes;      ///< For multi-planar video frames, this must be an array of length bufPlaneCount of (ARUint8*), into which will be copied pointers to the packed video data for each plane. For single-plane formats, this will be NULL.
-    unsigned_int        bufPlaneCount;  ///< For multi-planar video frames, this is the number of frame planes. For single-plane formats, this will be 0.
-    ARUint8            *buffLuma;       ///< A pointer to a luminance-only version of the image. For luminance-only video formats this pointer is a copy of buff. For multi-planar formats which include a luminance-only plane, this pointer is a copy of one of the bufPlanes[] pointers. In all other cases, this pointer points to a buffer containing a copy of the video frame converted to luminance only.
-    int                 fillFlag;       ///< Set non-zero when buff is valid.
-    AR2VideoTimestampT  time;           ///< Time at which buff was filled.
+       buff          :P_ARUint8;             ///< A pointer to the packed video data for this video frame. The video data pixel format is as specified by arVideoGetPixelFormat(). For multi-planar frames, this pointer is a copy of bufPlanes[0].
+       bufPlanes     :PP_ARUint8;            ///< For multi-planar video frames, this must be an array of length bufPlaneCount of (ARUint8*), into which will be copied pointers to the packed video data for each plane. For single-plane formats, this will be NULL.
+       bufPlaneCount :T_unsigned_int;        ///< For multi-planar video frames, this is the number of frame planes. For single-plane formats, this will be 0.
+       buffLuma      :P_ARUint8;             ///< A pointer to a luminance-only version of the image. For luminance-only video formats this pointer is a copy of buff. For multi-planar formats which include a luminance-only plane, this pointer is a copy of one of the bufPlanes[] pointers. In all other cases, this pointer points to a buffer containing a copy of the video frame converted to luminance only.
+       fillFlag      :T_int;                 ///< Set non-zero when buff is valid.
+       time          :T_AR2VideoTimestampT;  ///< Time at which buff was filled.
      end;
 
 (*!
@@ -155,12 +155,12 @@ type T_AR_LABELING_THRESH_MODE = (
     @brief Captures detail of a trapezoidal region which is a candidate for marker detection.
  *)
 type T_ARMarkerInfo2 = record
-    int             area;                   ///< Area in pixels.
-    ARdouble        pos[2];                 ///< Center.
-    int             coord_num;              ///< Number of coordinates in x_coord, y_coord.
-    int             x_coord[AR_CHAIN_MAX];  ///< X values of coordinates.
-    int             y_coord[AR_CHAIN_MAX];  ///< Y values of coordinates.
-    int             vertex[5];              ///< Vertices.
+       area      :T_int;                                 ///< Area in pixels.
+       pos       :array [ 0..2-1 ] of T_ARdouble;        ///< Center.
+       coord_num :T_int;                                 ///< Number of coordinates in x_coord, y_coord.
+       x_coord   :array [ 0..AR_CHAIN_MAX-1 ] of T_int;  ///< X values of coordinates.
+       y_coord   :array [ 0..AR_CHAIN_MAX-1 ] of T_int;  ///< Y values of coordinates.
+       vertex    :array [ 0..5-1 ] of T_int;             ///< Vertices.
      end;
 
 (*!
@@ -173,16 +173,16 @@ type T_ARMarkerInfo2 = record
     Note that the ARMarkerInfo.id of such rejected regions will be -1.
  *)
 type T_AR_MARKER_INFO_CUTOFF_PHASE = (
-       AR_MARKER_INFO_CUTOFF_PHASE_NONE                              , ///< Marker OK.
-       AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION                , ///< Failure during pattern extraction.
-       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC                     , ///< Generic error during matching phase.
-       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST                    , ///< Insufficient contrast during matching.
-       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND           , ///< Barcode matching could not find correct barcode locator pattern.
-       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL            , ///< Barcode matching error detection/correction found unrecoverable error.
-       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE                  , ///< Matching confidence cutoff value not reached.
-       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR                        , ///< Maximum allowable pose error exceeded.
-       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI                  , ///< Multi-marker pose error value exceeded.
-       AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES  ///< Heuristic-based rejection of troublesome matrix code which is often generated in error.
+       AR_MARKER_INFO_CUTOFF_PHASE_NONE                              ,  ///< Marker OK.
+       AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION                ,  ///< Failure during pattern extraction.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC                     ,  ///< Generic error during matching phase.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST                    ,  ///< Insufficient contrast during matching.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND           ,  ///< Barcode matching could not find correct barcode locator pattern.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL            ,  ///< Barcode matching error detection/correction found unrecoverable error.
+       AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE                  ,  ///< Matching confidence cutoff value not reached.
+       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR                        ,  ///< Maximum allowable pose error exceeded.
+       AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI                  ,  ///< Multi-marker pose error value exceeded.
+       AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES   ///< Heuristic-based rejection of troublesome matrix code which is often generated in error.
      );
 
 const AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT = 10;
@@ -197,23 +197,23 @@ extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHA
         appropriate id field.
  *)
 type T_ARMarkerInfo = record
-    int             area;                   ///< Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is not the same as the actual onscreen area inside the marker border.
-    int             id;                     ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-    int             idPatt;                 ///< If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-    int             idMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-    int             dir;                    ///< If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
-    int             dirPatt;                ///< If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
-    int             dirMatrix;              ///< If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
-    ARdouble        cf;                     ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-    ARdouble        cfPatt;                 ///< If pattern detection mode includes a pattern mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-    ARdouble        cfMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-    ARdouble        pos[2];                 ///< 2D position (in camera image coordinates, origin at top-left) of the centre of the marker.
-    ARdouble        line[4][3];             ///< Line equations for the 4 sides of the marker.
-    ARdouble        vertex[4][2];           ///< 2D positions (in camera image coordinates, origin at top-left) of the corners of the marker. vertex[(4 - dir)%4][] is the top-left corner of the marker. Other vertices proceed clockwise from this. These are idealised coordinates (i.e. the onscreen position aligns correctly with the undistorted camera image.)
-    ARMarkerInfo2  *markerInfo2Ptr;         ///< Pointer to source region info for this marker.
-    AR_MARKER_INFO_CUTOFF_PHASE cutoffPhase;///< If a trapezoidal region is detected, but is eliminated from the candidates for tracking, this field is filled out with the tracking phase at which the marker was cut off. An English-language description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
-    int             errorCorrected;         ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
-    uint64_t        globalID;               ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
+       area           :T_int;                                   ///< Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is not the same as the actual onscreen area inside the marker border.
+       id             :T_int;                                   ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+       idPatt         :T_int;                                   ///< If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+       idMatrix       :T_int;                                   ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+       dir            :T_int;                                   ///< If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
+       dirPatt        :T_int;                                   ///< If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
+       dirMatrix      :T_int;                                   ///< If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
+       cf             :T_ARdouble;                              ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+       cfPatt         :T_ARdouble;                              ///< If pattern detection mode includes a pattern mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+       cfMatrix       :T_ARdouble;                              ///< If pattern detection mode includes a matrix mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+       pos            :array [ 0..2-1 ] of T_ARdouble;          ///< 2D position (in camera image coordinates, origin at top-left) of the centre of the marker.
+       line           :array [ 0..4-1, 0..3-1 ] of T_ARdouble;  ///< Line equations for the 4 sides of the marker.
+       vertex         :array [ 0..4-1, 0..2-1 ] of T_ARdouble;  ///< 2D positions (in camera image coordinates, origin at top-left) of the corners of the marker. vertex[(4 - dir)%4][] is the top-left corner of the marker. Other vertices proceed clockwise from this. These are idealised coordinates (i.e. the onscreen position aligns correctly with the undistorted camera image.)
+       markerInfo2Ptr :P_ARMarkerInfo2;                         ///< Pointer to source region info for this marker.
+       cutoffPhase    :T_AR_MARKER_INFO_CUTOFF_PHASE;           ///< If a trapezoidal region is detected, but is eliminated from the candidates for tracking, this field is filled out with the tracking phase at which the marker was cut off. An English-language description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
+       errorCorrected :T_int;                                   ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
+       globalID       :T_uint64_t;                              ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
      end;
 
 (*!
@@ -221,26 +221,26 @@ type T_ARMarkerInfo = record
     @details (description)
  *)
 type T_ARTrackingHistory = record
-    ARMarkerInfo    marker;         ///< 
-    int             count;          ///< 
+       marker :T_ARMarkerInfo;  ///< 
+       count   :T_int;          ///< 
      end;
 
 (*!
     @brief   (description)
     @details (description)
  *)
-typedef struct {
-    AR_LABELING_LABEL_TYPE *labelImage;
+type T_ARLabelInfo = record
+       labelImage :P_AR_LABELING_LABEL_TYPE;
 {$IF not AR_DISABLE_LABELING_DEBUG_MODE }
-    ARUint8        *bwImage;
+       bwImage    :P_ARUint8;
 {$ENDIF}
-    int             label_num;
-    int             area[AR_LABELING_WORK_SIZE];
-    int             clip[AR_LABELING_WORK_SIZE][4];
-    ARdouble        pos[AR_LABELING_WORK_SIZE][2];
-    int             work[AR_LABELING_WORK_SIZE];
-    int             work2[AR_LABELING_WORK_SIZE*7]; ///< area, pos[2], clip[4].
-} ARLabelInfo;
+       label_num  :T_int;
+       area       :array [ 0..AR_LABELING_WORK_SIZE-1 ] of T_int;
+       clip       :array [ 0..AR_LABELING_WORK_SIZE-1, 0..4-1 ] of T_int;
+       pos        :array [ 0..AR_LABELING_WORK_SIZE-1, 0..2-1 ] of T_ARdouble;
+       work       :array [ 0..AR_LABELING_WORK_SIZE-1 ] of T_int;
+       work2      :array [ 0..AR_LABELING_WORK_SIZE*7-1 ] of T_int; ///< area, pos[2], clip[4].
+     end;
 
 (* --------------------------------------------------*)
 
@@ -251,15 +251,15 @@ typedef struct {
         generally setup by loading pattern files from disk.
 *)
 type T_ARPattHandle = record
-    int             patt_num;       ///< Number of valid patterns in the structure.
-    int             patt_num_max;   ///< Maximum number of patterns that may be loaded in this structure.
-    int            *pattf;          ///< 0 = no pattern loaded at this position. 1 = pattern loaded and activated. 2 = pattern loaded but deactivated.
-    int           **patt;           ///< Array of 4 different orientations of each pattern's colour values, in 1-byte per component BGR order.
-    ARdouble       *pattpow;        ///< Root-mean-square of the pattern intensities.
-    int           **pattBW;         ///< Array of 4 different orientations of each pattern's 1-byte luminosity values.
-    ARdouble       *pattpowBW;      ///< Root-mean-square of the pattern intensities.
-    //ARdouble        pattRatio;      ///< 
-    int             pattSize;       ///< Number of rows/columns in the pattern.
+       patt_num     :T_int;       ///< Number of valid patterns in the structure.
+       patt_num_max :T_int;       ///< Maximum number of patterns that may be loaded in this structure.
+       pattf        :P_int;       ///< 0 = no pattern loaded at this position. 1 = pattern loaded and activated. 2 = pattern loaded but deactivated.
+       patt         :PP_int;      ///< Array of 4 different orientations of each pattern's colour values, in 1-byte per component BGR order.
+       pattpow      :P_ARdouble;  ///< Root-mean-square of the pattern intensities.
+       pattBW       :PP_int;      ///< Array of 4 different orientations of each pattern's 1-byte luminosity values.
+       pattpowBW    :P_ARdouble;  ///< Root-mean-square of the pattern intensities.
+     //pattRatio    :T_ARdouble;  ///<
+       pattSize     :T_int;       ///< Number of rows/columns in the pattern.
      end;
 
 (*!
@@ -269,10 +269,10 @@ type T_ARPattHandle = record
         {0.25f, 0.25f, 0.75f, 0.75f}.
  *)
 type T_ARPattRectInfo = record
-    float   topLeftX;       ///< Horizontal coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
-    float   topLeftY;       ///< Vertical coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
-    float   bottomRightX;   ///< Horizontal coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
-    float   bottomRightY;   ///< Vertical coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
+       topLeftX     :T_float;  ///< Horizontal coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
+       topLeftY     :T_float;  ///< Vertical coordinate of the top left corner of the pattern space, in range 0.0f-1.0f.
+       bottomRightX :T_float;  ///< Horizontal coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
+       bottomRightY :T_float;  ///< Vertical coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
      end;
 
 (* --------------------------------------------------*)
@@ -303,17 +303,17 @@ const AR_MATRIX_CODE_TYPE_ECC_BCH___19 = $00000b00; ///< BCH code with Hamming d
     @brief Values specifying the type of matrix code in use.
  *)
 type T_AR_MATRIX_CODE_TYPE = (
-       AR_MATRIX_CODE_3x3                                                      = 0x03,                                                  ///< Matrix code in range 0-63.
-       AR_MATRIX_CODE_3x3_PARITY65 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY           ,  ///< Matrix code in range 0-31.
-       AR_MATRIX_CODE_3x3_HAMMING63 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING         ,  ///< Matrix code in range 0-7.
-       AR_MATRIX_CODE_4x4                                                      = 0x04,  ///< Matrix code in range 0-8191.
-       AR_MATRIX_CODE_4x4_BCH_13_9_3 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___3        ,  ///< Matrix code in range 0-511.
-       AR_MATRIX_CODE_4x4_BCH_13_5_5 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___5        ,  ///< Matrix code in range 0-31.
-       AR_MATRIX_CODE_5x5_BCH_22_12_5 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___5       ,  ///< Matrix code in range 0-4095.
-       AR_MATRIX_CODE_5x5_BCH_22_7_7 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___7        ,  ///< Matrix code in range 0-127.
-       AR_MATRIX_CODE_5x5                                                      = 0x05,  ///< Matrix code in range 0-4194303.
-       AR_MATRIX_CODE_6x6                                                      = 0x06,  ///< Matrix code in range 0-8589934591.
-       AR_MATRIX_CODE_GLOBAL_ID = 0x0e | AR_MATRIX_CODE_TYPE_ECC_BCH___19
+       AR_MATRIX_CODE_3x3             = $03                                    ,  ///< Matrix code in range 0-63.
+       AR_MATRIX_CODE_3x3_PARITY65    = $03 or AR_MATRIX_CODE_TYPE_ECC_PARITY  ,  ///< Matrix code in range 0-31.
+       AR_MATRIX_CODE_3x3_HAMMING63   = $03 or AR_MATRIX_CODE_TYPE_ECC_HAMMING ,  ///< Matrix code in range 0-7.
+       AR_MATRIX_CODE_4x4             = $04                                    ,  ///< Matrix code in range 0-8191.
+       AR_MATRIX_CODE_4x4_BCH_13_9_3  = $04 or AR_MATRIX_CODE_TYPE_ECC_BCH___3 ,  ///< Matrix code in range 0-511.
+       AR_MATRIX_CODE_4x4_BCH_13_5_5  = $04 or AR_MATRIX_CODE_TYPE_ECC_BCH___5 ,  ///< Matrix code in range 0-31.
+       AR_MATRIX_CODE_5x5_BCH_22_12_5 = $05 or AR_MATRIX_CODE_TYPE_ECC_BCH___5 ,  ///< Matrix code in range 0-4095.
+       AR_MATRIX_CODE_5x5_BCH_22_7_7  = $05 or AR_MATRIX_CODE_TYPE_ECC_BCH___7 ,  ///< Matrix code in range 0-127.
+       AR_MATRIX_CODE_5x5             = $05                                    ,  ///< Matrix code in range 0-4194303.
+       AR_MATRIX_CODE_6x6             = $06                                    ,  ///< Matrix code in range 0-8589934591.
+       AR_MATRIX_CODE_GLOBAL_ID       = $0e or AR_MATRIX_CODE_TYPE_ECC_BCH___19
      );
 
 (*!
@@ -325,33 +325,33 @@ type T_AR_MATRIX_CODE_TYPE = (
     @see        arDeteleHandle
  *)
 type T_ARHandle = record
-    int                arDebug;
-    AR_PIXEL_FORMAT    arPixelFormat;
-    int                arPixelSize;
-    int                arLabelingMode;
-    int                arLabelingThresh;
-    int                arImageProcMode;                     ///< To query this value, call arGetImageProcMode(). To set this value, call arSetImageProcMode().
-    int                arPatternDetectionMode;
-    int                arMarkerExtractionMode;
-    ARParamLT         *arParamLT;
-    int                xsize;
-    int                ysize;
-    int                marker_num;
-    ARMarkerInfo       markerInfo[AR_SQUARE_MAX];
-    int                marker2_num;
-    ARMarkerInfo2      markerInfo2[AR_SQUARE_MAX];
-    int                history_num;
-    ARTrackingHistory  history[AR_SQUARE_MAX];
-    ARLabelInfo        labelInfo;
-    ARPattHandle      *pattHandle;
-    AR_LABELING_THRESH_MODE arLabelingThreshMode;
-    int                arLabelingThreshAutoInterval;
-    int                arLabelingThreshAutoIntervalTTL;
-    int                arLabelingThreshAutoBracketOver;
-    int                arLabelingThreshAutoBracketUnder;
-    ARImageProcInfo   *arImageProcInfo;
-    ARdouble           pattRatio;                           ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
-    AR_MATRIX_CODE_TYPE matrixCodeType;                     ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
+       arDebug                          :T_int;
+       arPixelFormat                    :T_AR_PIXEL_FORMAT;
+       arPixelSize                      :T_int;
+       arLabelingMode                   :T_int;
+       arLabelingThresh                 :T_int;
+       arImageProcMode                  :T_int;  ///< To query this value, call arGetImageProcMode(). To set this value, call arSetImageProcMode().
+       arPatternDetectionMode           :T_int;
+       arMarkerExtractionMode           :T_int;
+       arParamLT                        :P_ARParamLT;
+       xsize                            :T_int;
+       ysize                            :T_int;
+       marker_num                       :T_int;
+       markerInfo                       :array [ 0..AR_SQUARE_MAX-1 ] of T_ARMarkerInfo;
+       marker2_num                      :T_int;
+       markerInfo2                      :array [ 0..AR_SQUARE_MAX-1 ] of T_ARMarkerInfo2;
+       history_num                      :T_int;
+       history                          :array [ 0..AR_SQUARE_MAX-1 ] of T_ARTrackingHistory;
+       labelInfo                        :T_ARLabelInfo;
+       pattHandle                       :P_ARPattHandle;
+       arLabelingThreshMode             :T_AR_LABELING_THRESH_MODE;
+       arLabelingThreshAutoInterval     :T_int;
+       arLabelingThreshAutoIntervalTTL  :T_int;
+       arLabelingThreshAutoBracketOver  :T_int;
+       arLabelingThreshAutoBracketUnder :T_int;
+       arImageProcInfo                  :P_ARImageProcInfo;
+       pattRatio                        :T_ARdouble;             ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
+       matrixCodeType                   :T_AR_MATRIX_CODE_TYPE;  ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
      end;
 
 
@@ -362,7 +362,7 @@ type T_ARHandle = record
     @details (description)
 *)
 type T_AR3DHandle = record
-    ICPHandleT          *icpHandle;
+       icpHandle :P_ICPHandleT;
      end;
 
 const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
@@ -372,7 +372,7 @@ const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
     @details (description)
 *)
 type T_AR3DStereoHandle = record
-    ICPStereoHandleT    *icpStereoHandle;
+       icpStereoHandle :P_ICPStereoHandleT;
      end;
 
 
