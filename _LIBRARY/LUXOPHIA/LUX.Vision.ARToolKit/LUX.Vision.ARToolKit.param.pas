@@ -150,6 +150,7 @@ type T_ARParamLT = record
        paramLTf :T_ARParamLTf; ///< The lookup table.
      //paramLTi :T_ARParamLTi;
      end;
+     P_ARParamLT = ^T_ARParamLT;
 
 int    arParamDisp( const ARParam *param );
 
