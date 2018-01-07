@@ -67,7 +67,9 @@ interface //####################################################################
 //#include <string.h>
 uses LUX.Code.C,
      LUX.Vision.ARToolKit.config,
-     LUX.Vision.ARToolKit.arConfig;
+     LUX.Vision.ARToolKit.arConfig,
+     LUX.Vision.ARToolKit.param,
+     LUX.Vision.ARToolKit.arImageProc;
 //{$IFDEF __ANDROID__ }
 //#  include <jni.h>
 //{$ENDIF}
@@ -86,17 +88,44 @@ uses LUX.Code.C,
 //{ if( ((V) = (T *)calloc( (S), sizeof(T) )) == NULL ) \
 //{ARLOGe("Out of memory!!\n"); exit(1);} }
 
-type T_ARInt8   = T_char;
-type T_ARInt16  = T_short;
-type T_ARInt32  = T_int;
-type T_ARUint8  = T_unsigned_char;
-type T_ARUint16 = T_unsigned_short;
-type T_ARUint32 = T_unsigned_int;
-type T_ARfloat  = T_float;
+type T_ARInt8   =  T_char;
+     P_ARInt8   = ^T_ARInt8;
+    PP_ARInt8   = ^P_ARInt8;
+type T_ARInt16  =  T_short;
+     P_ARInt16  = ^T_ARInt16;
+    PP_ARInt16  = ^P_ARInt16;
+type T_ARInt32  =  T_int;
+     P_ARInt32  = ^T_ARInt32;
+    PP_ARInt32  = ^P_ARInt32;
+type T_ARUint8  =  T_unsigned_char;
+     P_ARUint8  = ^T_ARUint8;
+    PP_ARUint8  = ^P_ARUint8;
+type T_ARUint16 =  T_unsigned_short;
+     P_ARUint16 = ^T_ARUint16;
+    PP_ARUint16 = ^P_ARUint16;
+type T_ARUint32 =  T_unsigned_int;
+     P_ARUint32 = ^T_ARUint32;
+    PP_ARUint32 = ^P_ARUint32;
+type T_ARfloat  =  T_float;
+     P_ARfloat  = ^T_ARfloat;
+    PP_ARfloat  = ^P_ARfloat;
 {$IFDEF ARDOUBLE_IS_FLOAT }
-type T_ARdouble = T_float;
+type T_ARdouble =  T_float;
+     P_ARdouble = ^T_ARdouble;
+    PP_ARdouble = ^P_ARdouble;
 {$ELSE}
-type T_ARdouble = T_double;
+type T_ARdouble =  T_double;
+     P_ARdouble = ^T_ARdouble;
+    PP_ARdouble = ^P_ARdouble;
+{$ENDIF}
+
+///// LUX.Vision.ARToolKit.arConfig
+{$IF AR_LABELING_32_BIT }
+type T_AR_LABELING_LABEL_TYPE = T_ARInt32;
+     P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
+{$ELSE}
+type T_AR_LABELING_LABEL_TYPE = T_ARInt16;
+     P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
 {$ENDIF}
 
 //{$IFNDEF TRUE }
@@ -151,6 +180,9 @@ type T_AR_LABELING_THRESH_MODE = (
        AR_LABELING_THRESH_MODE_AUTO_BRACKETING      ///< Automatic threshold selection via heuristic-based exposure bracketing.
      );
 
+///// LUX.Vision.ARToolKit.arConfig
+const AR_LABELING_THRESH_MODE_DEFAULT = AR_LABELING_THRESH_MODE_MANUAL;
+
 (*!
     @brief Captures detail of a trapezoidal region which is a candidate for marker detection.
  *)
@@ -162,6 +194,7 @@ type T_ARMarkerInfo2 = record
        y_coord   :array [ 0..AR_CHAIN_MAX-1 ] of T_int;  ///< Y values of coordinates.
        vertex    :array [ 0..5-1 ] of T_int;             ///< Vertices.
      end;
+     P_ARMarkerInfo2 = ^T_ARMarkerInfo2;
 
 (*!
     @brief Result codes returned by arDetectMarker to report state of individual detected trapezoidal regions.
@@ -186,7 +219,7 @@ type T_AR_MARKER_INFO_CUTOFF_PHASE = (
      );
 
 const AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT = 10;
-extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT];
+var arMarkerInfoCutoffPhaseDescriptions :array [ 0..AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT-1 ] of P_char;
 
 (*!
     @brief   Describes a detected trapezoidal area (a candidate for a marker match).
@@ -261,6 +294,7 @@ type T_ARPattHandle = record
      //pattRatio    :T_ARdouble;  ///<
        pattSize     :T_int;       ///< Number of rows/columns in the pattern.
      end;
+     P_ARPattHandle = ^T_ARPattHandle;
 
 (*!
     @brief Defines a pattern rectangle as a sub-portion of a marker image.
@@ -281,8 +315,8 @@ type T_ARPattRectInfo = record
 //}
 //{$ENDIF}
 
-#include <AR/param.h>
-#include <AR/arImageProc.h>
+//#include <AR/param.h>
+//#include <AR/arImageProc.h>
 
 //{$IFDEF __cplusplus }
 //extern "C" {
@@ -315,6 +349,9 @@ type T_AR_MATRIX_CODE_TYPE = (
        AR_MATRIX_CODE_6x6             = $06                                    ,  ///< Matrix code in range 0-8589934591.
        AR_MATRIX_CODE_GLOBAL_ID       = $0e or AR_MATRIX_CODE_TYPE_ECC_BCH___19
      );
+
+///// LUX.Vision.ARToolKit.arConfig
+const AR_MATRIX_CODE_TYPE_DEFAULT = AR_MATRIX_CODE_3x3;
 
 (*!
     @brief   Structure holding state of an instance of the square marker tracker.
