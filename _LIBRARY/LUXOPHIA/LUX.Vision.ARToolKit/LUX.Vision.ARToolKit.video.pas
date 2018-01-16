@@ -300,16 +300,16 @@ type T_AR2VideoParamT = record
        lumaInfo    :P_ARVideoLumaInfo;
      end;
 
-AR_DLL_API AR_VIDEO_MODULE   arVideoGetDefaultModule(void);
-AR_DLL_API int               arVideoOpen            (const char *config);
-AR_DLL_API int               arVideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
-AR_DLL_API int               arVideoClose           (void);
-AR_DLL_API int               arVideoDispOption      (void);
-AR_DLL_API AR_VIDEO_MODULE   arVideoGetModule       (void);
-AR_DLL_API int               arVideoGetId           (ARUint32 *id0, ARUint32 *id1);
-AR_DLL_API int               arVideoGetSize         (int *x, int *y);
-AR_DLL_API int               arVideoGetPixelSize    (void);
-AR_DLL_API AR_PIXEL_FORMAT   arVideoGetPixelFormat  (void);
+function arVideoGetDefaultModule(void) :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
+function arVideoOpen(const char *config) :T_int; stdcall; external _DLLNAME_;
+function arVideoOpenAsync(const char *config, void (*callback)(void *), void *userdata) :T_int; stdcall; external _DLLNAME_;
+function arVideoClose(void) :T_int; stdcall; external _DLLNAME_;
+function arVideoDispOption(void) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetModule(void) :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
+function arVideoGetId(ARUint32 *id0, ARUint32 *id1) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetSize(int *x, int *y) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetPixelSize(void) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetPixelFormat(void) :T_AR_PIXEL_FORMAT; stdcall; external _DLLNAME_;
 
 (*!
     @brief Get a frame image from the video module.
@@ -317,14 +317,14 @@ AR_DLL_API AR_PIXEL_FORMAT   arVideoGetPixelFormat  (void);
         The returned pointer remains valid until either the next call to arVideoGetImage, or a
         call to arVideoCapStop.
  *)
-AR_DLL_API AR2VideoBufferT  *arVideoGetImage        (void);
+function arVideoGetImage(void) :P_AR2VideoBufferT; stdcall; external _DLLNAME_;
 
 (*!
     @brief Start video capture.
     @detail Each call to arVideoCapStart must be balanced with a call to arVideoCapStop.
     @see arVideoCapStop
  *)
-AR_DLL_API int               arVideoCapStart        (void);
+function arVideoCapStart(void) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Start video capture with asynchronous notification of new frame arrival.
@@ -335,7 +335,7 @@ AR_DLL_API int               arVideoCapStart        (void);
         on the main thread, a rendering thread, or other arbitrary thread.
     @param userdata Optional user data pointer which will be passed to the callback as a parameter. May be NULL.
  *)
-AR_DLL_API int               arVideoCapStartAsync   (AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
+function arVideoCapStartAsync(AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata) :T_int; stdcall; external _DLLNAME_;
 
 
 (*!
@@ -343,7 +343,7 @@ AR_DLL_API int               arVideoCapStartAsync   (AR_VIDEO_FRAME_READY_CALLBA
     @detail Each call to arVideoCapStop must match a call to arVideoCapStart.
     @see arVideoCapStart
  *)
-AR_DLL_API int               arVideoCapStop         (void);
+function arVideoCapStop(void) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Get value of an integer parameter from active video module.
@@ -351,7 +351,7 @@ AR_DLL_API int               arVideoCapStop         (void);
     @param value Pointer to integer, which will be filled with the value of the parameter.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoGetParami       (int paramName, int *value);
+function arVideoGetParami(int paramName, int *value) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Set value of an integer parameter in active video module.
@@ -359,7 +359,7 @@ AR_DLL_API int               arVideoGetParami       (int paramName, int *value);
     @param value Integer value to set the parameter to.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoSetParami       (int paramName, int  value);
+function arVideoSetParami(int paramName, int  value) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Get value of a double-precision floating-point parameter from active video module.
@@ -367,7 +367,7 @@ AR_DLL_API int               arVideoSetParami       (int paramName, int  value);
     @param value Pointer to double, which will be filled with the value of the parameter.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoGetParamd       (int paramName, double *value);
+function arVideoGetParamd(int paramName, double *value) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Set value of a double-precision floating-point parameter in active video module.
@@ -375,7 +375,7 @@ AR_DLL_API int               arVideoGetParamd       (int paramName, double *valu
     @param value Double value to set the parameter to.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoSetParamd       (int paramName, double  value);
+function arVideoSetParamd(int paramName, double  value) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Get value of a string parameter from active video module.
@@ -386,7 +386,7 @@ AR_DLL_API int               arVideoSetParamd       (int paramName, double  valu
         returned value.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoGetParams       (const int paramName, char **value);
+function arVideoGetParams(const int paramName, char **value) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Get value of a string parameter in active video module.
@@ -394,20 +394,20 @@ AR_DLL_API int               arVideoGetParams       (const int paramName, char *
     @param value Pointer to C-string (nul-terminated, UTF-8) containing the value to set the parameter to.
     @return -1 in case of error, 0 in case of no error.
  *)
-AR_DLL_API int               arVideoSetParams       (const int paramName, const char  *value);
+function arVideoSetParams(const int paramName, const char  *value) :T_int; stdcall; external _DLLNAME_;
 
-AR_DLL_API int               arVideoSaveParam       (char *filename);
-AR_DLL_API int               arVideoLoadParam       (char *filename);
-AR_DLL_API int               arVideoSetBufferSize   (const int width, const int height);
-AR_DLL_API int               arVideoGetBufferSize   (int *width, int *height);
+function arVideoSaveParam(char *filename) :T_int; stdcall; external _DLLNAME_;
+function arVideoLoadParam(char *filename) :T_int; stdcall; external _DLLNAME_;
+function arVideoSetBufferSize(const int width, const int height) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetBufferSize(int *width, int *height) :T_int; stdcall; external _DLLNAME_;
 
-AR_DLL_API int               arVideoGetCParam       (ARParam *cparam);
-AR_DLL_API int               arVideoGetCParamAsync  (void (*callback)(const ARParam *, void *), void *userdata);
+function arVideoGetCParam(ARParam *cparam) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetCParamAsync  (void (*callback)(const ARParam *, void *), void *userdata) :T_int; stdcall; external _DLLNAME_;
 
-AR_DLL_API int               arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat);
-AR_DLL_API const char       *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
+function arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat) :T_int; stdcall; external _DLLNAME_;
+function arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat) :P_char; stdcall; external _DLLNAME_;
 {$IF not AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT }
-AR_DLL_API int               arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality (* 0 to 100 *), const int flipV);
+function arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality (* 0 to 100 *), const int flipV) :T_int; stdcall; external _DLLNAME_;
 {$ENDIF} // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 
 typedef enum {
@@ -438,7 +438,7 @@ typedef enum {
     @param h Height in pixels
     @result If a matching commonly-used aspect ratio can be found, returns symbolic constant for that aspect ratio.
 *)
-AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h);
+function arVideoUtilFindAspectRatio(int w, int h) :T_AR_VIDEO_ASPECT_RATIO; stdcall; external _DLLNAME_;
 
 (*!
     @brief Determine the approximate aspect ratio for a given image resolution.
@@ -450,7 +450,7 @@ AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h);
     @param h Height in pixels
     @result If a matching commonly-used aspect ratio can be found, returns string name for that aspect ratio. This string must be free'd when finished with.
 *)
-char *arVideoUtilFindAspectRatioName(int w, int h);
+function arVideoUtilFindAspectRatioName(int w, int h) :P_char; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Get the version of ARToolKit with which the arVideo library was built.
@@ -486,33 +486,33 @@ char *arVideoUtilFindAspectRatioName(int w, int h);
  *)
 #define  arVideoGetVersion() arVideoGetParami(AR_VIDEO_GET_VERSION, NULL)
 
-AR_DLL_API ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config);
-AR_DLL_API void              ar2VideoDeleteSourceInfoList(ARVideoSourceInfoListT **p);
-AR_DLL_API AR2VideoParamT   *ar2VideoOpen            (const char *config);
-AR_DLL_API AR2VideoParamT   *ar2VideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
-AR_DLL_API int               ar2VideoClose           (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoDispOption      (AR2VideoParamT *vid);
-AR_DLL_API AR_VIDEO_MODULE   ar2VideoGetModule       (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoGetId           (AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1);
-AR_DLL_API int               ar2VideoGetSize         (AR2VideoParamT *vid, int *x,int *y);
-AR_DLL_API int               ar2VideoGetPixelSize    (AR2VideoParamT *vid);
-AR_DLL_API AR_PIXEL_FORMAT   ar2VideoGetPixelFormat  (AR2VideoParamT *vid);
-AR_DLL_API AR2VideoBufferT  *ar2VideoGetImage        (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoCapStart        (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoCapStartAsync   (AR2VideoParamT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
-AR_DLL_API int               ar2VideoCapStop         (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoGetParami       (AR2VideoParamT *vid, int paramName, int *value);
-AR_DLL_API int               ar2VideoSetParami       (AR2VideoParamT *vid, int paramName, int  value);
-AR_DLL_API int               ar2VideoGetParamd       (AR2VideoParamT *vid, int paramName, double *value);
-AR_DLL_API int               ar2VideoSetParamd       (AR2VideoParamT *vid, int paramName, double  value);
-AR_DLL_API int               ar2VideoGetParams       (AR2VideoParamT *vid, const int paramName, char **value);
-AR_DLL_API int               ar2VideoSetParams       (AR2VideoParamT *vid, const int paramName, const char  *value);
-AR_DLL_API int               ar2VideoSaveParam       (AR2VideoParamT *vid, char *filename);
-AR_DLL_API int               ar2VideoLoadParam       (AR2VideoParamT *vid, char *filename);
-AR_DLL_API int               ar2VideoSetBufferSize   (AR2VideoParamT *vid, const int width, const int height);
-AR_DLL_API int               ar2VideoGetBufferSize   (AR2VideoParamT *vid, int *width, int *height);
-AR_DLL_API int               ar2VideoGetCParam       (AR2VideoParamT *vid, ARParam *cparam);
-AR_DLL_API int               ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata);
+function ar2VideoCreateSourceInfoList(const char *config) :P_ARVideoSourceInfoListT; stdcall; external _DLLNAME_;
+procedure ar2VideoDeleteSourceInfoList(ARVideoSourceInfoListT **p); stdcall; external _DLLNAME_;
+function ar2VideoOpen(const char *config) :P_AR2VideoParamT; stdcall; external _DLLNAME_;
+function ar2VideoOpenAsync(const char *config, void (*callback)(void *), void *userdata) :P_AR2VideoParamT; stdcall; external _DLLNAME_;
+function ar2VideoClose(AR2VideoParamT *vid) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoDispOption(AR2VideoParamT *vid) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetModule(AR2VideoParamT *vid) :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
+function ar2VideoGetId(AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetSize(AR2VideoParamT *vid, int *x,int *y) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetPixelSize(AR2VideoParamT *vid) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetPixelFormat(AR2VideoParamT *vid) :T_AR_PIXEL_FORMAT; stdcall; external _DLLNAME_;
+function ar2VideoGetImage(AR2VideoParamT *vid) :P_AR2VideoBufferT; stdcall; external _DLLNAME_;
+function ar2VideoCapStart(AR2VideoParamT *vid) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoCapStartAsync(AR2VideoParamT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoCapStop(AR2VideoParamT *vid) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetParami(AR2VideoParamT *vid, int paramName, int *value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoSetParami(AR2VideoParamT *vid, int paramName, int  value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetParamd(AR2VideoParamT *vid, int paramName, double *value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoSetParamd(AR2VideoParamT *vid, int paramName, double  value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetParams(AR2VideoParamT *vid, const int paramName, char **value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoSetParams(AR2VideoParamT *vid, const int paramName, const char  *value) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoSaveParam(AR2VideoParamT *vid, char *filename) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoLoadParam(AR2VideoParamT *vid, char *filename) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoSetBufferSize(AR2VideoParamT *vid, const int width, const int height) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetCParam(AR2VideoParamT *vid, ARParam *cparam) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata) :T_int; stdcall; external _DLLNAME_;
 
 
 {$IF TARGET_PLATFORM_ANDROID }
