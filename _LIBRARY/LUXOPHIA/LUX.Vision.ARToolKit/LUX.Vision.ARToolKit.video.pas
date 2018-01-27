@@ -410,22 +410,22 @@ function arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat) :P_c
 function arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality (* 0 to 100 *), const int flipV) :T_int; stdcall; external _DLLNAME_;
 {$ENDIF} // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 
-typedef enum {
-    AR_VIDEO_ASPECT_RATIO_1_1,       ///< 1.0:   "Square".
-    AR_VIDEO_ASPECT_RATIO_11_9,      ///< 1.222: Equivalent to well-known sizes 176x144 (QCIF), 352x288 (CIF).
-    AR_VIDEO_ASPECT_RATIO_5_4,       ///< 1.25:  Equivalent to well-known sizes 1280x1024 (SXGA), 2560x2048.
-    AR_VIDEO_ASPECT_RATIO_4_3,       ///< 1.333: Equivalent to well-known sizes 320x240 (QVGA), 480x360, 640x480 (VGA), 768x576 (576p), 800x600 (SVGA), 960x720, 1024x768 (XGA), 1152x864, 1280x960, 1400x1050, 1600x1200, 2048x1536.
-    AR_VIDEO_ASPECT_RATIO_3_2,       ///< 1.5:   Equivalent to well-known sizes 240x160, 480x320, 960x640, 720x480 (480p), 1152x768, 1280x854, 1440x960.
-    AR_VIDEO_ASPECT_RATIO_14_9,      ///< 1.556:
-    AR_VIDEO_ASPECT_RATIO_8_5,       ///< 1.6:   Equivalent to well-known sizes 320x200, 1280x800, 1440x900, 1680x1050, 1920x1200, 2560x1600.
+type T_AR_VIDEO_ASPECT_RATIO = (
+       AR_VIDEO_ASPECT_RATIO_1_1   ,  ///< 1.0:   "Square".
+       AR_VIDEO_ASPECT_RATIO_11_9  ,  ///< 1.222: Equivalent to well-known sizes 176x144 (QCIF), 352x288 (CIF).
+       AR_VIDEO_ASPECT_RATIO_5_4   ,  ///< 1.25:  Equivalent to well-known sizes 1280x1024 (SXGA), 2560x2048.
+       AR_VIDEO_ASPECT_RATIO_4_3   ,  ///< 1.333: Equivalent to well-known sizes 320x240 (QVGA), 480x360, 640x480 (VGA), 768x576 (576p), 800x600 (SVGA), 960x720, 1024x768 (XGA), 1152x864, 1280x960, 1400x1050, 1600x1200, 2048x1536.
+       AR_VIDEO_ASPECT_RATIO_3_2   ,  ///< 1.5:   Equivalent to well-known sizes 240x160, 480x320, 960x640, 720x480 (480p), 1152x768, 1280x854, 1440x960.
+       AR_VIDEO_ASPECT_RATIO_14_9  ,  ///< 1.556:
+       AR_VIDEO_ASPECT_RATIO_8_5   ,  ///< 1.6:   Equivalent to well-known sizes 320x200, 1280x800, 1440x900, 1680x1050, 1920x1200, 2560x1600.
 
-    AR_VIDEO_ASPECT_RATIO_5_3,       ///< 1.667: Equivalent to well-known sizes 800x480, 1280x768, 1600x960.
-    AR_VIDEO_ASPECT_RATIO_16_9,      ///< 1.778: "Widescreen". Equivalent to well-known sizes 1280x720 (720p), 1920x1080 (1080p).
-    AR_VIDEO_ASPECT_RATIO_9_5,       ///< 1.8:   Equivalent to well-known sizes 864x480.
-    AR_VIDEO_ASPECT_RATIO_17_9,      ///< 1.889: Equivalent to well-known sizes 2040x1080.
-    AR_VIDEO_ASPECT_RATIO_21_9,      ///< 2.333: "Ultrawide". Equivalent to well-known sizes 2560x1080, 1280x512.
-    AR_VIDEO_ASPECT_RATIO_UNIQUE     ///< Value not easily representable as a ratio of integers.
-} AR_VIDEO_ASPECT_RATIO;
+       AR_VIDEO_ASPECT_RATIO_5_3   ,  ///< 1.667: Equivalent to well-known sizes 800x480, 1280x768, 1600x960.
+       AR_VIDEO_ASPECT_RATIO_16_9  ,  ///< 1.778: "Widescreen". Equivalent to well-known sizes 1280x720 (720p), 1920x1080 (1080p).
+       AR_VIDEO_ASPECT_RATIO_9_5   ,  ///< 1.8:   Equivalent to well-known sizes 864x480.
+       AR_VIDEO_ASPECT_RATIO_17_9  ,  ///< 1.889: Equivalent to well-known sizes 2040x1080.
+       AR_VIDEO_ASPECT_RATIO_21_9  ,  ///< 2.333: "Ultrawide". Equivalent to well-known sizes 2560x1080, 1280x512.
+       AR_VIDEO_ASPECT_RATIO_UNIQUE   ///< Value not easily representable as a ratio of integers.
+     );
 
 (*!
     @brief Determine the approximate aspect ratio for a given image resolution.
