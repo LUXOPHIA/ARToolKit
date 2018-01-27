@@ -81,6 +81,7 @@ type T_ARImageProcInfo = record
        tempBuffer :P_void;                                 ///< Extra buffer when using macOS/iOS vImage framework.
 {$ENDIF}
      end;
+     P_ARImageProcInfo = ^T_ARImageProcInfo;
 //typedef struct _ARImageProcInfo ARImageProcInfo;
     
 //#ifdef __cplusplus
