@@ -254,6 +254,7 @@ const AR_PIXEL_FORMAT_MAX = AR_PIXEL_FORMAT_NV21;
 {$DEFINE AR_CALLBACK }
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
+(*
   {$IF ( __BYTE_ORDER__ = __ORDER_BIG_ENDIAN__ ) or defined( __BIG_ENDIAN__ ) }
     {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
     {$UNDEF AR_LITTLE_ENDIAN }
@@ -263,6 +264,7 @@ const AR_PIXEL_FORMAT_MAX = AR_PIXEL_FORMAT_NV21;
   {$ELSE}
     {$DEFINE AR_LITTLE_ENDIAN }
   {$ENDIF}
+*)
 
 // Input modules. This is edited by the configure script.
 {$UNDEF ARVIDEO_INPUT_V4L2 }
@@ -326,6 +328,7 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
 {$DEFINE LIBARVIDEO_DYNAMIC }
 
 // Define _WINRT for support Windows Runtime platforms.
+(*
 {$IF defined( WINAPI_FAMILY ) }
   {$IF ( WINAPI_FAMILY = WINAPI_FAMILY_PHONE_APP) } // Windows Phone 8.1 and later.
     {$IF ( _WIN32_WINNT >= $0603 ) } // (_WIN32_WINNT_WINBLUE)
@@ -345,6 +348,7 @@ const ARVIDEO_INPUT_GSTREAMER_PIXEL_FORMAT = AR_PIXEL_FORMAT_RGB;
     {$ENDIF}
   {$ENDIF}
 {$ENDIF}
+*)
 
 // Endianness.
 // Windows on x86, x86-64 and ARM all run little-endian.
@@ -392,6 +396,7 @@ const ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGRA;
 {$IF defined( ANDROID ) }
 
 // Determine architecture endianess using gcc's macro, or assume little-endian by default.
+(*
   {$IF ( __BYTE_ORDER__ = __ORDER_BIG_ENDIAN__ ) or defined( __BIG_ENDIAN__ ) }
     {$DEFINE AR_BIG_ENDIAN }  // Most Significant Byte has greatest address in memory (ppc).
     {$UNDEF AR_LITTLE_ENDIAN }
@@ -401,6 +406,7 @@ const ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT = AR_PIXEL_FORMAT_BGRA;
   {$ELSE}
     {$DEFINE AR_LITTLE_ENDIAN }
   {$ENDIF}
+*)
 
 {$DEFINE AR_CALLBACK }
 {$DEFINE ARDOUBLE_IS_FLOAT }
