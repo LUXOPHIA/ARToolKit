@@ -95,7 +95,7 @@ const AR_AREA_MIN          = 70;       // Minimum area (in pixels) of connected 
 const AR_SQUARE_FIT_THRESH = 1.0;
 
 const AR_LABELING_32_BIT = 0;  // 0 = 16 bits per label, 1 = 32 bits per label.
-{$IF AR_LABELING_32_BIT }
+{$IF AR_LABELING_32_BIT = 1 }
 const AR_LABELING_WORK_SIZE = 1024*32*16;
 //type T_AR_LABELING_LABEL_TYPE = T_ARInt32;
 //     P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
