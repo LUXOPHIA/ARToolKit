@@ -51,7 +51,10 @@
 interface //#################################################################### ■
 
 uses LUX.Code.C,
+     LUX.Vision.ARToolKit.define,
+     LUX.Vision.ARToolKit.config,
      LUX.Vision.ARToolKit.ar,
+     LUX.Vision.ARToolKit.param,
      LUX.Vision.ARToolKit.videoConfig;
 //#include <limits.h>
 
@@ -267,6 +270,7 @@ type T_ARVideoSourceInfoT = record
        flags      :T_uint32_t;
        open_token :P_char;     ///< UTF-8 encoded string containing the token that should be passed (in the space-separated list of tokens to arVideoOpen/ar2VideoOpen, in order to select this source to be opened. Note that this token is only valid so long as the underlying video hardware configuration does not change, so should not be stored between sessions.
      end;
+     P_ARVideoSourceInfoT = ^T_ARVideoSourceInfoT;
 
 ///
 /// @brief Values describing a list of video sources.
@@ -275,6 +279,8 @@ type T_ARVideoSourceInfoListT = record
        count :T_int;
        info  :P_ARVideoSourceInfoT;
      end;
+     P_ARVideoSourceInfoListT = ^T_ARVideoSourceInfoListT;
+    PP_ARVideoSourceInfoListT = ^P_ARVideoSourceInfoListT;
 
 type T_AR_VIDEO_FRAME_READY_CALLBACK = procedure( _1_:P_void );
 
@@ -297,8 +303,9 @@ type T_AR_VIDEO_FRAME_READY_CALLBACK = procedure( _1_:P_void );
 type T_AR2VideoParamT = record
        module      :T_int;
        moduleParam :P_void;
-       lumaInfo    :P_ARVideoLumaInfo;
+       //lumaInfo    :P_ARVideoLumaInfo;                                        { ToDo: videoLuma.h が存在しない。 }
      end;
+     P_AR2VideoParamT = ^T_AR2VideoParamT;
 
 type T_arVideoOpenAsync_callback = procedure( _1_:P_void );
 
