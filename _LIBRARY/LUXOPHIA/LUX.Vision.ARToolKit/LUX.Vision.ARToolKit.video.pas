@@ -138,7 +138,7 @@ const AR_VIDEO_PARAM_ANDROID_CAMERA_FACE    = 501; ///< int
 const AR_VIDEO_PARAM_ANDROID_INTERNET_STATE = 502; ///< int
 const AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH   = 503; ///< double
 
-const AR_VIDEO_GET_VERSION = INT_MAX;
+const AR_VIDEO_GET_VERSION = MaxInt;
 
 // For arVideoParamGet(AR_VIDEO_FOCUS_MODE, ...)
 const AR_VIDEO_FOCUS_MODE_FIXED             = 0;
@@ -276,7 +276,7 @@ type T_ARVideoSourceInfoListT = record
        info  :P_ARVideoSourceInfoT;
      end;
 
-typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
+type T_AR_VIDEO_FRAME_READY_CALLBACK = procedure( _1_:P_void );
 
 {$IFDEF _WIN32 }
   {$IFDEF LIBARVIDEO_DYNAMIC }
@@ -300,11 +300,11 @@ type T_AR2VideoParamT = record
        lumaInfo    :P_ARVideoLumaInfo;
      end;
 
-type Tcallback = function( _1_:P_void ) :Pvoid;
+type T_arVideoOpenAsync_callback = procedure( _1_:P_void );
 
 function arVideoGetDefaultModule :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
 function arVideoOpen( const config_:P_char ) :T_int; stdcall; external _DLLNAME_;
-function arVideoOpenAsync( const config_:P_char; callback_:Tcallback; userdata_:P_void ) :T_int; stdcall; external _DLLNAME_;
+function arVideoOpenAsync( const config_:P_char; callback_:T_arVideoOpenAsync_callback; userdata_:P_void ) :T_int; stdcall; external _DLLNAME_;
 function arVideoClose :T_int; stdcall; external _DLLNAME_;
 function arVideoDispOption :T_int; stdcall; external _DLLNAME_;
 function arVideoGetModule :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
@@ -403,8 +403,10 @@ function arVideoLoadParam( filename_:P_char ) :T_int; stdcall; external _DLLNAME
 function arVideoSetBufferSize( const width_:T_int; const height_:T_int ) :T_int; stdcall; external _DLLNAME_;
 function arVideoGetBufferSize( width_:P_int; height_:P_int ) :T_int; stdcall; external _DLLNAME_;
 
+type T_arVideoGetCParamAsync_callback = procedure(const _1_:P_ARParam; _2_:P_void );
+
 function arVideoGetCParam( cparam_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
-function arVideoGetCParamAsync  (void (*callback)(const ARParam *, void *), void *userdata) :T_int; stdcall; external _DLLNAME_;
+function arVideoGetCParamAsync( callback_:T_arVideoGetCParamAsync_callback; userdata_:P_void ) :T_int; stdcall; external _DLLNAME_;
 
 function arVideoUtilGetPixelSize( const arPixelFormat_:T_AR_PIXEL_FORMAT ) :T_int; stdcall; external _DLLNAME_;
 function arVideoUtilGetPixelFormatName( const arPixelFormat_:T_AR_PIXEL_FORMAT ) :P_char; stdcall; external _DLLNAME_;
@@ -486,19 +488,20 @@ function arVideoUtilFindAspectRatioName( w_:T_int; h_:T_int ) :P_char; stdcall; 
         ARToolKit (v4.0 to 4.4.1) with a slightly different syntax: replace
         "arVideoGetVersion()" in your code with "arVideoGetParami(AR_VIDEO_GET_VERSION, NULL)".
  *)
-#define  arVideoGetVersion() arVideoGetParami(AR_VIDEO_GET_VERSION, NULL)
+function arVideoGetVersion :T_int;
 
-type Tcallback2 = function( const _1_:P_ARParam; _2_:P_void ) :P_void;
+type T_ar2VideoOpenAsync_callback = procedure( _1_:P_void );
+type T_ar2VideoGetCParamAsync_callback = procedure( const _1_:P_ARParam; _2_:P_void );
 
 function ar2VideoCreateSourceInfoList( const config_:P_char ) :P_ARVideoSourceInfoListT; stdcall; external _DLLNAME_;
 procedure ar2VideoDeleteSourceInfoList( p_:PP_ARVideoSourceInfoListT ); stdcall; external _DLLNAME_;
 function ar2VideoOpen( const config_:P_char ) :P_AR2VideoParamT; stdcall; external _DLLNAME_;
-function ar2VideoOpenAsync( const config_:P_char; callback_:Tcallback; userdata_:P_void ) :P_AR2VideoParamT; stdcall; external _DLLNAME_;
+function ar2VideoOpenAsync( const config_:P_char; callback_:T_ar2VideoOpenAsync_callback; userdata_:P_void ) :P_AR2VideoParamT; stdcall; external _DLLNAME_;
 function ar2VideoClose( vid_:P_AR2VideoParamT ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoDispOption( vid_:P_AR2VideoParamT ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoGetModule( vid_:P_AR2VideoParamT ) :T_AR_VIDEO_MODULE; stdcall; external _DLLNAME_;
 function ar2VideoGetId( vid_:P_AR2VideoParamT; id0_:P_ARUint32; id1_:P_ARUint32 ) :T_int; stdcall; external _DLLNAME_;
-function ar2VideoGetSize( vid_:P_AR2VideoParamT; x_:P_int;int *y) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetSize( vid_:P_AR2VideoParamT; x_:P_int; y_:P_int ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoGetPixelSize( vid_:P_AR2VideoParamT ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoGetPixelFormat( vid_:P_AR2VideoParamT ) :T_AR_PIXEL_FORMAT; stdcall; external _DLLNAME_;
 function ar2VideoGetImage( vid_:P_AR2VideoParamT ) :P_AR2VideoBufferT; stdcall; external _DLLNAME_;
@@ -516,7 +519,7 @@ function ar2VideoLoadParam( vid_:P_AR2VideoParamT; filename_:P_char ) :T_int; st
 function ar2VideoSetBufferSize( vid_:P_AR2VideoParamT; const width_:T_int; const height_:T_int ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoGetBufferSize( vid_:P_AR2VideoParamT; width_:P_int; height_:P_int ) :T_int; stdcall; external _DLLNAME_;
 function ar2VideoGetCParam( vid_:P_AR2VideoParamT; cparam_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
-function ar2VideoGetCParamAsync  ( vid_:P_AR2VideoParamT; callback_:Tcallback2; userdata_:P_void ) :T_int; stdcall; external _DLLNAME_;
+function ar2VideoGetCParamAsync  ( vid_:P_AR2VideoParamT; callback_:T_ar2VideoGetCParamAsync_callback; userdata_:P_void ) :T_int; stdcall; external _DLLNAME_;
 
 
 {$IF TARGET_PLATFORM_ANDROID }
@@ -532,5 +535,10 @@ jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj);
 {$ENDIF} // TARGET_PLATFORM_ANDROID
 
 implementation //############################################################### ■
+
+function arVideoGetVersion :T_int;
+begin
+     Result := arVideoGetParami( AR_VIDEO_GET_VERSION, nil );
+end;
 
 end. //######################################################################### ■
