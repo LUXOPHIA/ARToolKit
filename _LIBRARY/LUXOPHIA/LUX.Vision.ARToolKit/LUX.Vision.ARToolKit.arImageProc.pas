@@ -53,8 +53,7 @@ interface //####################################################################
 //#endif
 
 uses LUX.Code.C,
-     LUX.Vision.ARToolKit.config,
-     LUX.Vision.ARToolKit.ar;
+     LUX.Vision.ARToolKit.define;
 
 //#ifdef __cplusplus
 //extern "C" {
