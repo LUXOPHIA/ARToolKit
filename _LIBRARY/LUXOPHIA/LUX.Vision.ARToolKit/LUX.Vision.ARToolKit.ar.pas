@@ -66,6 +66,8 @@ interface //####################################################################
 //#include <stdint.h>
 //#include <string.h>
 uses LUX.Code.C,
+     LUX.Vision.ARToolKit.define,
+     LUX.Vision.ARToolKit.icp,
      LUX.Vision.ARToolKit.config,
      LUX.Vision.ARToolKit.arConfig,
      LUX.Vision.ARToolKit.param,
@@ -88,6 +90,7 @@ uses LUX.Code.C,
 //{ if( ((V) = (T *)calloc( (S), sizeof(T) )) == NULL ) \
 //{ARLOGe("Out of memory!!\n"); exit(1);} }
 
+(*
 type T_ARInt8   =  T_char;
      P_ARInt8   = ^T_ARInt8;
     PP_ARInt8   = ^P_ARInt8;
@@ -118,9 +121,10 @@ type T_ARdouble =  T_double;
      P_ARdouble = ^T_ARdouble;
     PP_ARdouble = ^P_ARdouble;
 {$ENDIF}
+*)
 
 ///// LUX.Vision.ARToolKit.arConfig
-{$IF AR_LABELING_32_BIT }
+{$IF AR_LABELING_32_BIT = 1 }
 type T_AR_LABELING_LABEL_TYPE = T_ARInt32;
      P_AR_LABELING_LABEL_TYPE = ^T_AR_LABELING_LABEL_TYPE;
 {$ELSE}
@@ -168,6 +172,7 @@ type T_AR2VideoBufferT = record
        fillFlag      :T_int;                 ///< Set non-zero when buff is valid.
        time          :T_AR2VideoTimestampT;  ///< Time at which buff was filled.
      end;
+     P_AR2VideoBufferT = ^T_AR2VideoBufferT;
 
 (*!
     @brief Values controlling the labeling thresholding mode.
@@ -179,6 +184,7 @@ type T_AR_LABELING_THRESH_MODE = (
        AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE      , ///< Adaptive thresholding.
        AR_LABELING_THRESH_MODE_AUTO_BRACKETING      ///< Automatic threshold selection via heuristic-based exposure bracketing.
      );
+     P_AR_LABELING_THRESH_MODE = ^T_AR_LABELING_THRESH_MODE;
 
 ///// LUX.Vision.ARToolKit.arConfig
 const AR_LABELING_THRESH_MODE_DEFAULT = AR_LABELING_THRESH_MODE_MANUAL;
@@ -248,6 +254,7 @@ type T_ARMarkerInfo = record
        errorCorrected :T_int;                                   ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
        globalID       :T_uint64_t;                              ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
      end;
+     P_ARMarkerInfo = ^T_ARMarkerInfo;
 
 (*!
     @brief   (description)
@@ -274,6 +281,7 @@ type T_ARLabelInfo = record
        work       :array [ 0..AR_LABELING_WORK_SIZE-1 ] of T_int;
        work2      :array [ 0..AR_LABELING_WORK_SIZE*7-1 ] of T_int; ///< area, pos[2], clip[4].
      end;
+     P_ARLabelInfo = ^T_ARLabelInfo;
 
 (* --------------------------------------------------*)
 
@@ -308,6 +316,7 @@ type T_ARPattRectInfo = record
        bottomRightX :T_float;  ///< Horizontal coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
        bottomRightY :T_float;  ///< Vertical coordinate of the bottom right corner of the pattern space, in range 0.0f-1.0f.
      end;
+     P_ARPattRectInfo = ^T_ARPattRectInfo;
 
 (* --------------------------------------------------*)
 
@@ -349,6 +358,7 @@ type T_AR_MATRIX_CODE_TYPE = (
        AR_MATRIX_CODE_6x6             = $06                                    ,  ///< Matrix code in range 0-8589934591.
        AR_MATRIX_CODE_GLOBAL_ID       = $0e or AR_MATRIX_CODE_TYPE_ECC_BCH___19
      );
+     P_AR_MATRIX_CODE_TYPE = ^T_AR_MATRIX_CODE_TYPE;
 
 ///// LUX.Vision.ARToolKit.arConfig
 const AR_MATRIX_CODE_TYPE_DEFAULT = AR_MATRIX_CODE_3x3;
@@ -390,7 +400,7 @@ type T_ARHandle = record
        pattRatio                        :T_ARdouble;             ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
        matrixCodeType                   :T_AR_MATRIX_CODE_TYPE;  ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
      end;
-
+     P_ARHandle = ^T_ARHandle;
 
 (* --------------------------------------------------*)
 
@@ -401,6 +411,8 @@ type T_ARHandle = record
 type T_AR3DHandle = record
        icpHandle :P_ICPHandleT;
      end;
+     P_AR3DHandle = ^T_AR3DHandle;
+    PP_AR3DHandle = ^P_AR3DHandle;
 
 const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
 
@@ -411,7 +423,8 @@ const AR_TRANS_MAT_IDENTITY = ICP_TRANS_MAT_IDENTITY;
 type T_AR3DStereoHandle = record
        icpStereoHandle :P_ICPStereoHandleT;
      end;
-
+     P_AR3DStereoHandle = ^T_AR3DStereoHandle;
+    PP_AR3DStereoHandle = ^P_AR3DStereoHandle;
 
 (***********************************)
 (*                                 *)
@@ -936,8 +949,8 @@ function arDetectMarker2( xsize_:T_int; ysize_:T_int; labelInfo_:P_ARLabelInfo; 
  *)
 function arGetMarkerInfo( image_:P_ARUint8; xsize_:T_int; ysize_:T_int; pixelFormat_:T_int; markerInfo2_:P_ARMarkerInfo2; marker2_num_:T_int; pattHandle_:P_ARPattHandle; imageProcMode_:T_int; pattDetectMode_:T_int; arParamLTf_:P_ARParamLTf; pattRatio_:T_ARdouble; markerInfo_:P_ARMarkerInfo; marker_num_:P_int; const matrixCodeType_:T_AR_MATRIX_CODE_TYPE ) :T_int; stdcall; external _DLLNAME_;
 
-function arGetContour( lImage_:P_AR_LABELING_LABEL_TYPE; xsize_:T_int; ysize_:T_int; label_ref_:P_int; label_:T_int; clip_:array [ 0..4-1 ] of T_int; marker_info2_:P_ARMarkerInfo2 ) :T_int; stdcall; external _DLLNAME_;
-function arGetLine( x_coord_:array of T_int; y_coord_:array of T_int; coord_num_:T_int; vertex_:array of T_int; paramLTf_:P_ARParamLTf; line_:array [ 0..4-1, 0..3-1 ] of T_ARdouble; v_:array [ 0..4-1, 0..2-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arGetContour( lImage_:P_AR_LABELING_LABEL_TYPE; xsize_:T_int; ysize_:T_int; label_ref_:P_int; label_:T_int; clip_:T_int4; marker_info2_:P_ARMarkerInfo2 ) :T_int; stdcall; external _DLLNAME_;
+function arGetLine( x_coord_:array of T_int; y_coord_:array of T_int; coord_num_:T_int; vertex_:array of T_int; paramLTf_:P_ARParamLTf; line_:T_ARdouble43; v_:T_ARdouble42 ) :T_int; stdcall; external _DLLNAME_;
 
 
 (***********************************)
@@ -962,7 +975,7 @@ function arGetLine( x_coord_:array of T_int; y_coord_:array of T_int; coord_num_
     @see    arPattDeleteHandle
     @result     The created pattern handle, or NULL in case of error.
 *)
-function arPattCreateHandle(void) :P_ARPattHandle; stdcall; external _DLLNAME_;
+function arPattCreateHandle :P_ARPattHandle; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Allocate a pattern handle and set pattern template size and maximum number of patterns loadable.
@@ -1173,7 +1186,7 @@ function arPattGetID2( pattHandle_:P_ARPattHandle; imageProcMode_:T_int; pattDet
     @result     0 if the function was able to correctly match, or -1 in case of error or no match.
     @see    arParamLTCreate
  *)
-function arPattGetIDGlobal( pattHandle_:P_ARPattHandle; imageProcMode_:T_int; pattDetectMode_:T_int; image_:P_ARUint8; xsize_:T_int; ysize_:T_int; pixelFormat_:T_AR_PIXEL_FORMAT; arParamLTf_:P_ARParamLTf; vertex_:array [ 0..4-1, 0..2-1 ] of T_ARdouble; pattRatio_:T_ARdouble; codePatt_:P_int; dirPatt_:P_int; cfPatt_:P_ARdouble; codeMatrix_:P_int; dirMatrix_:P_int; cfMatrix_:P_ARdouble; const matrixCodeType_:T_AR_MATRIX_CODE_TYPE; errorCorrected_:P_int; codeGlobalID_p_:P_uint64_t ) :T_int; stdcall; external _DLLNAME_;
+function arPattGetIDGlobal( pattHandle_:P_ARPattHandle; imageProcMode_:T_int; pattDetectMode_:T_int; image_:P_ARUint8; xsize_:T_int; ysize_:T_int; pixelFormat_:T_AR_PIXEL_FORMAT; arParamLTf_:P_ARParamLTf; vertex_:T_ARdouble42; pattRatio_:T_ARdouble; codePatt_:P_int; dirPatt_:P_int; cfPatt_:P_ARdouble; codeMatrix_:P_int; dirMatrix_:P_int; cfMatrix_:P_ARdouble; const matrixCodeType_:T_AR_MATRIX_CODE_TYPE; errorCorrected_:P_int; codeGlobalID_p_:P_uint64_t ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Extract the image (i.e. locate and unwarp) of the pattern-space portion of a detected square.
@@ -1192,7 +1205,7 @@ function arPattGetIDGlobal( pattHandle_:P_ARPattHandle; imageProcMode_:T_int; pa
     @result     0 if the function was able to correctly get the image, or -1 in case of error or no match.
     @see    arParamLTCreate
  *)
-function arPattGetImage2( imageProcMode_:T_int; pattDetectMode_:T_int; patt_size_:T_int; sample_size_:T_int; image_:P_ARUint8; xsize_:T_int; ysize_:T_int; pixelFormat_:T_AR_PIXEL_FORMAT; arParamLTf_:P_ARParamLTf; vertex_:array [ 0..4-1, 0..2-1 ] of T_ARdouble; pattRatio_:T_ARdouble; ext_patt_:P_ARUint8 ) :T_int; stdcall; external _DLLNAME_;
+function arPattGetImage2( imageProcMode_:T_int; pattDetectMode_:T_int; patt_size_:T_int; sample_size_:T_int; image_:P_ARUint8; xsize_:T_int; ysize_:T_int; pixelFormat_:T_AR_PIXEL_FORMAT; arParamLTf_:P_ARParamLTf; vertex_:T_ARdouble42; pattRatio_:T_ARdouble; ext_patt_:P_ARUint8 ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Extract the image (i.e. locate and unwarp) of an arbitrary portion of a detected square.
@@ -1245,7 +1258,7 @@ function ar3DCreateHandle( const arParam_:P_ARParam ) :P_AR3DHandle; stdcall; ex
     @see    ar3DCreateHandle
     @see    ar3DDeleteHandle
 *)
-function ar3DCreateHandle2( const cpara_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :P_AR3DHandle; stdcall; external _DLLNAME_;
+function ar3DCreateHandle2( const cpara_:T_ARdouble34 ) :P_AR3DHandle; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Delete handle used for 3D calculation.
@@ -1264,7 +1277,7 @@ function ar3DDeleteHandle( handle_:PP_AR3DHandle ) :T_int; stdcall; external _DL
     @param      cpara (description)
     @result     (description)
 *)
-function ar3DChangeCpara( handle_:P_AR3DHandle; const cpara_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function ar3DChangeCpara( handle_:P_AR3DHandle; const cpara_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   (description)
@@ -1302,7 +1315,7 @@ function ar3DChangeLoopBreakThreshRatio( handle_:P_AR3DHandle; loopBreakThreshRa
     @param      conv (description)
     @result     (description)
 *)
-function arGetTransMatSquare( handle_:P_AR3DHandle; marker_info_:P_ARMarkerInfo; width_:T_ARdouble; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatSquare( handle_:P_AR3DHandle; marker_info_:P_ARMarkerInfo; width_:T_ARdouble; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
 
 (*!
     @brief   (description)
@@ -1314,7 +1327,7 @@ function arGetTransMatSquare( handle_:P_AR3DHandle; marker_info_:P_ARMarkerInfo;
     @param      conv (description)
     @result     (description)
 *)
-function arGetTransMatSquareCont( handle_:P_AR3DHandle; marker_info_:P_ARMarkerInfo; initConv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; width_:T_ARdouble; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatSquareCont( handle_:P_AR3DHandle; marker_info_:P_ARMarkerInfo; initConv_:T_ARdouble34; width_:T_ARdouble; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
 
 (*!
     @brief   (description)
@@ -1327,7 +1340,7 @@ function arGetTransMatSquareCont( handle_:P_AR3DHandle; marker_info_:P_ARMarkerI
     @param      conv (description)
     @result     (description)
 *)
-function arGetTransMat( handle_:P_AR3DHandle; initConv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; pos2d_:array of array [ 0..2-1 ] of T_ARdouble; pos3d_:array of array [ 0..3-1 ] of T_ARdouble; num_:T_int; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMat( handle_:P_AR3DHandle; initConv_:T_ARdouble34; pos2d_:T_ARdouble02; pos3d_:T_ARdouble03; num_:T_int; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
 
 (*!
     @brief   (description)
@@ -1340,7 +1353,7 @@ function arGetTransMat( handle_:P_AR3DHandle; initConv_:array [ 0..3-1, 0..4-1 ]
     @param      conv (description)
     @result     (description)
 *)
-function arGetTransMatRobust( handle_:P_AR3DHandle; initConv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; pos2d_:array of array [ 0..2-1 ] of T_ARdouble; pos3d_:array of array [ 0..3-1 ] of T_ARdouble; num_:T_int; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatRobust( handle_:P_AR3DHandle; initConv_:T_ARdouble34; pos2d_:T_ARdouble02; pos3d_:T_ARdouble03; num_:T_int; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
 
 
 (***********************************)
@@ -1353,23 +1366,23 @@ function arGetTransMatRobust( handle_:P_AR3DHandle; initConv_:array [ 0..3-1, 0.
     @functiongroup "3D calculation by Stereo".
  *)
 
-function ar3DStereoCreateHandle( const arParamL_:P_ARParam; const arParamR_:P_ARParam; const transL_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const transR_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :P_AR3DStereoHandle; stdcall; external _DLLNAME_;
-function ar3DStereoCreateHandle2( const cparaL_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const cparaR_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const transL_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const transR_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :P_AR3DStereoHandle; stdcall; external _DLLNAME_;
+function ar3DStereoCreateHandle( const arParamL_:P_ARParam; const arParamR_:P_ARParam; const transL_:T_ARdouble34; const transR_:T_ARdouble34 ) :P_AR3DStereoHandle; stdcall; external _DLLNAME_;
+function ar3DStereoCreateHandle2( const cparaL_:T_ARdouble34; const cparaR_:T_ARdouble34; const transL_:T_ARdouble34; const transR_:T_ARdouble34 ) :P_AR3DStereoHandle; stdcall; external _DLLNAME_;
 function ar3DStereoDeleteHandle( handle_:PP_AR3DStereoHandle ) :T_int; stdcall; external _DLLNAME_;
 function ar3DStereoChangeMaxLoopCount( handle_:P_AR3DStereoHandle; maxLoopCount_:T_int ) :T_int; stdcall; external _DLLNAME_;
 function ar3DStereoChangeLoopBreakThresh( handle_:P_AR3DStereoHandle; loopBreakThresh_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 function ar3DStereoChangeLoopBreakThreshRatio( handle_:P_AR3DStereoHandle; loopBreakThreshRatio_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
-function ar3DStereoChangeCpara( handle_:P_AR3DStereoHandle; cparaL_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; cparaR_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
-function ar3DStereoChangeTransMat( handle_:P_AR3DStereoHandle; transL_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; transR_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function ar3DStereoChangeCpara( handle_:P_AR3DStereoHandle; cparaL_:T_ARdouble34; cparaR_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
+function ar3DStereoChangeTransMat( handle_:P_AR3DStereoHandle; transL_:T_ARdouble34; transR_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
 
-function arGetTransMatSquareStereo( handle_:P_AR3DStereoHandle; marker_infoL_:P_ARMarkerInfo; marker_infoR_:P_ARMarkerInfo; width_:T_ARdouble; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
-function arGetTransMatSquareContStereo( handle_:P_AR3DStereoHandle; marker_infoL_:P_ARMarkerInfo; marker_infoR_:P_ARMarkerInfo; prev_conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; width_:T_ARdouble; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
-function arGetTransMatStereo( handle_:P_AR3DStereoHandle; initConv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; pos2dL_:array of array [ 0..2-1 ] of T_ARdouble; pos3dL_:array of array [ 0..3-1 ] of T_ARdouble; numL_:T_int; pos2dR_:array of array [ 0..2-1 ] of T_ARdouble; pos3dR_:array of array [ 0..3-1 ] of T_ARdouble; numR_:T_int; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
-function arGetTransMatStereoRobust( handle_:P_AR3DStereoHandle; initConv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; pos2dL_:array of array [ 0..2-1 ] of T_ARdouble; pos3dL_:array of array [ 0..3-1 ] of T_ARdouble; numL_:T_int; pos2dR_:array of array [ 0..2-1 ] of T_ARdouble; pos3dR_:array of array [ 0..3-1 ] of T_ARdouble; numR_:T_int; conv_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatSquareStereo( handle_:P_AR3DStereoHandle; marker_infoL_:P_ARMarkerInfo; marker_infoR_:P_ARMarkerInfo; width_:T_ARdouble; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatSquareContStereo( handle_:P_AR3DStereoHandle; marker_infoL_:P_ARMarkerInfo; marker_infoR_:P_ARMarkerInfo; prev_conv_:T_ARdouble34; width_:T_ARdouble; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatStereo( handle_:P_AR3DStereoHandle; initConv_:T_ARdouble34; pos2dL_:T_ARdouble02; pos3dL_:T_ARdouble03; numL_:T_int; pos2dR_:T_ARdouble02; pos3dR_:T_ARdouble03; numR_:T_int; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetTransMatStereoRobust( handle_:P_AR3DStereoHandle; initConv_:T_ARdouble34; pos2dL_:T_ARdouble02; pos3dL_:T_ARdouble03; numL_:T_int; pos2dR_:T_ARdouble02; pos3dR_:T_ARdouble03; numR_:T_int; conv_:T_ARdouble34 ) :T_ARdouble; stdcall; external _DLLNAME_;
 
 function arGetStereoMatchingErrorSquare( handle_:P_AR3DStereoHandle; marker_infoL_:P_ARMarkerInfo; marker_infoR_:P_ARMarkerInfo ) :T_ARdouble; stdcall; external _DLLNAME_;
-function arGetStereoMatchingError( handle_:P_AR3DStereoHandle; pos2dL_:array [ 0..2-1 ] of T_ARdouble; pos2dR_:array [ 0..2-1 ] of T_ARdouble ) :T_ARdouble; stdcall; external _DLLNAME_;
-function arGetStereoMatching( handle_:P_AR3DStereoHandle; pos2dL_:array [ 0..2-1 ] of T_ARdouble; pos2dR_:array [ 0..2-1 ] of T_ARdouble; pos3d_:array [ 0..3-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arGetStereoMatchingError( handle_:P_AR3DStereoHandle; pos2dL_:T_ARdouble2; pos2dR_:T_ARdouble2 ) :T_ARdouble; stdcall; external _DLLNAME_;
+function arGetStereoMatching( handle_:P_AR3DStereoHandle; pos2dL_:T_ARdouble2; pos2dR_:T_ARdouble2; pos3d_:T_ARdouble3 ) :T_int; stdcall; external _DLLNAME_;
 
 (***********************************)
 (*                                 *)
@@ -1430,29 +1443,29 @@ function arGetStereoMatching( handle_:P_AR3DStereoHandle; pos2dL_:array [ 0..2-1
  *)
 function arGetVersion( versionStringRef_:PP_char ) :T_ARUint32; stdcall; external _DLLNAME_;
 
-function arUtilMatInv( const s_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; d_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
-function arUtilMatMul( const s1_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const s2_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; d_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMatInv( const s_:T_ARdouble34; d_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMatMul( const s1_:T_ARdouble34; const s2_:T_ARdouble34; d_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
 
 {$IFDEF ARDOUBLE_IS_FLOAT }
 #define arUtilMatInvf arUtilMatInv
 #define arUtilMatMulf arUtilMatMul
 #define arUtilMatMuldff arUtilMatMul
 {$ELSE}
-function arUtilMatInvf( const s_:array [ 0..3-1, 0..4-1 ] of T_float; d_:array [ 0..3-1, 0..4-1 ] of T_float ) :T_int; stdcall; external _DLLNAME_;
-function arUtilMatMulf( const s1_:array [ 0..3-1, 0..4-1 ] of T_float; const s2_:array [ 0..3-1, 0..4-1 ] of T_float; d_:array [ 0..3-1, 0..4-1 ] of T_float ) :T_int; stdcall; external _DLLNAME_;
-function arUtilMatMuldff( const s1_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; const s2_:array [ 0..3-1, 0..4-1 ] of T_float; d_:array [ 0..3-1, 0..4-1 ] of T_float ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMatInvf( const s_:T_float34; d_:T_float34 ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMatMulf( const s1_:T_float34; const s2_:T_float34; d_:T_float34 ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMatMuldff( const s1_:T_ARdouble34; const s2_:T_float34; d_:T_float34 ) :T_int; stdcall; external _DLLNAME_;
 {$ENDIF}
-function arUtilMat2QuatPos( const m_:array [ 0..3-1, 0..4-1 ] of T_ARdouble; q_:array [ 0..4-1 ] of T_ARdouble; p_:array [ 0..3-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
-function arUtilQuatPos2Mat( const q_:array [ 0..4-1 ] of T_ARdouble; const p_:array [ 0..3-1 ] of T_ARdouble; m_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
-function arUtilQuatNorm( q_:array [ 0..4-1 ] of T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arUtilMat2QuatPos( const m_:T_ARdouble34; q_:T_ARdouble4; p_:T_ARdouble3 ) :T_int; stdcall; external _DLLNAME_;
+function arUtilQuatPos2Mat( const q_:T_ARdouble4; const p_:T_ARdouble3; m_:T_ARdouble34 ) :T_int; stdcall; external _DLLNAME_;
+function arUtilQuatNorm( q_:T_ARdouble4 ) :T_int; stdcall; external _DLLNAME_;
 
 function arUtilReplaceExt( filename_:P_char; n_:T_int; ext_:P_char ) :T_int; stdcall; external _DLLNAME_;
 function arUtilRemoveExt( filename_:P_char ) :T_int; stdcall; external _DLLNAME_;
 function arUtilDivideExt( const filename_:P_char; s1_:P_char; s2_:P_char ) :T_int; stdcall; external _DLLNAME_;
 
-function arUtilGetSquareCenter( vertex_:array [ 0..4-1, 0..2-1 ] of T_ARdouble; x_:P_ARdouble; y_:P_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arUtilGetSquareCenter( vertex_:T_ARdouble42; x_:P_ARdouble; y_:P_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arUtilSortLabel( mask_:array of T_int; m_:T_int; n_:T_int; pos_:array of array [ 0..2-1 ] of T_ARdouble; area_:array of T_int; label_num_:T_int; l1_:T_int; x1_:T_int; y1_:T_int; l2_:T_int; x2_:T_int; y2_:T_int; label_:array of T_int ) :T_int; stdcall; external _DLLNAME_;
+function arUtilSortLabel( mask_:array of T_int; m_:T_int; n_:T_int; pos_:T_ARdouble02; area_:array of T_int; label_num_:T_int; l1_:T_int; x1_:T_int; y1_:T_int; l2_:T_int; x2_:T_int; y2_:T_int; label_:array of T_int ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Get the size in bytes of a single pixel for a given pixel format.
@@ -1688,13 +1701,13 @@ function arUtilChangeToResourcesDirectory( behavior_:T_AR_UTIL_RESOURCES_DIRECTO
     @brief   Prints a transformation matrix via ARLOG(...).
     @param trans The transformation matrix to print.
  *)
-procedure arUtilPrintTransMat( const trans_:array [ 0..3-1, 0..4-1 ] of T_ARdouble ); stdcall; external _DLLNAME_;
+procedure arUtilPrintTransMat( const trans_:T_ARdouble34 ); stdcall; external _DLLNAME_;
 
 (*!
     @brief   Prints a 4x4 row-major matrix via ARLOG(...).
     @param mtx16 The matrix to print.
  *)
-procedure arUtilPrintMtx16( const mtx16_:array [ 0..16-1 ] of T_ARdouble ); stdcall; external _DLLNAME_;
+procedure arUtilPrintMtx16( const mtx16_:T_ARdouble16 ); stdcall; external _DLLNAME_;
 
 {$IFDEF ANDROID }
     //Call from native code to do the following in Java source:
