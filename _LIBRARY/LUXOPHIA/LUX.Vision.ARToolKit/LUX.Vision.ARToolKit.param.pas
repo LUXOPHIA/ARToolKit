@@ -170,9 +170,9 @@ function arParamDisp( const ARParam *param ) :T_int; stdcall; external _DLLNAME_
         with the current lens distortion model, or a lesser integer to use an earlier version.
     @result 0 if the function completed successfully, or -1 in case of error.
  *)
-function arParamClear( ARParam *param, int xsize, int ysize, int dist_function_version ) :T_int; stdcall; external _DLLNAME_;
+function arParamClear( param_:P_ARParam; xsize_:T_int; ysize_:T_int; dist_function_version_:T_int ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version ) :T_int; stdcall; external _DLLNAME_;
+function arParamDistFactorClear( dist_factor[AR_DIST_FACTOR_NUM_MAX]_:T_ARdouble; xsize_:T_int; ysize_:T_int; dist_function_version_:T_int ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Create a camera parameter structure representing an idealised lens with specified field-of-view.
@@ -189,18 +189,18 @@ function arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], i
         only the value in degrees, pass that value multiplied by (M_PI/180.0f).
     @result 0 if the function completed successfully, or -1 in case of error.
  *)
-function arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy) :T_int; stdcall; external _DLLNAME_;
+function arParamClearWithFOVy( param_:P_ARParam; xsize_:T_int; ysize_:T_int; FOVy_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam ) :T_int; stdcall; external _DLLNAME_;
+function arParamChangeSize( source_:P_ARParam; xsize_:T_int; ysize_:T_int; newparam_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamDecomp( const ARParam *source, ARParam *icpara, ARdouble trans[3][4] ) :T_int; stdcall; external _DLLNAME_;
+function arParamDecomp( const source_:P_ARParam; icpara_:P_ARParam; trans[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamDecompMat( const ARdouble source[3][4], ARdouble cpara[3][4], ARdouble trans[3][4] ) :T_int; stdcall; external _DLLNAME_;
+function arParamDecompMat( const source[3][4]_:T_ARdouble; cpara[3][4]_:T_ARdouble; trans[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
 {$IFDEF ARDOUBLE_IS_FLOAT }
 #define arParamDecompMatf arParamDecompMat
 {$ELSE}
-function arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], float trans[3][4] ) :T_int; stdcall; external _DLLNAME_;
+function arParamDecompMatf( const source[3][4]_:T_ARdouble; cpara[3][4]_:T_float; trans[3][4]_:T_float ) :T_int; stdcall; external _DLLNAME_;
 {$ENDIF}
 
 (*!
@@ -229,7 +229,7 @@ function arParamDecompMatf( const ARdouble source[3][4], float cpara[3][4], floa
     @see arParamObserv2Ideal
     @see arParamObserv2IdealLTf
 *)
-function arParamIdeal2Observ( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], const ARdouble ix, const ARdouble iy, ARdouble *ox, ARdouble *oy, const int dist_function_version ) :T_int; stdcall; external _DLLNAME_;
+function arParamIdeal2Observ( const dist_factor[AR_DIST_FACTOR_NUM_MAX]_:T_ARdouble; const ix_:T_ARdouble; const iy_:T_ARdouble; ox_:P_ARdouble; oy_:P_ARdouble; const dist_function_version_:T_int ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero-distortion) coordinates.
@@ -277,7 +277,7 @@ function arParamIdeal2Observ( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX]
     @see arParamIdeal2Observ
     @see arParamIdeal2ObservLTf
 *)
-function arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], const ARdouble ox, const ARdouble oy, ARdouble *ix, ARdouble *iy, const int dist_function_version ) :T_int; stdcall; external _DLLNAME_;
+function arParamObserv2Ideal( const dist_factor[AR_DIST_FACTOR_NUM_MAX]_:T_ARdouble; const ox_:T_ARdouble; const oy_:T_ARdouble; ix_:P_ARdouble; iy_:P_ARdouble; const dist_function_version_:T_int ) :T_int; stdcall; external _DLLNAME_;
 (*!
     @brief Save lens parameters to a file.
     @details
@@ -291,7 +291,7 @@ function arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX]
     @see arParamLoad
     @see arParamLoadFromBuffer
  *)
-function arParamSave( const char *filename, const int num, const ARParam *param, ...) :T_int; stdcall; external _DLLNAME_;
+function arParamSave( const filename_:P_char; const num_:T_int; const param_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief Load lens parameters from a file.
@@ -306,7 +306,7 @@ function arParamSave( const char *filename, const int num, const ARParam *param,
     @see arParamLoadFromBuffer
     @see arParamSave
  *)
-function arParamLoad( const char *filename, int num, ARParam *param, ...) :T_int; stdcall; external _DLLNAME_;
+function arParamLoad( const filename_:P_char; num_:T_int; param_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
 
     (*!
       @brief Load lens parameters from a buffer.
@@ -321,22 +321,22 @@ function arParamLoad( const char *filename, int num, ARParam *param, ...) :T_int
      @see arParamLoad
      @see arParamSave
      *)
-function arParamLoadFromBuffer( const void *buffer, size_t bufsize, ARParam *param) :T_int; stdcall; external _DLLNAME_;
+function arParamLoadFromBuffer( const buffer_:P_void; bufsize_:T_size_t; param_:P_ARParam ) :T_int; stdcall; external _DLLNAME_;
     
-function arParamGetPerspectiveMat( ARdouble global[][3], ARdouble idealScreen[][2], int data_num, ARdouble mat[3][4] ) :T_int; stdcall; external _DLLNAME_;
+function arParamGetPerspectiveMat( global[][3]_:T_ARdouble; idealScreen[][2]_:T_ARdouble; data_num_:T_int; mat[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamSaveExt( const char *filename, ARdouble para[3][4] ) :T_int; stdcall; external _DLLNAME_;
-function arParamLoadExt( const char *filename, ARdouble para[3][4] ) :T_int; stdcall; external _DLLNAME_;
-function arParamLoadExtFromBuffer(const void *buffer, size_t bufsize, ARdouble para[3][4] ) :T_int; stdcall; external _DLLNAME_;
-function arParamDispExt( ARdouble para[3][4]) :T_int; stdcall; external _DLLNAME_;
+function arParamSaveExt( const filename_:P_char; para[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamLoadExt( const filename_:P_char; para[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamLoadExtFromBuffer( const buffer_:P_void; bufsize_:T_size_t; para[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamDispExt( para[3][4]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble aspect, const ARdouble m[16]) :T_int; stdcall; external _DLLNAME_;
-function arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16]) :T_int; stdcall; external _DLLNAME_;
-function arParamLoadOpticalFromBuffer(const void *buffer, size_t bufsize, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16]) :T_int; stdcall; external _DLLNAME_;
-function arParamDispOptical(const ARdouble fovy, const ARdouble aspect, const ARdouble m[16]) :T_int; stdcall; external _DLLNAME_;
+function arParamSaveOptical( const filename_:P_char; const fovy_:T_ARdouble; const aspect_:T_ARdouble; const m[16]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamLoadOptical( const filename_:P_char; fovy_p_:P_ARdouble; aspect_p_:P_ARdouble; m[16]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamLoadOpticalFromBuffer( const buffer_:P_void; bufsize_:T_size_t; fovy_p_:P_ARdouble; aspect_p_:P_ARdouble; m[16]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
+function arParamDispOptical( const fovy_:T_ARdouble; const aspect_:T_ARdouble; const m[16]_:T_ARdouble ) :T_int; stdcall; external _DLLNAME_;
 
-function arParamLTSave( char *filename, char *ext, ARParamLT *paramLT ) :T_int; stdcall; external _DLLNAME_;
-function arParamLTLoad( char *filename, char *ext ) :P_ARParamLT; stdcall; external _DLLNAME_;
+function arParamLTSave( filename_:P_char; ext_:P_char; paramLT_:P_ARParamLT ) :T_int; stdcall; external _DLLNAME_;
+function arParamLTLoad( filename_:P_char; ext_:P_char ) :P_ARParamLT; stdcall; external _DLLNAME_;
 
 (*!
     @brief Allocate and calculate a lookup-table camera parameter from a standard camera parameter.
@@ -358,7 +358,7 @@ function arParamLTLoad( char *filename, char *ext ) :P_ARParamLT; stdcall; exter
         of by calling arParamLTFree() on it.
     @see arParamLTFree
  *)
-function arParamLTCreate( ARParam *param, int offset ) :P_ARParamLT; stdcall; external _DLLNAME_;
+function arParamLTCreate( param_:P_ARParam; offset_:T_int ) :P_ARParamLT; stdcall; external _DLLNAME_;
 
 (*!
     @brief Dispose of a memory allocated to a lookup-table camera parameter.
@@ -367,7 +367,7 @@ function arParamLTCreate( ARParam *param, int offset ) :P_ARParamLT; stdcall; ex
     @result -1 if an error occurred, or 0 in the case of no error.
     @see arParamLTCreate
  *)
-function arParamLTFree( ARParamLT **paramLT_p ) :T_int; stdcall; external _DLLNAME_;
+function arParamLTFree( paramLT_p_:PP_ARParamLT ) :T_int; stdcall; external _DLLNAME_;
 
 (*!
     @brief   Use a lookup-table camera parameter to convert idealised (zero-distortion) window coordinates to observed (distorted) coordinates.
@@ -392,7 +392,7 @@ function arParamLTFree( ARParamLT **paramLT_p ) :T_int; stdcall; external _DLLNA
     @see arParamObserv2IdealLTf
 *)
 
-function arParamIdeal2ObservLTf( const ARParamLTf *paramLTf, const float  ix, const float  iy, float  *ox, float  *oy) :T_int; stdcall; external _DLLNAME_;
+function arParamIdeal2ObservLTf( const paramLTf_:P_ARParamLTf; const ix_:T_float; const iy_:T_float; ox_:P_float; oy_:P_float ) :T_int; stdcall; external _DLLNAME_;
 
     
 (*!
@@ -431,11 +431,11 @@ function arParamIdeal2ObservLTf( const ARParamLTf *paramLTf, const float  ix, co
     @see arParamObserv2Ideal
     @see arParamIdeal2ObservLTf
 *)
-function arParamObserv2IdealLTf( const ARParamLTf *paramLTf, const float  ox, const float  oy, float  *ix, float  *iy) :T_int; stdcall; external _DLLNAME_;
+function arParamObserv2IdealLTf( const paramLTf_:P_ARParamLTf; const ox_:T_float; const oy_:T_float; ix_:P_float; iy_:P_float ) :T_int; stdcall; external _DLLNAME_;
 
-//function arParamIdeal2ObservLTi( const ARParamLTi *paramLTi, const int    ix, const int    iy, int    *ox, int    *oy) :T_int; stdcall; external _DLLNAME_;
+//function arParamIdeal2ObservLTi( const paramLTi_:P_ARParamLTi; const ix_:T_int; const iy_:T_int; ox_:P_int; oy_:P_int ) :T_int; stdcall; external _DLLNAME_;
 
-//function arParamObserv2IdealLTi( const ARParamLTi *paramLTi, const int    ox, const int    oy, int    *ix, int    *iy) :T_int; stdcall; external _DLLNAME_;
+//function arParamObserv2IdealLTi( const paramLTi_:P_ARParamLTi; const ox_:T_int; const oy_:T_int; ix_:P_int; iy_:P_int ) :T_int; stdcall; external _DLLNAME_;
 
 implementation //############################################################### ■
 
